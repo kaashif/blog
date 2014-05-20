@@ -1,0 +1,72 @@
+My Desktop
+2014-02-09
+What my desktop looks like right now
+
+Over the years, I've used a few different OSes and desktop environments, and the
+one I use currently is portable to many operating systems, mostly due to the
+efforts of the writers of i3 over at i3wm.org, but also the
+standards-compliance of POSIX, meaning that my shell scripts (which you can find
+[here](https://gitorious.org/kaashif-config-files/dotfiles/)) work on all
+operating systems worth using (naturally, this excludes Windows).
+
+You might already know how to manage dotfiles effectively with GNU Stow, because
+that's exactly how I manage mine - it allows me to install the config files I
+need, and no more. This isn't what I want to write about, though, I've already
+written something about that - I want to show off the final result of my
+dotfiles - my desktop.
+
+[![](/static/desk1.png)](/static/desk1.png)
+
+This is what my blank desktop looks like. There isn't much to look at, and I
+haven't put any fancy conky widgets or anything there because I hardly ever just
+look at my wallpaper anyway. That's the Haskell logo, it seems as good a logo as
+any to have on a desktop I never see (other choices include Puffy, Tux and
+Beastie, all OS logos).
+
+At the top is a bar, created by piping conky output into dzen2. The music player
+is mpd (music player daemon), which I can control using my phone, command line
+clients, GUI clients, scripts, and so on. Some might say running a service to
+play music is overkill, but it's actually more lightweight than most solutions,
+and is very Unixy, too.
+
+[![](/static/desk2.png)](/static/desk2.png)
+
+If there is an application I want to launch that I haven't already bound to some
+keyboard chord (for example, Super-C for Firefox and Super-G for gVim), I use
+dmenu to get to it. I had to apply a plethora of patches to get dmenu to support
+colour changing, Xft fonts, and variable height/width. It turns out that you can
+get a pre-patched version of dmenu [here](https://bitbucket.org/melek/dmenu2).
+While it is called "dmenu2", it's only dmenu with a few patches, and it's not an
+official suckless.org tool anyway. All of the output on he bar comes from all
+the normal Unix status programs - df, uptime, date, and so on. I don't remember
+where I got the icons, but I saw [Bill Indelicato](https://github.com/windelicato) 
+using icons which looked similar, so maybe I got them there or we both got them
+from the same place.
+
+[![](/static/desk3.png)](/static/desk3.png)
+
+Using the magic of mpc (media player client) and dmenu, I managed to get dmenu
+to create a randomly shuffled list of artists in my music collection. When I
+select one of them, the current playlist is replaced by the discography of the
+chosen artist. It's very convenient, only a Super-Shift-D away - far faster than
+opening a music player, going to a list of artists... I still do that, but less
+often, since most of the time I just want some randomly chosen music, not
+anything specific.
+
+[![](/static/desk4.png)](/static/desk4.png)
+
+I'd like to say this is what my laptop usually looks like, but the reality is
+that I've just opened some random files in /usr/include with gVim. Well, this
+might be what a kernel hacker's laptop looks like sometimes - mine is mostly
+just the one shell script or Haskell program open, and usually a browser with
+Reddit or 4chan on the side. The window manager is i3, by the way, a WM I like
+because of its simple and efficient _manual_ tiling - none of that XMonad
+dynamic crap, way too inflexible and sometimes annoying.
+
+I hope this has given you some insight into how I use my laptop, but
+realistically, you've probably just commented on the similarities between my
+desktop and someone on /g/'s. Fair enough, I haven't worked hard enough on my
+desktop for it to be very unique, and I don't intend to, because my setup works
+for me, and lets me work without using a mouse, so it's a win-win-win for me, my
+"hacker cred" (I hear the kids using Ruby and node.js say that nowadays) and my
+laziness.

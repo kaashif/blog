@@ -1,0 +1,126 @@
+How to use GPG
+2013-08-11
+A short tutorial on file encryption
+
+##Why am I writing this?
+I have looked up "how to use gpg" so many times, on so many websites,
+and have found every guide to be focused on something I don't use or
+worded in such a way that I get confused and revoke all of my keys (that
+hasn't actually happened...yet). I thought I'd whip up a quick guide
+that could serve as a reference for future Kaashif, who may not remember
+anything about GPG other than `gpg -ear` and `gpg -d`.
+
+##Installing GPG
+This is easy. Most distros come with it, fo, for pacackage signing among
+other things. The o ones that don'tn't have it easily installable from
+their pacakage reposs as ei"gpg", "gpg2", "gnupg" or "gnupg2". While
+GPG and GPG 2 are actually different programs, many distros don't make
+the distinction, since hardly anyone uses GPG1 anymore.
+
+##Generating a key
+`gpg --gen-key`
+You have to be an idiot to get this wrong. Defaults are fine, unless
+someone has broken RSA with quantum magic. Make sure the email is right.
+
+##After generating a key
+Two things:  
+1. Create a revocation cerificate `gpg --output revokecert --gen-revoke $KEY`  
+2. Back up everything  
+I somehow managed to lose two GPG private keys, of which I had only
+generated one revocation certificate. I'll never make that mistake again
+- I have it backed up on a CD, on a USB drive and on a server. Nothing
+off-site, though, so someone could theoretically burn down my house and
+I'd lose everything.
+
+##How to use your newfound encryption powers
+To encrypt plain text from stdin, just do `gpg -ear $KEY` The $KEY
+refers to the _recipient_. It's fine to use your own pubkey when
+testing, but you have to use the pubkey of the person who will decrypt
+the text! That's the cornerstone of everything to do with keys. Imagine
+someone saying "I'll send you this lock only I have the key to", that
+would be idiotic when they have the means available to send you a lock
+only you have the key to.
+
+If someone sends you a properly encrypted message, invoke `gpg -d`.
+Since you should only have one private key at this point, it'll take
+input from stdin which, hopefully, has been encrypted with your pubkey
+and can be decrypted with your private key.
+
+##Signatures
+Let's say someone doesn't want to use GPG because they're too lazy (a
+very realistic scenario). Maybe you're posting on a mailing list, where
+GPG isn't necessary, and just annoys everyone. You still want people to
+know that you sent the message and not an imposter with fake headers,
+correct? Well you're in luck, you can attach a GPG signature to your
+messages. This is basically a copy of the message which can be decrypted
+with your public key. Since you are the only person with the private
+key, you must have been the person to sign the message. The command to
+use is `gpg --clearsign`. No need to specify a key, because you only
+have one private key
+
+##Encrypting files into a binary format
+Remember using `gpg -ear`? The "a" means ASCII. Take that out and it
+magically outputs a binary file, with the input filename and a ".gpg"
+extension.
+
+##What is my key?
+    -----BEGIN PGP PUBLIC KEY BLOCK-----
+    Version: GnuPG v1.4.14 (GNU/Linux)
+    
+    mQENBFH38X4BCAC25Ra3yhPjXtqWmYbxHHG3Esn4en9z0yWCE4AukNUm8MX1kPna
+    1TqBFkw8WhhQKV1v+U0T18zoWwpMm1tUJdVWaUVc2/4iyR49d3SI81K+g7CuQuz1
+    YjyMG1zOzWeswfcJjZF4+Ti/fZIR7fNc+neAfGg9WMpAvdfMWAjuuV44vrAZQey+
+    bgpVN3uEJYntyzJRkgkqTNS2JatrL0IOVmfKtrNzuHQy5THJn2uDm9+Eg/tVe0Jp
+    bfz5AJKqqGUpE9jitCKc55n5xvJrlOQyWaIWuSiaKRRRiupswVAVoEa5y8JOckyb
+    l5q10F6hCIWq+ohGV/huGSvMNAMoU9+8vdXbABEBAAG0R0thYXNoaWYgSHltYWJh
+    Y2N1cyAoUHJvZ3JhbW1lciwgc3lzYWRtaW4pIDxrYWFzaGlmaHltYWJhY2N1c0Bn
+    bWFpbC5jb20+iQE4BBMBAgAiBQJR9/F+AhsDBgsJCAcDAgYVCAIJCgsEFgIDAQIe
+    AQIXgAAKCRBa0dhzPoELBO6IB/40BRr2DrajYJ6y9yGpUHJIPT+KC90i62r0D3vM
+    raHz3/shBOOJEeyqhxcmwByWkhBRjEkkt3xgaWlj6XzvuBY457p54f6bIKeKwXpT
+    WJAVdhM2VSQdTyX/Svo3lnVYv0bozbRIb88M6FvTF8Cv631zSImAAKuPD2X7ZYl1
+    2p3gLVWB//vkAr2WAJjq1qrcmoVtixbs5HeM65MR7hcE30vCJzswev7m+4mQXFR3
+    LoMNoC1Zx2iYBNgUNMpoGaGdPTohMD8gCklr86R+OzCORrWyKBl4qc608Dmt+myG
+    Rs5OH6c9yBYiHIfc9UYaMoPXIdvQBwO/4bOOOZbwqp7Onjy7uQENBFH38X4BCADo
+    Obc//asuZBCJtf2GSZGrWvWJVYv06a3noIBb9TG+6fAZ40c1zlPJzCSa6wU8aeXn
+    6UvbQI7W014wWlO+JvvpaZzEsJ+qnxkZQqEne1BqTb32OmIJLInDQhsZsoR/PNSQ
+    KRUshS9kLBSez2EBA7rV2cJ6X2a2Dtb75PlzysjmHrws1ZOelYRu3DorYfUQ05jL
+    IhCFQRCHgryK0yD+mZy55F9JHGHWooTGTStBmNW5dDpXdPUcHeZm5ICXkuQC1tzV
+    apW/vy77PB3ZVTxX/wEuATgbfbPiGpvqVQWr+CTnQOpVGoAMByHdlkHaKtGnjUlI
+    vp9Xep+cbS4GOjpJ0khZABEBAAGJAR8EGAECAAkFAlH38X4CGwwACgkQWtHYcz6B
+    CwTqWgf/ROZ5mmloJ/86iCeGzxzIHMWF4m8dwMGa3SZ310umsl83ydM5hixmRM43
+    cABzEq7sbgirmg31GAkGwU0dQ6z9R4TSSbDFS8nz1EztvuNabMTPfc9AdtE/ig2P
+    o6Hul8n3A6330RDk94QtqBw3Eppsr6PgQ+hA2rbfy7YRca6p100cC9yOAdc5gvmr
+    0qTfFtX71/Nxrcok+88uOk3PMwyvW/6HCs9m7jfx2RZe3DmQ5ykZ7qMe5YM4xGKy
+    SteLT0+yQNETungL5lyC0V/JAgAIQXItQytEXL9TEKeEP2jCrRD4lDa98qMkbNDI
+    ba2AGJ2aj3+u9787VaY7bSRFQH8Kwg==
+    =1hN6
+    -----END PGP PUBLIC KEY BLOCK-----
+
+##How did I generate that?
+`gpg --export -a $KEY`. Once again, you can take out the "-a" and add an
+"--output <file>" to get binary output.
+
+##Where do I find more public keys?
+Go to a keyserver, like pgp.mit.edu. You should also submit your public
+key there by invoking `gpg --send-keys --keyserver pgp.mit.edu $KEY`.
+The key will propagate to other servers, so you _cannot_ delete or edit
+a key once it's there. Make sure everything is correct and backed up.
+Don't search my name, I don't want to be embarrassed. If you must, my
+key is the most up to date one, I lost the old one, and revoked the
+other one...due to losing it. Do what I say, not what I do.
+
+##Summary
+`gpg -ear $KEY` - Encrypt plaintext from stdin
+
+`gpg -d` - Decrypt plaintext from stdin
+
+`gpg --export -a $KEY` - Export ASCII-armoured key to stdout
+
+`gpg --import $FILE` - Import key from a file
+
+`gpg --clearsign` - Sign a message from stdin, leaving the message human-readable
+
+`gpg --detach-sig $SIGFILE $FILE` - Sign a file and create a detached signature in another file
+
+`gpg --some-sort-of-command --output $FILE` - Do something, then output to a file
+

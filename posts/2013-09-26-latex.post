@@ -19,20 +19,24 @@ things: the writing of source "code" files in the LaTeX "language" and the
 compilation of that source into a final, prepared document. So you'd have your
 text file (referred to as LaTeX source) which may look something like this:
 
-    \documentclass{article}
-    \title{My Article}
-    \author{Me}
-    \date{\today}
+<pre>
 
-    \begin{document}
-    \maketitle
-    This is my document.
-    \end{document}
+\documentclass{article}
+\title{My Article}
+\author{Me}
+\date{\today}
+
+\begin{document}
+\maketitle
+This is my document.
+\end{document}
+
+</pre>
 
 Then you'd run a LaTeX compilation command, like `pdflatex myarticle`, resulting
 in something like this:
-    
-![The result](http://kaashif.co.uk/static/images/pdflatex1.png)
+
+![The result](http://kaashif.co.uk/static/pdflatex1.png)
 
 ##Why use LaTeX?
 It appears very pointless and silly to install a suite of document preparation
@@ -69,11 +73,15 @@ LibreOffice Writer, for example, to create a section, you'd have to create a
 human readable line of text with some sort of formatting to distinguish it from
 the surrounding text. In LaTeX, you'd use a section command, like so:
 
-    \section{Why I love LaTeX}
-    Reasons.
-    
-    \section{Why I hate clouds}
-    More reasons.
+<pre>
+
+\section{Why I love LaTeX}
+Reasons.
+
+\section{Why I hate clouds}
+More reasons.
+
+</pre>
 
 These commands are machine-readable, thus readable to the LaTeX compiler you are
 using. This means it is possible for a list of sections, subsections and

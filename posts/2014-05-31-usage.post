@@ -1,0 +1,189 @@
+Workflow
+How I use my desktop day-to-day
+2014-05-31
+
+The inspiration for this came from
+[this](http://blog.z3bra.org/2014/05/grok-that-workflow.html)
+blog post, where the author describes how he uses his computer. While he
+does use CRUX, a GNU/Linux distro and I use OpenBSD, our workflows are
+actually surprisingly similar, which can, in part, be attributed to the
+inspiration for the ports system both CRUX and OpenBSD took from
+FreeBSD, although OpenBSD is obviously a lot closer to the original.
+
+##Using OpenBSD
+
+[OpenBSD](http://openbsd.org) is a very traditional Unix-like OS that
+doesn't get in your way or do anything for you. In contrast to the
+author of the blog post I linked to, I appreciate a good set of defaults
+and a smooth install. Indeed, you can install OpenBSD by mashing enter
+and only stopping to enter a root password, and you'll end up with a
+very sane set of defaults - an X server, some X programs, tmux, and not
+to mention the other software that comes in the base system - an FTP
+server, Nginx, and so on.
+
+Even with all of this "bloat", the install footprint is well under a
+gigabyte and RAM usage (checked from the text console) stays under 32
+MB. So either most GNU/Linux distros are using all that disk space and
+RAM to do things I don't want or need, or they do the minimum, but a lot
+less efficiently than OpenBSD.
+
+To summarise, if you want to use OpenBSD, here are the steps to follow:
+
+1.  Download an install image from
+    [here](http://ftp.openbsd.org/pub/OpenBSD/5.5/)
+2.  Boot it from USB, CD or wherever
+3.  Hit enter until it tells you to stop
+4.  Reboot
+5.  Install packages
+
+After that, it's really identical to using Solaris, AIX or another BSD -
+OpenBSD is fully POSIX compliant. That _does_, however, mean that it's
+slightly different from the GNU userland (cp \-R instead of cp \-r, for
+instance).
+
+Note that I didn't mention ports: the idea with OpenBSD is that you use
+the packages - the maintainers put a lot of effort into making sure you
+don't need to compile packages from ports yourself. Largely, every
+flavour of package you want already exists and has been compiled. Maybe
+you want vim with Perl, Python and Ruby support - good news! There's a
+package with that compiled in. You want rsync to use libiconv? They've
+accounted for that use case too! Ports should only be downloaded and
+used in very niche cases.
+
+##Window Manager
+
+I'm not very adventurous with my WM, I just use i3, a very popular WM. I
+say that like it's a bad thing, but there's a reason it's popular - it
+does what it says on the tin very well. The default keybindings are fine
+for me, although I use Mod4 (super) instead of Mod1 (alt). You can find
+more about it [here](http://i3wm.org/docs/userguide.html), and to
+install it, you should be able to find it in your OS's repos. It's in
+OpenBSD under "i3", unsurprisingly.
+
+For the uninitiated, it's a tiling window manager, which means that,
+most of the time, my windows take up the whole screen and when there are
+multiple, they "tile", meaning they are sized such that there are no
+gaps and no windows behind another.
+
+##Web Browsing
+
+This is the activity I spend most of my time doing. Nowadays, I use
+[luakit](http://mason-larobina.github.io/luakit/), which is a
+Webkit-based browser with Vim-like keybindings, mostly based on
+Pentadactyl, a popular Firefox plugin I used to use.
+
+##Checking Email
+
+The activity I spend the second-most amount of time on while on my
+laptop is checking my mail. I'm subscribed to a few mailing lists, but
+the one I check the most is misc@openbsd.org. A close second is
+tech@openbsd.org. While these aren't overly high-volume lists, it takes
+a while for each message to be fetched from the server, and this must be
+done one-by-one as I view them if I were to use IMAP.
+
+Those seconds add up. Maybe they don't, but waiting a second between
+reading messages is very annoying, so my only option was to store the
+messages locally, allowing me to read them with no network delay.
+Setting this up was easy, I just used the same Mutt config as I used
+when on IMAP and configured it for local mail in a Maildir located at
+`~/mail/`. Even better, this meant I could configure my system MTA to
+deliver all system mail there, too (cron job errors, security output,
+nightly backups).
+
+Here are the relevant lines from my `.muttrc`:
+
+<pre>
+set mbox\_type=Maildir
+set spoolfile = "~/mail/"
+set folder = "~/mail/"
+</pre>
+
+To actually fetch the mail, I used getmail, a small Python script (can
+be installed with `pkg_add getmail`). Setting that up was very simple,
+too, just install and place the following in `.getmail/getmailrc`:
+
+<pre>
+[retriever]
+type = SimplePOP3SSLRetriever
+server = pop.example.com
+username = username
+password = password
+
+[destination]
+type = Maildir
+path = ~/mail/
+user = yourusername
+
+[options]
+read_all = false
+</pre>
+
+Getmail can be run by simply running `getmail`, but this is very
+annoying to do every time you want to read mail, and sort of defeats the
+point - this was supposed to _save_ time. I set up a cron job for it -
+place the following in the file opened via `crontab -e`:
+
+<pre>
+30 * * * * getmail
+</pre>
+
+That runs getmail every 30 minutes, meaning your mail stays up to date.
+If you're ever waiting for an important message, you can still run
+`getmail` to refresh your inbox directly, although it is mildly annoying
+to open your shell every time you want to do that - why not bind it to a
+key in Mutt?
+
+To do that, add the following to your `.muttrc`:
+
+<pre>
+macro index "^" "!getmail<enter>"
+</pre>
+
+That means that, whenever in the index, you can press "^" to get any new
+mail.
+
+##No place like ~
+
+You already know I have a `~/mail/` directory, but I have a few more:
+
+<pre>
+~ >> tree -L 1
+.
+|-- bin -> etc/scripts/bin
+|-- etc
+|   |-- README.md
+|   |-- [...]
+|   `-- zsh
+|-- mail
+|   |-- cur
+|   |-- new
+|   `-- tmp
+|-- notes
+|-- sent
+|-- src
+|   |-- advent
+|   |-- [...]
+|   `-- www
+`-- var
+    |-- documents
+    `-- music
+
+47 directories, 4 files
+</pre>
+
+As you can see, I keep my source code in `~/src/`, data files in
+`~/var/`, mail in `~/mail/`, scripts in `~/bin/` and configs in
+`~/etc/`. My etc directory is filled with configs which are symlinked to
+from their expected locations. I'm sure I've written a post about it at
+some point.
+
+Just like most people, I'm a fan of text files, but not any ordinary
+text files - most of my notes are written using Emacs' org-mode, which I
+believe is a note-taking environment second to none. Unless I'm
+programming in a REPL language (Ruby, Python, Lisp), I tend to use Vim.
+I favour Emacs for those languages because...well, you have to use it to
+really understand what I mean - look up some cool things you can do with
+SLIME.
+
+You can check out my dotfiles
+[here](http://code.kaashif.co.uk/kaashif/dotfiles).

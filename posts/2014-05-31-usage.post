@@ -149,7 +149,7 @@ mail.
 You already know I have a `~/mail/` directory, but I have a few more:
 
 <pre>
-~ >> tree -L 1
+~ >> tree -L 2
 .
 |-- bin -> etc/scripts/bin
 |-- etc

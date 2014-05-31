@@ -1,6 +1,6 @@
 Workflow
-How I use my desktop day-to-day
 2014-05-31
+How I use my desktop day-to-day
 
 The inspiration for this came from
 [this](http://blog.z3bra.org/2014/05/grok-that-workflow.html)
@@ -93,9 +93,10 @@ nightly backups).
 Here are the relevant lines from my `.muttrc`:
 
 <pre>
-set mbox\_type=Maildir
+set mbox_type=Maildir
 set spoolfile = "~/mail/"
 set folder = "~/mail/"
+
 </pre>
 
 To actually fetch the mail, I used getmail, a small Python script (can
@@ -115,7 +116,8 @@ path = ~/mail/
 user = yourusername
 
 [options]
-read_all = false
+read\_all = false
+
 </pre>
 
 Getmail can be run by simply running `getmail`, but this is very
@@ -169,6 +171,7 @@ You already know I have a `~/mail/` directory, but I have a few more:
     `-- music
 
 47 directories, 4 files
+
 </pre>
 
 As you can see, I keep my source code in `~/src/`, data files in

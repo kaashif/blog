@@ -63,7 +63,9 @@ OpenBSD under "i3", unsurprisingly.
 For the uninitiated, it's a tiling window manager, which means that,
 most of the time, my windows take up the whole screen and when there are
 multiple, they "tile", meaning they are sized such that there are no
-gaps and no windows behind another.
+gaps and no windows behind another. Here's a GIF of i3 in action:
+
+[![](/static/work1.gif)](/static/work1.gif)
 
 ##Web Browsing
 

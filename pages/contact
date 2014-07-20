@@ -1,3 +1,6 @@
 <h1>Contact</h1>
-<p>Email: <a href=mailto:kaashif@kaashif.co.uk>kaashif@kaashif.co.uk</a></p>
-<p>Public GPG Key: <a href='/static/pubkey.txt'>here</a></p>
+<ul>
+<li>Email: <a href=mailto:kaashif@kaashif.co.uk>kaashif@kaashif.co.uk</a></li>
+<li>GitHub: <a href='http://github.com/kaashif-hymabaccus'>kaashif-hymabaccus</a></li>
+<li>Public GPG Key: <a href='/static/pubkey.txt'>here</a></li>
+</ul>

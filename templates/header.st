@@ -221,7 +221,7 @@ footer p + p {
             <li>//</li>
             <li> <a href="/archive">Archive</a></li>
             <li>//</li>
-            <li> <a href="http://code.kaashif.co.uk/">Code</a></li>
+            <li> <a href="http://github.com/kaashif-hymabaccus">Code</a></li>
         </ul>
 </header>
 <hr style="clear: both; visibility: hidden;" />

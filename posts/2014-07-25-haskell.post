@@ -135,7 +135,7 @@ we're in the IO monad.
 While this would be a great time to have a terrible monad analogy
 tutorial, the easiest way of understanding monads, I think, is to come
 at them from a mathematical angle. I think I did this in that other post
-about functors [here](http://kaashif.co.uk/post/2014/02/05/functor/). A
+about functors [here](http://kaashif.co.uk/2014/02/05/functor/). A
 monad is just a container for a value with a few functions defined:
 "return" takes a value and puts it into a container, and "join" turns a
 value in a container in a container into a value in a container.

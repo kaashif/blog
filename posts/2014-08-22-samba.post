@@ -88,19 +88,23 @@ writable = no
 browseable = yes
 guest ok = yes
 write list = @staff
+
 </pre>
 
 Let's go through that line by line:
 
 <pre>[global]</pre>
+
 These are settings global to all shares and printers.
 
 <pre>workgroup = WORKGROUP</pre>
+
 This doesn't mean anything significant to a home user, but it should be
 set to the same as whatever your other PCs are set to. WORKGROUP is the
 default, so leave it like this.
 
 <pre>server string = Kaashif's Server</pre>
+
 A short description of your server.
 
 <pre>

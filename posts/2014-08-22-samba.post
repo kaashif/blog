@@ -139,7 +139,7 @@ write list = @staff
 </pre>
 
 "Public" is the name of the share. The rest is self-explanatory, other
-than the "write list" line, which means an user in the login class
+than the "write list" line, which means any user in the login class
 "staff" will be allowed to write. If your user (for example, "fred") is
 not in this class, then add him:
 

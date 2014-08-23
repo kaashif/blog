@@ -58,20 +58,21 @@ Even better, you could leave that to someone else.
 
 The clear divide between source files and final documents allows you to write
 one source file and compile it into any of a variety of formats. This is not
-possible with formats such as Microsoft's OOXML. Because this standard is closed
-and no free implementation is allowed to exist, it is impossible to 100%
-accurately convert documents to and from this format. That is a rather extreme
-example, but it is clear that the plain text standards are completely open and
-that thousands of plain text editors exist. This allows you to write LaTeX
-source in whichever editor you want, and to compile it into whichever format you
-require, whether it be PDF, HTML, PostScript, or any other format.
+possible with formats such as Microsoft's OOXML. It is impossible to
+100% accurately convert documents to and from this format. That is a
+rather extreme example, but it is clear that the plain text standards
+(ASCII, Unicode) are completely open and that thousands of plain text
+editors exist. This allows you to write LaTeX source in whichever editor
+you want, and to compile it into whichever format you require, whether
+it be PDF, HTML, PostScript, or any other format.
 
-The vast number of packages available for LaTeX online is staggering. Visiting
-the LaTeX website tells you that packages for everything from mathematical
-formula rendering to bibliography generation exist and are available freely. In
-LibreOffice Writer, for example, to create a section, you'd have to create a
-human readable line of text with some sort of formatting to distinguish it from
-the surrounding text. In LaTeX, you'd use a section command, like so:
+The vast number of packages available for LaTeX online is staggering.
+Visiting the LaTeX website tells you that packages for everything from
+mathematical formula rendering to bibliography generation exist and are
+available freely. In LibreOffice Writer, for example, to create a
+section, you'd have to create a human readable line of text with some
+sort of formatting to distinguish it from the surrounding text. In
+LaTeX, you'd use a section command, like so:
 
 <pre>
 

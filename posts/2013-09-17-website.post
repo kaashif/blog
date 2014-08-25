@@ -1,6 +1,6 @@
 Web Servers 
 2013-09-17
-How to set up an Apache web server
+How to set up an Apache web server, along with a basic explanation of how NAT works. The highlight: poorly drawn network diagrams in GIMP.
 
 Imagine you're a person on some sort of device, using the internet. You see all
 of these websites and what do you ask? "How can I set up a web server?", of

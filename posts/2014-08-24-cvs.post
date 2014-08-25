@@ -1,6 +1,6 @@
 Patching OpenBSD
 2014-08-24
-Using CVS with email
+Checking out the latest sources, writing a patch and getting it accepted: the ins and outs of contributing to OpenBSD.
 
 Recently, I've been trying to understand the ins and outs of CVS in
 order to be able to contribute to OpenBSD without messing up anything. I

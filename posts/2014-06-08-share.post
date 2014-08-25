@@ -1,6 +1,6 @@
 How I share a file, simply
 2014-06-08
-Sharing files on a LAN
+Sharing files on a LAN using nothing but a single small program in C, none of that bloated Python web server module rubbish. Largely motivated by my desire to run a web server on an old Pentium III I have.
 
 Earlier, I saw [this](http://reinehr.me/how-i-simply-share-a-file)
 article claiming to describe how to share a file "simply" by running

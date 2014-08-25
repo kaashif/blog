@@ -1,6 +1,6 @@
 My Desktop
 2014-02-09
-What my desktop looks like right now
+What my desktop looks like right now and how to get yours looking the same.
 
 Over the years, I've used a few different OSes and desktop environments, and the
 one I use currently is portable to many operating systems, mostly due to the
@@ -8,6 +8,9 @@ efforts of the writers of i3 over at i3wm.org, but also the
 standards-compliance of POSIX, meaning that my shell scripts (which you can find
 [here](https://gitorious.org/kaashif-config-files/dotfiles/)) work on all
 operating systems worth using (naturally, this excludes Windows).
+
+EDIT: That link doesn't work. [This](http://kaashif.co.uk/cgit/dotfiles)
+does.
 
 You might already know how to manage dotfiles effectively with GNU Stow, because
 that's exactly how I manage mine - it allows me to install the config files I

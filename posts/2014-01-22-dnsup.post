@@ -1,6 +1,6 @@
 Updating DNS records
 2014-01-22
-Scripting DNS record updates
+Scripting DNS record updates with Perl. Useful if you like knowing exactly what, when and how your dynamic DNS is being updated.
 
 When running a website on a residential connection, a problem one might run into
 is the dynamic IP address usually assigned by one's ISP. There are a few dynamic

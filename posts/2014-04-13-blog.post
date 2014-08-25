@@ -1,6 +1,6 @@
 How this blog works
 2014-04-13
-Software I wrote to generate this blog
+Muon: the static site generator I wrote because none of the current ones work in the way I'd like. How to get it and how to use it.
 
 When I decided I wanted to write a blog, I had to come up with some way
 of writing posts (in a markup format which isn't HTML), and serving them
@@ -51,6 +51,9 @@ $ darcs get http://repos.kaashif.co.uk/muon
 $ cd muon
 $ cabal install
 </pre>
+
+EDIT: That repository is long gone. Try `git://kaashif.co.uk/muon.git`
+instead.
 
 It might take a while to build the dependencies from source, so if your
 OS's package manager already has prebuilt binary packages for them, look

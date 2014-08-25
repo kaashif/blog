@@ -1,6 +1,6 @@
 Writing Unix manual pages
 2014-01-08
-Using Pod to generate manuals
+Using Pod to generate groff manual pages. A bit more user-friendly than writing the horrible macros out by hand.
 
 There are a few very important things that everyone involved in software
 (particularly free software) can do to help out. The most important is to file
@@ -25,27 +25,29 @@ upstream. It's not hard, in fact, it's very easy.
 ##What does a manual page look like?
 Here is the manual page for write(1), a pretty vanilla Unix command.
 
-    WRITE(1)                  BSD General Commands Manual                 WRITE(1)
-    
-    NAME
-         write -- send a message to another user
-    
-    SYNOPSIS
-         write user [tty]
-    
-    DESCRIPTION
-         The write utility allows you to communicate with other users, by copying
-         lines from your terminal to theirs.
-    
-         When you run the write command, the user you are writing to gets a mes-
-         sage of the form:
-    
-         ...
+<pre>
+WRITE(1)                  BSD General Commands Manual                 WRITE(1)
 
-         believes the conversation to be over.
-    
-    SEE ALSO
-         mesg(1), talk(1), wall(1), who(1)
+NAME
+     write -- send a message to another user
+
+SYNOPSIS
+     write user [tty]
+
+DESCRIPTION
+     The write utility allows you to communicate with other users, by copying
+     lines from your terminal to theirs.
+
+     When you run the write command, the user you are writing to gets a mes-
+     sage of the form:
+
+     ...
+
+     believes the conversation to be over.
+
+SEE ALSO
+     mesg(1), talk(1), wall(1), who(1)
+</pre>
 
 Most man pages follow the convention of "NAME", "SYNOPSIS", "DESCRIPTION", "SEE
 ALSO", and optionally "AUTHOR" and "BUGS".

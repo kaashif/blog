@@ -1,6 +1,6 @@
 Functors in Haskell
 2014-02-05
-They're actually really easy to understand!
+Everyone is always saying that Haskell is complicated and hard to understand. I'm here to tell you that it isn't, and this is a prime example of something easy that is usually painted as hard.
 
 Whenever you hear something about Haskell, chances are it sounds arcane and
 involves lots of complicated and intimidating mathematical language. Well, the

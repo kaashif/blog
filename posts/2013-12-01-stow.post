@@ -1,6 +1,6 @@
 Using GNU Stow
 2013-12-01
-A package manager, sort of
+How a humble symlink manager can be made into a full-blown package manager, allowing for clean installs and uninstalls with nothing but Makefiles and elbow grease.
 
 `stow` is a cool little Perl script which basically just creates and deletes
 symlinks. That sounds pointless, but let me explain with an example. Let's say

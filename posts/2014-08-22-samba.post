@@ -1,6 +1,6 @@
 Samba
 2014-08-22
-A simple file share
+A simple file share using Samba that allows you to share transfer to and from PCs on your network.
 
 Recently, I've been trying to get away from pre-packaged file sharing
 solutions (e.g. FreeNAS) and trying to set up the services they provide

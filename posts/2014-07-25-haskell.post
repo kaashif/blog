@@ -1,6 +1,6 @@
 Haskell isn't difficult
 2014-07-25
-Unlearning a paradigm
+Unlearning a few paradigms that may be ingrained in you. I certainly know that certain early experiences with Java, Python and other languages made it harder for me to get out of the OOP mindset.
 
 People like to say that learning Haskell is hard, because a pure, lazy,
 functional language isn't something most people are used to. The simple

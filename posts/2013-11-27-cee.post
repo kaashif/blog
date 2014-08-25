@@ -1,6 +1,6 @@
 Introduction to C
 2013-11-27
-A short tutorial on C
+How do strings, memory allocation and compilation work with C? A basic tutorial I wrote for a friend.
 
 This tutorial is designed for those who have programmed before, perhaps in a
 higher level language like Python or Ruby. It's not too hard to understand for

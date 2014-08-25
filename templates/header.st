@@ -210,7 +210,7 @@ footer p + p {
 <div class="wrapper">
 <main>
 <header>
-        <h1>$site.title$</h1>
+        <h1>$site.name$</h1>
         <p>$site.tagline$</p>
         <ul>
             <li> <a href="/home">Home</a></li>
@@ -222,6 +222,8 @@ footer p + p {
             <li> <a href="/archive">Archive</a></li>
             <li>//</li>
             <li> <a href="/cgit">Code</a></li>
+            <li>//</li>
+            <li> <a href="/rss.xml">RSS Feed</a></li>
         </ul>
 </header>
 <hr style="clear: both; visibility: hidden;" />

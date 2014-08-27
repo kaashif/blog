@@ -13,7 +13,14 @@ monad analogy tutorial)
 </p>
 <h2>Useful Repos:</h2>
 <ul>
-	<li><a href='http://github.com/kaashif-hymabaccus/dotfiles'>My dotfiles</a></li>
-	<li><a href='http://github.com/kaashif-hymabaccus/muon'>Muon - static blog generator</a></li>
-	<li><a href='http://github.com/kaashif-hymabaccus/hinfo'>Hinfo - program that displays system info</a></li>
+	<li><a href='http://kaashif.co.uk/cgit/dotfiles'>My dotfiles</a></li>
+	<li><a href='http://kaashif.co.uk/cgit/muon'>Muon - static blog generator</a></li>
+	<li><a href='http://kaashif.co.uk/cgit/hinfo'>Hinfo - program that displays system info</a></li>
+</ul>
+
+<h2>Software running this site:</h2>
+<ul>
+  <li><a href='http://openbsd.org'>OpenBSD 5.5</a></li>
+  <li><a href='http://www.acme.com/software/thttpd/'>thttpd</a></li>
+  <li><a href='http://git.zx2c4.com/cgit/'>cgit</a></li>
 </ul>

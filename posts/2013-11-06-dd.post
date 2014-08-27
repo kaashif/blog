@@ -40,7 +40,7 @@ sda                          8:0    0 232.9G  0 disk
 sdb                          8:16   1  14.4G  0 disk 
 `-sdb1                       8:17   1   739M  0 part /
 
-</pre>
+</pre></pre>
 
 Here we see two disks: sda and sdb. With the Linux kernel, drives are given
 names based on what type of drive they are and the order in which they were
@@ -80,7 +80,7 @@ drive. Make sure you have the right drive and that you really want to do this.
 <pre>
 $ sudo dd if=/dev/zero of=/dev/sda
 
-</pre>
+</pre></pre>
 
 You won't see any output unless there's an error, so don't worry about dd's
 complete silence. A lack of errors means it's working! Now, you should switch to
@@ -102,7 +102,7 @@ MAN(1)                 Manual pager utils                 MAN(1)
 NAME
     man - an interface to the on-line reference manuals
 
-</pre>
+</pre></pre>
 
 And a lot more information. You can exit the manual pager by pressing "q". This
 is not all you can do while you wait, if you read the man page for "dd", you
@@ -125,7 +125,7 @@ $ pgrep dd
 465
 20257
 
-</pre>
+</pre></pre>
 
 It's safe to assume that the most recently started instance of dd is the one we
 just started - the one with the highest PID. Now that we know its PID, we can
@@ -137,7 +137,7 @@ capable of sending actually kill the process. In this next command, substitute
 <pre>
 $ sudo kill -USR1 $pid
 
-</pre>
+</pre></pre>
 
 This command won't output anything in the terminal you run it in. Instead, it
 sends a signal to dd to make it print out how much it has copied. This
@@ -157,7 +157,7 @@ $ apropos extract archive
 unrar (1)            - extract files from rar archives
 unar (1)             - extract archive file content
 
-</pre>
+</pre></pre>
 
 It generally tends to output many results, not all of which are commands.
 Remember "man man", the manual page for man? It had a list of section numbers
@@ -175,7 +175,7 @@ $ man man
 7   Miscellaneous (including macro packages and conventions), e.g. man(7), groff(7)
 8   System administration commands (usually only for root)
 
-</pre>
+</pre></pre>
 
 So out of all the results in that list, only the ones in sections 1 and 8 are
 usable as programs from the shell prompt. Using these tools, your knowledge of

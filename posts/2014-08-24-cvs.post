@@ -38,7 +38,7 @@ server in Europe and export CVSROOT:
 <pre>
 $ export CVSROOT=anoncvs@ftp5.eu.openbsd.org:/cvs
 
-</pre>
+</pre></pre>
 
 The next step is checking out the ports tree from the server:
 
@@ -46,7 +46,7 @@ The next step is checking out the ports tree from the server:
 # cd /usr
 # cvs checkout ports
 
-</pre>
+</pre></pre>
 
 Now you have a fully updated ports tree in /usr/ports! Note that I
 didn't specify any flags: on OpenBSD, there is a default ~/.cvsrc that
@@ -59,7 +59,7 @@ diff -uNp
 update -P
 checkout -P
 
-</pre>
+</pre></pre>
 
 ##Making a patch
 
@@ -69,7 +69,7 @@ example, it's in editors/joe, so lets go there in the ports tree:
 <pre>
 # cd /usr/ports/editors/joe
 
-</pre>
+</pre></pre>
 
 I'm not going to explain how to edit Makefiles and update ports in
 OpenBSD, a guide for that already exists
@@ -81,7 +81,7 @@ that guide).
 # vi Makefile
 **make some changes**
 
-</pre>
+</pre></pre>
 
 If you delete any files or add any files, you have to do `cvs delete
 <file>` or `cvs add <file>` for the changes to be tracked properly. Do
@@ -94,7 +94,7 @@ somewhere.
 <pre>
 # cvs diff > /tmp/joe.diff
 
-</pre>
+</pre></pre>
 
 If you look at /tmp/joe.diff, you'll see that all the changes you made
 have been recorded in that file, in the format used by patch(1). You
@@ -125,7 +125,7 @@ useful feature.
 OK?
 
 
-</pre>
+</pre></pre>
 
 In the rest of the message, paste your diff. It's easier for everyone if
 you just put your diff in the body of the message, because they can then

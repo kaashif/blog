@@ -102,7 +102,7 @@ hdr\_order Date From To Cc
 bind index "^" imap-fetch-mail
 
 
-</pre>
+</pre></pre>
 
 That might seem like a lot of variables, but they're all well-named and
 well-documented in [Mutt's online manual](http://www.mutt.org/doc/manual/).
@@ -120,7 +120,7 @@ Next, you'll see a password prompt, like this:
 <pre>
 Password for kaashifhymabaccus@gmail.com@imap.gmail.com:
 
-</pre>
+</pre></pre>
 
 Of course, type in your password, and it'll be sent off over an SSL
 connection to Google's IMAP server.
@@ -140,7 +140,7 @@ number and a prompt should appear like this:
 <pre>
 Jump to message: 1
 
-</pre>
+</pre></pre>
 
 If you look ot the far left of Mutt, you should see a column of numbers.
 Type in any one of those, and Mutt will jump to it.
@@ -155,7 +155,7 @@ you should see this at the top:
 <pre>
 q:Quit  d:Del  u:Undel  s:Save  m:Mail  r:Reply  g:Group  ?:Help
 
-</pre>
+</pre></pre>
 
 You'll see bars like this at all screens of Mutt, so press "?" if you
 forget what a key does.
@@ -171,7 +171,7 @@ top:
 <pre>
 y:Send  q:Abort  t:To  c:CC  s:Subj  a:Attach file  d:Descrip  ?:Help
 
-</pre>
+</pre></pre>
 
 It should be obvious how to send the mail or change the headers.
 

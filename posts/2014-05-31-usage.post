@@ -100,7 +100,7 @@ set spoolfile = "~/mail/"
 set folder = "~/mail/"
 
 
-</pre>
+</pre></pre>
 
 To actually fetch the mail, I used getmail, a small Python script (can
 be installed with `pkg_add getmail`). Setting that up was very simple,
@@ -122,7 +122,7 @@ user = yourusername
 read\_all = false
 
 
-</pre>
+</pre></pre>
 
 Getmail can be run by simply running `getmail`, but this is very
 annoying to do every time you want to read mail, and sort of defeats the
@@ -132,7 +132,7 @@ place the following in the file opened via `crontab -e`:
 <pre>
 30 * * * * getmail
 
-</pre>
+</pre></pre>
 
 That runs getmail every 30 minutes, meaning your mail stays up to date.
 If you're ever waiting for an important message, you can still run
@@ -145,7 +145,7 @@ To do that, add the following to your `.muttrc`:
 <pre>
 macro index "^" "!getmail<enter>"
 
-</pre>
+</pre></pre>
 
 That means that, whenever in the index, you can press "^" to get any new
 mail.
@@ -179,7 +179,7 @@ You already know I have a `~/mail/` directory, but I have a few more:
 47 directories, 4 files
 
 
-</pre>
+</pre></pre>
 
 As you can see, I keep my source code in `~/src/`, data files in
 `~/var/`, mail in `~/mail/`, scripts in `~/bin/` and configs in

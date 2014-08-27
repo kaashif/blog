@@ -41,7 +41,7 @@ install it with a simple:
 <pre>
 $ cabal install muon
 
-</pre>
+</pre></pre>
 
 As it is, you have to get the latest snapshot from my darcs repository.
 You can still use cabal to install it, though, so dependencies are
@@ -52,7 +52,7 @@ $ darcs get http://repos.kaashif.co.uk/muon
 $ cd muon
 $ cabal install
 
-</pre>
+</pre></pre>
 
 EDIT: That repository is long gone. Try `git://kaashif.co.uk/muon.git`
 instead.
@@ -70,7 +70,7 @@ access Muon's help:
 <pre>
 $ muon help
 
-</pre>
+</pre></pre>
 
 In reality, it doesn't matter what you type as the command - muon
 outputs a help message for all inputs that aren't already a command. So

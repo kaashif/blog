@@ -32,7 +32,7 @@ This is my document.
 \end{document}
 
 
-</pre>
+</pre></pre>
 
 Then you'd run a LaTeX compilation command, like `pdflatex myarticle`, resulting
 in something like this:
@@ -84,7 +84,7 @@ Reasons.
 More reasons.
 
 
-</pre>
+</pre></pre>
 
 These commands are machine-readable, thus readable to the LaTeX compiler you are
 using. This means it is possible for a list of sections, subsections and

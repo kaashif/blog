@@ -30,7 +30,7 @@ you want to share a directory, here's what you do:
 <pre>
 $ thttpd
 
-</pre>
+</pre></pre>
 
 That was very simple, fast and easy! The problem is that you need to be
 root to bind to port 80, so just kill that process and start another
@@ -39,7 +39,7 @@ one, like this:
 <pre>
 $ thttpd -p 8000
 
-</pre>
+</pre></pre>
 
 That can be run as any user, since port 8000 is high enough not to need
 root to be used. Since it daemonizes straight away, to kill it, you need
@@ -48,7 +48,7 @@ to use `pkill`.
 <pre>
 $ pkill thttpd
 
-</pre>
+</pre></pre>
 
 And that's that. A _simpler_ than starting up an interpreter for a
 programming language and loading modules within modules of code just to
@@ -96,7 +96,7 @@ inet 127.0.0.1 netmask 0xff000000
 inet6 fe80::213:e8ff:fe73:485%iwn0 prefixlen 64 scopeid 0x2
 inet 192.168.0.9 netmask 0xffffff00 broadcast 192.168.0.255
 
-</pre>
+</pre></pre>
 
 Sure the IP is in there, but it's too messy. I replaced `grep inet` with
 something a little more sophisticated:
@@ -131,6 +131,6 @@ Starting thttpd: done
 127.0.0.1:8000
 192.168.0.9:8000
 
-</pre>
+</pre></pre>
 
 Now you can type `share` and have a web server up in a minimum of time.

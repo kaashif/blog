@@ -39,6 +39,7 @@ sda                          8:0    0 232.9G  0 disk
 `-sda1                       8:1    0 232.9G  0 part
 sdb                          8:16   1  14.4G  0 disk 
 `-sdb1                       8:17   1   739M  0 part /
+
 </pre>
 
 Here we see two disks: sda and sdb. With the Linux kernel, drives are given
@@ -78,6 +79,7 @@ drive. Make sure you have the right drive and that you really want to do this.
 
 <pre>
 $ sudo dd if=/dev/zero of=/dev/sda
+
 </pre>
 
 You won't see any output unless there's an error, so don't worry about dd's
@@ -99,6 +101,7 @@ MAN(1)                 Manual pager utils                 MAN(1)
 
 NAME
     man - an interface to the on-line reference manuals
+
 </pre>
 
 And a lot more information. You can exit the manual pager by pressing "q". This
@@ -121,6 +124,7 @@ $ pgrep dd
 2
 465
 20257
+
 </pre>
 
 It's safe to assume that the most recently started instance of dd is the one we
@@ -132,6 +136,7 @@ capable of sending actually kill the process. In this next command, substitute
 
 <pre>
 $ sudo kill -USR1 $pid
+
 </pre>
 
 This command won't output anything in the terminal you run it in. Instead, it
@@ -151,6 +156,7 @@ commands which match your description of what you want to do. For example:
 $ apropos extract archive
 unrar (1)            - extract files from rar archives
 unar (1)             - extract archive file content
+
 </pre>
 
 It generally tends to output many results, not all of which are commands.
@@ -168,6 +174,7 @@ $ man man
 6   Games
 7   Miscellaneous (including macro packages and conventions), e.g. man(7), groff(7)
 8   System administration commands (usually only for root)
+
 </pre>
 
 So out of all the results in that list, only the ones in sections 1 and 8 are

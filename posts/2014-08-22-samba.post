@@ -30,6 +30,7 @@ That's easy to fix, just start `nmbd`! Assuming OpenBSD:
 <pre>
 # /etc/rc.d/nmbd -f start
 nmbd(ok)
+
 </pre>
 
 Now you should see your hostname appear on the network from a Windows
@@ -59,12 +60,14 @@ $ cat /etc/samba/smb.conf
 #  http://www.samba.org/samba/docs/Samba-HOWTO-Collection.pdf
 #
 # Many working examples of smb.conf files can be found in the 
+
 </pre>
 
 That goes on and on and on... So let's empty the file first.
 
 <pre>
 # : > /etc/samba/smb.conf
+
 </pre>
 
 Now there's nothing in it, and you're free to put this in there with
@@ -89,21 +92,25 @@ browseable = yes
 guest ok = yes
 write list = @staff
 
+
 </pre>
 
 Let's go through that line by line:
 
-<pre>[global]</pre>
+<pre>[global]
+</pre>
 
 These are settings global to all shares and printers.
 
-<pre>workgroup = WORKGROUP</pre>
+<pre>workgroup = WORKGROUP
+</pre>
 
 This doesn't mean anything significant to a home user, but it should be
 set to the same as whatever your other PCs are set to. WORKGROUP is the
 default, so leave it like this.
 
-<pre>server string = Kaashif's Server</pre>
+<pre>server string = Kaashif's Server
+</pre>
 
 A short description of your server.
 
@@ -111,6 +118,7 @@ A short description of your server.
 security = user
 map to guest = Bad User
 guest account = nobody
+
 </pre>
 
 If a user trying to access your shares is not recognised, it is mapped
@@ -121,6 +129,7 @@ readable by the "nobody" user.
 <pre>
 log file = /var/log/samba/smbd.%m
 max log size = 50
+
 </pre>
 
 This creates a log file for each machine that accesses your shares. Have
@@ -136,6 +145,7 @@ writable = no
 browseable = yes
 guest ok = yes
 write list = @staff
+
 </pre>
 
 "Public" is the name of the share. The rest is self-explanatory, other
@@ -143,7 +153,8 @@ than the "write list" line, which means any user in the login class
 "staff" will be allowed to write. If your user (for example, "fred") is
 not in this class, then add him:
 
-<pre># usermod -L staff fred</pre>
+<pre># usermod -L staff fred
+</pre>
 
 This means that if you give Samba the username "fred" and his password,
 you can write to the share, assuming the file system permissions allow
@@ -157,12 +168,14 @@ together using the "/etc/rc.d/samba" script:
 # /etc/rc.d/samba -f start
 smbd(ok)
 nmbd(ok)
+
 </pre>
 
 If you want it to start at boot, edit "/etc/rc.conf.local" and add the
 line:
 
-<pre>samba_flags=""</pre>
+<pre>samba_flags=""
+</pre>
 
 That should be that, and you should be able to see your server on the
 network, click on it, and be able to see and download any files from

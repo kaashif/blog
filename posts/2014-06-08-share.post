@@ -29,6 +29,7 @@ you want to share a directory, here's what you do:
 
 <pre>
 $ thttpd
+
 </pre>
 
 That was very simple, fast and easy! The problem is that you need to be
@@ -37,6 +38,7 @@ one, like this:
 
 <pre>
 $ thttpd -p 8000
+
 </pre>
 
 That can be run as any user, since port 8000 is high enough not to need
@@ -45,6 +47,7 @@ to use `pkill`.
 
 <pre>
 $ pkill thttpd
+
 </pre>
 
 And that's that. A _simpler_ than starting up an interpreter for a
@@ -92,6 +95,7 @@ inet6 fe80::1%lo0 prefixlen 64 scopeid 0x4
 inet 127.0.0.1 netmask 0xff000000
 inet6 fe80::213:e8ff:fe73:485%iwn0 prefixlen 64 scopeid 0x2
 inet 192.168.0.9 netmask 0xffffff00 broadcast 192.168.0.255
+
 </pre>
 
 Sure the IP is in there, but it's too messy. I replaced `grep inet` with
@@ -126,6 +130,7 @@ And its output looks like this:
 Starting thttpd: done
 127.0.0.1:8000
 192.168.0.9:8000
+
 </pre>
 
 Now you can type `share` and have a web server up in a minimum of time.

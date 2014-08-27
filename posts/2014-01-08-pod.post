@@ -47,6 +47,7 @@ DESCRIPTION
 
 SEE ALSO
      mesg(1), talk(1), wall(1), who(1)
+
 </pre>
 
 Most man pages follow the convention of "NAME", "SYNOPSIS", "DESCRIPTION", "SEE

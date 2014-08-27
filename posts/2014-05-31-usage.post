@@ -99,6 +99,7 @@ set mbox_type=Maildir
 set spoolfile = "~/mail/"
 set folder = "~/mail/"
 
+
 </pre>
 
 To actually fetch the mail, I used getmail, a small Python script (can
@@ -120,6 +121,7 @@ user = yourusername
 [options]
 read\_all = false
 
+
 </pre>
 
 Getmail can be run by simply running `getmail`, but this is very
@@ -129,6 +131,7 @@ place the following in the file opened via `crontab -e`:
 
 <pre>
 30 * * * * getmail
+
 </pre>
 
 That runs getmail every 30 minutes, meaning your mail stays up to date.
@@ -141,6 +144,7 @@ To do that, add the following to your `.muttrc`:
 
 <pre>
 macro index "^" "!getmail<enter>"
+
 </pre>
 
 That means that, whenever in the index, you can press "^" to get any new
@@ -173,6 +177,7 @@ You already know I have a `~/mail/` directory, but I have a few more:
     `-- music
 
 47 directories, 4 files
+
 
 </pre>
 

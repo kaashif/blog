@@ -41,12 +41,14 @@ a toy distro. Installing a package from source would be as simple as:
 <pre>
 # cd /usr/ports/category/program
 # make install clean
+
 </pre>
 
 Similarly, installing from binary packages would require a simple:
 
 <pre>
 # pkgin install program
+
 </pre>
 
 This is assuming that we have built all packages, hosted them on a file server,
@@ -112,6 +114,7 @@ In fact, here is the line from top(1) for a zsh instance on my laptop right now:
 <pre>
 PID  USERNAME THR PRI NICE SIZE   RES   STATE C TIME WCPU  COMMAND
 1457 kaashif  1   52  0    37172K 1724K ttyin 0 0:00 0.00% zsh
+
 </pre>
 
 So you can see, zsh uses 1724K of memory. Not exactly "bloated", is it?

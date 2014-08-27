@@ -31,6 +31,7 @@ text file (referred to as LaTeX source) which may look something like this:
 This is my document.
 \end{document}
 
+
 </pre>
 
 Then you'd run a LaTeX compilation command, like `pdflatex myarticle`, resulting
@@ -81,6 +82,7 @@ Reasons.
 
 \section{Why I hate clouds}
 More reasons.
+
 
 </pre>
 

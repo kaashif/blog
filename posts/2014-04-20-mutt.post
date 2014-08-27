@@ -101,6 +101,7 @@ hdr\_order Date From To Cc
 \# A useful key binding to refresh your inbox
 bind index "^" imap-fetch-mail
 
+
 </pre>
 
 That might seem like a lot of variables, but they're all well-named and
@@ -118,6 +119,7 @@ Next, you'll see a password prompt, like this:
 
 <pre>
 Password for kaashifhymabaccus@gmail.com@imap.gmail.com:
+
 </pre>
 
 Of course, type in your password, and it'll be sent off over an SSL
@@ -137,6 +139,7 @@ number and a prompt should appear like this:
 
 <pre>
 Jump to message: 1
+
 </pre>
 
 If you look ot the far left of Mutt, you should see a column of numbers.
@@ -151,6 +154,7 @@ you should see this at the top:
 
 <pre>
 q:Quit  d:Del  u:Undel  s:Save  m:Mail  r:Reply  g:Group  ?:Help
+
 </pre>
 
 You'll see bars like this at all screens of Mutt, so press "?" if you
@@ -166,6 +170,7 @@ top:
 
 <pre>
 y:Send  q:Abort  t:To  c:CC  s:Subj  a:Attach file  d:Descrip  ?:Help
+
 </pre>
 
 It should be obvious how to send the mail or change the headers.

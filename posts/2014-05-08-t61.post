@@ -51,6 +51,7 @@ sure to modify the following command for your disk:
 
 <pre>
 $ dd if=install55.fs of=/dev/sd1c
+
 </pre>
 
 After that, the USB drive is bootable, so reboot, wait for the kernel
@@ -61,6 +62,7 @@ question:
 <pre>
 Welcome to the OpenBSD/i386 5.5 installation program.
 (I)nstall, (U)pgrade, (A)utoinstall or (S)hell?
+
 </pre>
 
 Here, you'll want to type "i" and hit enter, you're installing. Unless
@@ -79,6 +81,7 @@ When you see this:
 <pre>
 Available network interfaces are: iwn0 re0 vlan0.
 Which one do you wish to configure? (or 'done') [re0]
+
 </pre>
 
 If you try to use the wireless card straight away, it will not work, and
@@ -112,6 +115,7 @@ store firmware.
 
 <pre>
 $ mkfs_msdos /dev/sd1c
+
 </pre>
 
 Then take out the USB drive, download the firmware on another PC onto
@@ -119,6 +123,7 @@ the drive, and install the firmware package on your laptop with pkg_add:
 
 <pre>
 $ sudo pkg_add -Dnosig iwn-firmware-5.10p0.tgz
+
 </pre>
 
 You need to tell pkg_add to ignore signatures, because the firmware
@@ -136,6 +141,7 @@ If you're still in doubt, try this:
 
 <pre>
 $ dmesg | grep intel
+
 </pre>
 
 My laptop shows this:
@@ -144,6 +150,7 @@ My laptop shows this:
 inteldrm0 at vga1
 drm0 at inteldrm0
 inteldrm0: 1280x800
+
 </pre>
 
 That means that the Direct Rendering Manager works, and has managed to

@@ -37,6 +37,7 @@ server in Europe and export CVSROOT:
 
 <pre>
 $ export CVSROOT=anoncvs@ftp5.eu.openbsd.org:/cvs
+
 </pre>
 
 The next step is checking out the ports tree from the server:
@@ -44,6 +45,7 @@ The next step is checking out the ports tree from the server:
 <pre>
 # cd /usr
 # cvs checkout ports
+
 </pre>
 
 Now you have a fully updated ports tree in /usr/ports! Note that I
@@ -56,6 +58,7 @@ comes by default in every user's home. Mine looks like this:
 diff -uNp
 update -P
 checkout -P
+
 </pre>
 
 ##Making a patch
@@ -65,6 +68,7 @@ example, it's in editors/joe, so lets go there in the ports tree:
 
 <pre>
 # cd /usr/ports/editors/joe
+
 </pre>
 
 I'm not going to explain how to edit Makefiles and update ports in
@@ -76,6 +80,7 @@ that guide).
 <pre>
 # vi Makefile
 **make some changes**
+
 </pre>
 
 If you delete any files or add any files, you have to do `cvs delete
@@ -88,6 +93,7 @@ somewhere.
 
 <pre>
 # cvs diff > /tmp/joe.diff
+
 </pre>
 
 If you look at /tmp/joe.diff, you'll see that all the changes you made
@@ -117,6 +123,7 @@ This is an update to joe which fixes this bug and that bug and adds a
 useful feature.
 
 OK?
+
 
 </pre>
 

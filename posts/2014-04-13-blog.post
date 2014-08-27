@@ -40,6 +40,7 @@ install it with a simple:
 
 <pre>
 $ cabal install muon
+
 </pre>
 
 As it is, you have to get the latest snapshot from my darcs repository.
@@ -50,6 +51,7 @@ handled automatically.
 $ darcs get http://repos.kaashif.co.uk/muon
 $ cd muon
 $ cabal install
+
 </pre>
 
 EDIT: That repository is long gone. Try `git://kaashif.co.uk/muon.git`
@@ -67,6 +69,7 @@ access Muon's help:
 
 <pre>
 $ muon help
+
 </pre>
 
 In reality, it doesn't matter what you type as the command - muon

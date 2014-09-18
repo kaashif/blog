@@ -213,7 +213,7 @@ footer p + p {
         <h1>$site.name$</h1>
         <p>$site.tagline$</p>
         <ul>
-            <li> <a href="/home">Home</a></li>
+            <li> <a href="/">Home</a></li>
             <li>//</li>
             <li> <a href="/about">About</a></li>
             <li>//</li>

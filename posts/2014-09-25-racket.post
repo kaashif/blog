@@ -14,7 +14,9 @@ Racket.
 This was pretty easy. Unlike with Guile, OpenBSD has a very up-to-date
 Racket package, so I just installed that.
 
-    # pkg_add racket
+<pre>
+# pkg_add racket
+</pre>
 
 Now I had a Racket interpreter living at /usr/local/bin/racket. Sure,
 I could have just run that and started to play around, but I really
@@ -57,11 +59,11 @@ Coming from Haskell, it was a bit jarring to see that there was no
 type safety at all in default Racket. You could have something like
 this:
 
-    (if (equal? (get-line) "error out please")
-      (get-line 4 5)
+    (if (equal? (read-line) "error out please")
+      (read-line 4 5)
       (+ 3 4))
 
-Of course, since `(get-line)` doesn't take any arguments, you'll get
+Of course, since `(read-line)` doesn't take any arguments, you'll get
 an error at runtime complaining about giving it the wrong number of
 arguments. But that's the point, you only get the error at
 _runtime_. In fact, if you never type in "error out please" you'll

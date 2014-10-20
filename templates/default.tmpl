@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>{$title}</title>
+<link rel="stylesheet" type="text/css" href="/static/style.css" />
+<link rel="stylesheet" type="text/css" href="/static/monokai.css" />
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script type="text/javascript" src="/static/highlight.js"></script>
+<script type="text/javascript">hljs.initHighlightingOnLoad();</script>
+<meta name=viewport content="width=device-width, initial-scale=1">
+</head>
+<body>
+<div class="wrapper">
+<main>
+<header>
+        <h1>/dev/kaashif</h1>
+        <p>Programming, software freedom and Unix</p>
+        <ul>
+            <li> <a href="/">Home</a></li>
+            <li>//</li>
+            <li> <a href="/about">About</a></li>
+            <li>//</li>
+            <li> <a href="/contact">Contact</a></li>
+            <li>//</li>
+            <li> <a href="/archive">Archive</a></li>
+            <li>//</li>
+            <li> <a href="/cgit">Code</a></li>
+            <li>//</li>
+            <li> <a href="/rss.xml">RSS Feed</a></li>
+        </ul>
+</header>
+<hr style="clear: both; visibility: hidden;" />
+<div class="content">
+{unless ($subtemplate eq "NONE") {
+    Text::Template::fill_in_file($subtemplate, HASH => {
+	content => $content,
+	title => $title,
+	date => $date,
+	  });
+	} else {
+	  $content
+	}}
+</div>
+</main>
+</div>
+<footer>
+<p>&copy; <time>2014</time> Kaashif Hymabaccus</p>
+<p><a href="http://github.com/kaashif-hymabaccus/blog">Source</a></p>
+</footer>
+</body>
+</html>

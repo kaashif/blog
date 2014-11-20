@@ -173,7 +173,7 @@ hr {
 }
 
 footer {
-	width: 640px;
+	max-width: 640px;
 	margin: 0 auto;
 	padding: 20px 0 0;
 	color: #aaa;
@@ -188,4 +188,7 @@ footer p {
 }
 footer p + p {
 	float: right;
+}
+footer p + p + p {
+	float: left;
 }

@@ -13,7 +13,7 @@ anything about GPG other than `gpg -ear` and `gpg -d`.
 ##Installing GPG
 This is easy. Most distros come with it, for package signing among
 other things. The ones that don't have it easily installable from
-their pacakage reposs as ei"gpg", "gpg2", "gnupg" or "gnupg2". While
+their package repos as either "gpg", "gpg2", "gnupg" or "gnupg2". While
 GPG and GPG 2 are actually different programs, many distros don't make
 the distinction, since hardly anyone uses GPG1 anymore.
 

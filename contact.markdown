@@ -2,10 +2,9 @@
 title: Contact
 ---
 
-<h1>Contact</h1>
-<ul>
-<li>Email: <a href=mailto:kaashif@kaashif.co.uk>kaashif@kaashif.co.uk</a></li>
-<li>GitHub: <a href='http://github.com/kaashif'>kaashif</a></li>
-<li>BitBucket: <a href='http://bitbucket.org/kaashif'>kaashif</a></li>
-<li>Public GPG Key: <a href='/static/pubkey.txt'>here</a></li>
-</ul>
+#Contact
+
+* Email: [kaashif@kaashif.co.uk](mailto:kaashif@kaashif.co.uk)
+* GitHub: [kaashif](http://github.com/kaashif)
+* BitBucket: [kaashif](http://bitbucket.org/kaashif)
+* Public GPG Key: [here](/static/pubkey)

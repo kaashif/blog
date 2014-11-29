@@ -1,0 +1,139 @@
+---
+title: How I share a file, simply
+comment: Sharing files on a LAN using nothing but a single small program in C, none of that bloated Python web server module rubbish. Largely motivated by my desire to run a web server on an old Pentium III I have.
+date: 2014-06-08
+---
+
+
+Earlier, I saw [this](http://reinehr.me/how-i-simply-share-a-file)
+article claiming to describe how to share a file "simply" by running
+Python's web server module (with either Python 2 or 3). While that may
+be _easy_, it's not simple, and certainly not fast.
+
+The largest problem with using Python or Ruby to run a web server
+instead of a single-purpose program is initialisation time. Regardless
+of performance under load or latency or whatever, the fact is that
+running "python3 -m http.server" takes tens of seconds to reach a usable
+state on an older machine, and minutes on even older ones. This is
+unacceptable if all you want to do is share a text file which would take
+less than a second to download - it's ludicrous to spend more time
+waiting for a server to start than actually using it.
+
+##The alternative
+
+I use [thttpd](http://www.acme.com/software/thttpd/).
+While the site may not look modern and it seems like they went out of
+their way to make it look ugly, the software that runs it is very
+performant, portable, and everything you could ever want in a
+quick-and-dirty web server solution.
+
+Even better it starts within a second even on really old hardware. If
+you want to share a directory, here's what you do:
+
+<pre>
+$ thttpd
+
+</pre></pre>
+
+That was very simple, fast and easy! The problem is that you need to be
+root to bind to port 80, so just kill that process and start another
+one, like this:
+
+<pre>
+$ thttpd -p 8000
+
+</pre></pre>
+
+That can be run as any user, since port 8000 is high enough not to need
+root to be used. Since it daemonizes straight away, to kill it, you need
+to use `pkill`.
+
+<pre>
+$ pkill thttpd
+
+</pre></pre>
+
+And that's that. A _simpler_ than starting up an interpreter for a
+programming language and loading modules within modules of code just to
+serve a couple of files.
+
+##Scripting it
+
+While that's all well and good, just like the author of the article I
+linked, I want to be able to run `share` and share my files, so I wrote
+a script. This is going beyond the realm of simple, but it'll certainly
+be convenient.
+
+    #!/bin/sh
+    echo -n "Starting thttpd: "
+    if thttpd -p 8000; then
+        echo "done"
+    else
+        echo "failed"
+    fi
+
+That does start the server, but doesn't give us any way to kill it and
+it doesn't tell us our IP address (which we might not know due to DHCP
+on an unfamiliar network). After `echo "done"`, add in something to tell
+us our IP, then wait for the user to press enter and kill the server:
+
+    #!/bin/sh
+    echo -n "Starting thttpd: "
+    if thttpd -p 8000; then
+        echo "done"
+        ifconfig | grep inet
+        read line
+        pkill thttpd
+    else
+        echo "failed"
+    fi
+
+
+That is OK, but we can do better to show us our IP - as it is, the
+script outputs this:
+
+<pre>
+inet6 ::1 prefixlen 128
+inet6 fe80::1%lo0 prefixlen 64 scopeid 0x4
+inet 127.0.0.1 netmask 0xff000000
+inet6 fe80::213:e8ff:fe73:485%iwn0 prefixlen 64 scopeid 0x2
+inet 192.168.0.9 netmask 0xffffff00 broadcast 192.168.0.255
+
+</pre></pre>
+
+Sure the IP is in there, but it's too messy. I replaced `grep inet` with
+something a little more sophisticated:
+
+    grep -o '[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}'
+
+That regex shows us all of the IPs in ifconfig's output, but it also
+shows the broadcast address and doesn't show us the port. To fix that,
+we can pipe the whole thing into this:
+
+    awk '!/255$/{ print $0 ":8000"}'
+
+The finished script looks like this:
+
+    #!/bin/sh
+    echo -n "Starting thttpd: "
+    if thttpd -p 8000; then
+        echo "done"
+        ifconfig \
+        | grep -o '[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}' \
+        | awk '!/255$/{ print $0 ":8000"}'
+        read line
+        pkill thttpd
+    else
+        echo "failed"
+    fi
+
+And its output looks like this:
+
+<pre>
+Starting thttpd: done
+127.0.0.1:8000
+192.168.0.9:8000
+
+</pre></pre>
+
+Now you can type `share` and have a web server up in a minimum of time.

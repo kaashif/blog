@@ -1,0 +1,127 @@
+---
+title: Vim
+comment: The power of Vim: modal editing, macros, motions, all explained and demonstrated through some nifty GIFs.
+date: 2014-03-01
+---
+
+
+When I first started programming, I barely had any idea of what constituted a
+good text editor, or why I'd want to use some old, texty editor from the 90s
+which didn't even have most of the features I took for granted in the IDE I was
+using at the time. Maybe this had something to do with one of my first languages
+being Java, which is widely considered an IDE language, but I went through the
+same thing when I started learning C and Python. Why take all this time to learn
+Vim when I could just open Gedit or Kate and get to work immediately?
+
+As always, with this type of "Vim changed my life" blog post, I could go on to
+describe my experience of slogging through hours of using Vim, getting used to
+it, then wondering how I ever coped using terrible editors which weren't even
+modal and didn't even have macros. I won't do that, since I'd just be
+regurgitating very generic stuff. Instead, I'll distill all of that down into a
+few points:
+
++ Modal editing
++ Text objects and motions
++ Plugins
+
+Modal editing is actually very simple. At its most basic level, there are three
+modes (there are really more, but those aren't as important) - normal mode,
+insert mode and command line mode. Normal mode is where one should spend most of
+their time - it's where you move around the text, yank and put (copy and paste),
+execute macros and so on. Insert mode is where you type text and it is written
+to the file you have open. While in normal mode, typing "dw" would delete a
+word, doing the same in insert mode actually inserts a literal "dw" into the
+text. A mistake most beginners make is trying to spend all of their time in
+insert mode, because it's the most similar to what they already know (Notepad,
+Gedit, etc). Command mode is where you type commands into a command line prompt,
+which is needed for more complex commands which can't be accessed through key
+combinations unless you remap keys manually.
+
+Text objects are key combinations that represent structures found in text. For
+example, "i(" represents the text inside brackets and "t." represents the text
+up to the next full stop. Motions are keys you press to move around text - there
+are the usual "hjkl" keys to move left, down, up and right, but also "w" and "gg",
+to move to the next word or the start of the file. There are many, many more
+objects and motions.
+
+Plugins are scripts which extend Vim's functionality. You are probably already
+familiar with plugins or extensions for web browsers, so there isn't really any
+need to explain what they are or do, suffice it to say that they add or improve
+Vim's features.
+
+##Vim in action
+Reading about text editing is all well and good, but it doesn't allow you to
+really get a full grasp of the power of Vim. Neither does looking at a static
+series of screenshots - you can't really see a comparison between your current
+editor and Vim unless you see it in action. So here are some GIFs of Vim in
+action, demonstrating the power I mentioned.
+
+###Underlining text
+![](/static/vim1.gif)
+
+If you're using Markdown or reStructuredText or anything similar, it's a common
+task to "underline" a title by putting a few equals signs or dashes under it.
+Using Notepad (for instance), you'd probably press enter to go to the next line,
+mash "=" until you get the desired look, and call it a day there. In Vim, you
+can yank the line, put it on the next line, and replace that line's characters 
+with "=". This is quick and simple, but does seem like a bit much to learn just
+to underline some text, especially when this sequence in Vim translates to a key
+combination of "yypv$r=o".
+
+###Repeating commands
+![](/static/vim2.gif)
+
+In Vim, any sequence of actions you do can be recorded to a macro. It's very
+easy, you just press "q" followed by the key you want the macro to be assigned
+to (I always choose "w" since it's next to "q" on most keyboards), then do
+whatever it is you want to do, and press "q" again to stop the recording. Let's
+say I recorded the action of underlining a title into a macro. If I want to
+repeat the macro 3 times, I just type "3@w". If I want to repeat it 1000 times,
+I'd just type "1000@w". This comes in very useful for more complicated macros,
+like if you wanted to format a large list into a nicely formatted table.
+
+###Changing text within delimiters
+![](/static/vim3.gif)
+
+This is another very common problem - haven't you ever wanted to change the text
+inside quotes, or inside brackets? The answer to that question is always yes,
+and Vim has a very easy way of doing it. Changing the text inside double quotes
+is simply "ci"", for "change inside " ". Notice how I didn't have to move to the
+first quote - Vim moves automatically to the first quote on the same line. You
+can do this with any other delimiter, like curly braces, single quotes, but also
+for blocks and sentences. When I say "block", I'm referring to a block of a
+program, which is a useful text object to have when your blocks aren't delimited
+by curly braces.
+
+###Using regular expressions
+![](/static/vim4.gif)
+
+You might be familiar with regular expressions, so you might not be surprised to
+hear that Vim can use them extensively - not a surprise for a program that deals
+with text. If not, this is a quick demonstration of reversing the lines of a
+file. You might find this useful if you're viewing a log file and you want the
+lines to be from newest to oldest, but the point is that Vim has a native regex
+engine that can be accessed quickly in command mode by using ":g".
+
+###Git integration
+![](/static/vim5.gif)
+
+Lots of programmers use Git, so it's natural that Vim, a programmer's tool, has
+a variety of plugins that claim to integrate with Git. Fugitive is one of the
+best, in my opinion. You can see how effortless it is to view the authors of
+every line in a file (although in this case, all of the authors are "kaashif"),
+add the file to the staging area using ":Gwrite" and commit it, using
+":Gcommit". I don't see how it could get any easier, especially considering the
+tab completion.
+
+This was by no means a Vim tutorial, just a demonstration of what one can do if
+you know Vim, and a pretty limited one at that. Learning the basics of Vim is
+quite easy, all one needs to do (assuming Vim is installed) is run the "vimtutor"
+program in a terminal and it'll walk you through the basics. If you're on
+Windows, you can go to [the Vim website](http://www.vim.org/download.php) and
+download their installer for gVim, which is Vim with a slightly graphical
+interface. After that, I think you can run "vimtutor" from cmd.exe, but I'm not
+sure.
+
+I'm tempted to sign off by saying "happy hacking!", but that's far too
+cheesy. Happy editing!

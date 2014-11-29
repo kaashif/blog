@@ -1,0 +1,95 @@
+---
+title: How not to run a website
+comment: Being a terrible sysadmin: a guide to my mistakes the past few months
+date: 2014-04-12
+---
+
+
+After a few months of running a website, there are a few things I have
+realised about how I ran my server when it was first delivered, and how
+I run it now. The changes have been, for the most part, for the better.
+Needless to say, when I first started out, I was clueless, overeager and
+far too ambitious with my plans for "the next Facebook" or something
+equally stupid. Mistakes were made along the way, and I'll make sure I
+never make them again.
+
+##Using FTP
+
+Using FTP _at all_ is a mistake, but my blunder was twofold - I had an
+account with write access to my file store which was not backed up.
+Worse yet, the account in question had a six character password
+consisting of letters and numbers which could have been brute-forced
+within seconds by a decent CPU.
+
+Of course, when I first set up my FTP server, I was thinking more about
+how cool it was to be able to transfer files using command line FTP
+clients and how cool that was. It's not really _that_ cool and one day,
+the weight of the security vulnerabilities I had exposed came crashing
+down on me. In every directory of
+[files.kaashif.co.uk](http://files.kaashif.co.uk), there were an
+"index.php" and "index.aspx" files containing links to some online Bible
+shop. It could have been much worse - I could have been hosting my
+site using FTP to some VPS somewhere and my site could have been turned
+into an advert for Bibles. Luckily, my server was only set up to serve
+static files, with no index pages and certainly no PHP or other
+scripting languages installed.
+
+The fix was simple, I stopped using FTP and went back to using the
+chrooted Apache server that comes with OpenBSD 5.4. Of course, now that
+it's going to be removed from base, I should probably switch to Nginx,
+but that can wait - OpenBSD's Apache, while old and probably insecure,
+isn't anywhere nearly as bad as having an FTP server with a weak
+password.
+
+I count myself lucky that I chrooted my account into the FTP user's home
+directory. If I hadn't, the entire machine I was running the server o
+would have been compromised and I'd have had to spend 10 minutes
+spinning up a new one. Terrifying to think about.
+
+##Backups
+
+As I mentioned, I didn't back much of anything up. Mostly, my backups
+consisted of spreading files over every PC I owned in the hopes that
+none of them would fail. This worked for static, never-changing files
+like pictures and videos, but had no place as a strategy when dealing
+with ever-changing code and documents. The first crisis I faced involved
+a power cut. Now, as you may know, FreeBSD systems use the Unix File
+System (UFS2) by default. While it's OK, a far better alternative is
+ZFS. I was not using ZFS at the time of the power cut, and just happened
+to be doing something disk IO intensive at the time. This was a recipe
+for disaster, as this caused the file system on one of my USB disks to
+die.
+
+Eventually, the power came back on and I had to pick up the pieces.
+After booting into single-user mode and fscking the disks, all but one
+disk survived with only a few jumbled inodes here and there. The last
+disk could not be recovered for some reason. I ran some data recovery
+tools and I did manage to, eventually, save most of the data, but I
+learnt three important lessons: 
+
+*   Keep 3 copies of everything
+*   Keep those copies on different storage media
+*   Have some off-site backups
+
+I heard those somewhere (probably from /usr/games/fortune), and it seems
+reasonable.
+
+Nowadays, I tend to back my storage array to:
+
+*   Another storage array (this is more redundancy than backup)
+*   [Tarsnap](http://tarsnap.com), an online backup site
+*   For the really static data, I have a pile of DVDs
+
+It is impossible for me to erase some of those backups without
+physically destroying them, which can't be done by accident. I think
+that, if there is another power cut, I'll be fine.
+
+Those are the big two things I've done. It's worth noting that, since I
+only deal in public key authentication, not transmitting passwords over
+SSL, my site and SSH access to it was not affected by the recent OpenSSL
+debacle. Perhaps there's an OpenSSH issue lurking in the shadows,
+revealing private keys to hackers. That's unlikely, though, black hats
+would have already exploited it if such a thing were possible.
+
+In any case, my pile of DVDs are safe from electronic intrusion, unless
+you count lightning.

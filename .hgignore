@@ -1,0 +1,8 @@
+syntax: glob
+*.hi
+*.o
+site
+_*
+_site
+_cache
+

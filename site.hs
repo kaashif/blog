@@ -77,7 +77,6 @@ main = hakyll $ let pandocCompiler = myPandocCompiler in do
 
 postCtx :: Context String
 postCtx =
-    -- "extract" field contains first 25 lines (80 chars each)
-    (field "extract" $ return . take 2000 . unlines . drop 31 . lines . itemBody) `mappend`
+    (field "extract" $ return . unlines . take 15 . drop 31 . lines . itemBody) `mappend`
     dateField "date" "%Y-%m-%d" `mappend`
     defaultContext

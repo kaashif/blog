@@ -22,20 +22,15 @@ things: the writing of source "code" files in the LaTeX "language" and the
 compilation of that source into a final, prepared document. So you'd have your
 text file (referred to as LaTeX source) which may look something like this:
 
-<pre>
-
-\documentclass{article}
-\title{My Article}
-\author{Me}
-\date{\today}
-
-\begin{document}
-\maketitle
-This is my document.
-\end{document}
-
-
-</pre></pre>
+    \documentclass{article}
+    \title{My Article}
+    \author{Me}
+    \date{\today}
+    
+    \begin{document}
+    \maketitle
+    This is my document.
+    \end{document}
 
 Then you'd run a LaTeX compilation command, like `pdflatex myarticle`, resulting
 in something like this:
@@ -78,16 +73,11 @@ section, you'd have to create a human readable line of text with some
 sort of formatting to distinguish it from the surrounding text. In
 LaTeX, you'd use a section command, like so:
 
-<pre>
-
-\section{Why I love LaTeX}
-Reasons.
-
-\section{Why I hate clouds}
-More reasons.
-
-
-</pre></pre>
+    \section{Why I love LaTeX}
+    Reasons.
+    
+    \section{Why I hate clouds}
+    More reasons.
 
 These commands are machine-readable, thus readable to the LaTeX compiler you are
 using. This means it is possible for a list of sections, subsections and

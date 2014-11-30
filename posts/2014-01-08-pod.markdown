@@ -28,25 +28,22 @@ upstream. It's not hard, in fact, it's very easy.
 ##What does a manual page look like?
 Here is the manual page for write(1), a pretty vanilla Unix command.
 
-<pre>
-WRITE(1)                  BSD General Commands Manual                 WRITE(1)
-
-NAME
-     write -- send a message to another user
-
-SYNOPSIS
-     write user [tty]
-
-DESCRIPTION
-     The write utility allows you to communicate with other users, by copying
-     lines from your terminal to theirs.
-
-     When you run the write command, the user you are writing to gets a mes-
-     sage of the form:
-
-     ...
-
-</pre></pre>
+    WRITE(1)                  BSD General Commands Manual                 WRITE(1)
+    
+    NAME
+         write -- send a message to another user
+    
+    SYNOPSIS
+         write user [tty]
+    
+    DESCRIPTION
+         The write utility allows you to communicate with other users, by copying
+         lines from your terminal to theirs.
+    
+         When you run the write command, the user you are writing to gets a mes-
+         sage of the form:
+    
+         ...
 
 Most man pages follow the convention of "NAME", "SYNOPSIS", "DESCRIPTION", "SEE
 ALSO", and optionally "AUTHOR" and "BUGS".
@@ -81,7 +78,7 @@ As you can see, "=head1" denotes a top level header. This is all we really need
 for writing a simple manual page. To convert it to groff, you can use the
 following command:
 
-    pod2man my_first_page.pod
+    $ pod2man my_first_page.pod
 
 And a file called "my\_first\_page.man" will be created with the appropriate
 groff markup. It is my opinion that Pod is much better than groff if we're just

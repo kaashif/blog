@@ -17,9 +17,7 @@ Racket.
 This was pretty easy. Unlike with Guile, OpenBSD has a very up-to-date
 Racket package, so I just installed that.
 
-<pre>
-# pkg_add racket
-</pre>
+    # pkg_add racket
 
 Now I had a Racket interpreter living at /usr/local/bin/racket. Sure,
 I could have just run that and started to play around, but I really

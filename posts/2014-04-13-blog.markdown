@@ -4,6 +4,8 @@ comment: Muon: the static site generator I wrote because none of the current one
 date: 2014-04-13
 ---
 
+UPDATE: I now use Hakyll. See <http://kaashif.co.uk/about> for
+more. Also, 100% of the information in this blog post is now wrong or outdated.
 
 When I decided I wanted to write a blog, I had to come up with some way
 of writing posts (in a markup format which isn't HTML), and serving them
@@ -41,24 +43,15 @@ people, or at least, as normal as a Haskell package user can be, I will
 upload it to [Hackage](http://hackage.haskell.org) and you'll be able to
 install it with a simple:
 
-<pre>
-$ cabal install muon
-
-</pre></pre>
+    $ cabal install muon
 
 As it is, you have to get the latest snapshot from my darcs repository.
 You can still use cabal to install it, though, so dependencies are
 handled automatically.
 
-<pre>
-$ darcs get http://repos.kaashif.co.uk/muon
-$ cd muon
-$ cabal install
-
-</pre></pre>
-
-EDIT: That repository is long gone. Try `git://kaashif.co.uk/muon.git`
-instead.
+    $ darcs get http://repos.kaashif.co.uk/muon
+    $ cd muon
+    $ cabal install
 
 It might take a while to build the dependencies from source, so if your
 OS's package manager already has prebuilt binary packages for them, look
@@ -70,10 +63,7 @@ If you want a quick rundown of what you can do with Muon, have a look at
 the README file in the darcs repo. If you're too lazy for that, just
 access Muon's help:
 
-<pre>
-$ muon help
-
-</pre></pre>
+    $ muon help
 
 In reality, it doesn't matter what you type as the command - muon
 outputs a help message for all inputs that aren't already a command. So

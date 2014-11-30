@@ -32,7 +32,7 @@ This bit was pretty easy. I just searched "NetBSD", clicked on the
 first link that mentioned mirrors, found one close to me, and
 downloaded an ISO, which I burnt to a disk. Just for reference, the
 location of the ISO I downloaded was
-ftp://ftp2.fr.netbsd.org/pub/NetBSD/NetBSD-6.1.5/amd64/installation/boot.iso,
+<ftp://ftp2.fr.netbsd.org/pub/NetBSD/NetBSD-6.1.5/amd64/installation/boot.iso>,
 which is a link to the amd64 image from a French mirror.
 
 While some people might think burning to a disk is anachronistic, I
@@ -138,12 +138,10 @@ After consulting
 and finding out that NetBSD uses wpa_supplicant, I worked out how to
 set it up from the examples and now I could start the network!
 
-<pre>
-# /etc/rc.d/network restart
-Stopping network.
-...
-add net default: gateway 192.168.0.1: Network is unreachable
-</pre>
+    # /etc/rc.d/network restart
+    Stopping network.
+    ...
+    add net default: gateway 192.168.0.1: Network is unreachable
 
 Uh... I suppose I have to add an /etc/ifconfig.iwn0 that reads "up",
 just to make sure the OS knows I want iwn0 up. No that still doesn't
@@ -161,15 +159,11 @@ only to discover that it works almost the same as it does on OpenBSD,
 the environment variable even has the same name: PKG_PATH. So I set
 that and...
 
-<pre>
-# pkg_add sudo
-</pre>
+    # pkg_add sudo
 
 Wow, everything seems to work! Let's try X:
 
-<pre>
-$ startx
-</pre>
+    $ startx
 
 That works and starts up twm. From here on out, everything would be
 that same as on any Unix-like OS.

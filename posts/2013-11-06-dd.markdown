@@ -5,13 +5,13 @@ date: 2013-11-06
 ---
 
 
-This article is not only about disk wiping, it will hopefully teach you
-something about using Unix (not just GNU/Linux, necessarily) command line tools
-in general. This tutorial was written on my ThinkPad, which runs Debian, so the
-output should be pretty similar to what you'd get on Ubuntu, Mint or any other
-Debian- or Ubuntu-based systems. Basically, if you're using something
-non-standard, you already know that you are, since those types of operating
-systems are few and far between.
+This article is not only about disk wiping, it will hopefully teach
+you something about using some GNU command line tools . This tutorial
+was written on my ThinkPad, which runs Debian, so the output should be
+pretty similar to what you'd get on Ubuntu, Mint or any other Debian-
+or Ubuntu-based systems. Basically, if you're using something
+non-standard, you already know that you are, since those types of
+operating systems are few and far between.
 
 ##Getting into the right environment
 Since you can't reliably wipe a disk with the OS which is on the disk you'll be
@@ -35,15 +35,12 @@ the right thing. Even if you only have one drive, it's best to check which drive
 you're wiping just to make sure. The command to list block devices is `lsblk`.
 It is used as follows:
 
-<pre>
-$ lsblk
-NAME                       MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
-sda                          8:0    0 232.9G  0 disk 
-`-sda1                       8:1    0 232.9G  0 part
-sdb                          8:16   1  14.4G  0 disk 
-`-sdb1                       8:17   1   739M  0 part /
-
-</pre></pre>
+    $ lsblk
+    NAME                       MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
+    sda                          8:0    0 232.9G  0 disk 
+    `-sda1                       8:1    0 232.9G  0 part
+    sdb                          8:16   1  14.4G  0 disk 
+    `-sdb1                       8:17   1   739M  0 part /
 
 Here we see two disks: sda and sdb. With the Linux kernel, drives are given
 names based on what type of drive they are and the order in which they were
@@ -80,10 +77,7 @@ it to copy data from /dev/zero to /dev/sda as follows. Be careful, because the
 following command will irreversibly overwrite all of data on your primary hard
 drive. Make sure you have the right drive and that you really want to do this.
 
-<pre>
-$ sudo dd if=/dev/zero of=/dev/sda
-
-</pre></pre>
+    $ sudo dd if=/dev/zero of=/dev/sda
 
 You won't see any output unless there's an error, so don't worry about dd's
 complete silence. A lack of errors means it's working! Now, you should switch to
@@ -98,14 +92,11 @@ internet (they'd probably point you to this anyway). I am talking about the Unix
 manual pages. They are accessed through the `man` command, followed by the name
 of the program you want to learn more about. For example:
 
-<pre>
-$ man man
-MAN(1)                 Manual pager utils                 MAN(1)
-
-NAME
-    man - an interface to the on-line reference manuals
-
-</pre></pre>
+    $ man man
+    MAN(1)                 Manual pager utils                 MAN(1)
+    
+    NAME
+        man - an interface to the on-line reference manuals
 
 And a lot more information. You can exit the manual pager by pressing "q". This
 is not all you can do while you wait, if you read the man page for "dd", you
@@ -122,13 +113,10 @@ find out the PID of the dd process you ran earlier, we can use the program
 `pgrep` which takes a program name, and outputs all of the numerical PIDs
 associated with programs with that name.
 
-<pre>
-$ pgrep dd
-2
-465
-20257
-
-</pre></pre>
+    $ pgrep dd
+    2
+    465
+    20257
 
 It's safe to assume that the most recently started instance of dd is the one we
 just started - the one with the highest PID. Now that we know its PID, we can
@@ -137,10 +125,7 @@ start sending it signals. The program to send a signal to a running program is
 capable of sending actually kill the process. In this next command, substitute
 "$pid" with the PID of your dd process.
 
-<pre>
-$ sudo kill -USR1 $pid
-
-</pre></pre>
+    $ sudo kill -USR1 $pid
 
 This command won't output anything in the terminal you run it in. Instead, it
 sends a signal to dd to make it print out how much it has copied. This
@@ -155,30 +140,24 @@ tools, you always have your trusty man pages, but also another new tool:
 `apropos`. It takes a list of keywords, and parses the man pages, searching for
 commands which match your description of what you want to do. For example:
 
-<pre>
-$ apropos extract archive
-unrar (1)            - extract files from rar archives
-unar (1)             - extract archive file content
-
-</pre></pre>
+    $ apropos extract archive
+    unrar (1)            - extract files from rar archives
+    unar (1)             - extract archive file content
 
 It generally tends to output many results, not all of which are commands.
 Remember "man man", the manual page for man? It had a list of section numbers
 and what they mean. We can see these section numbers in the search results for
 apropos, in the brackets just after the program name. To save you some effort...
 
-<pre>
-$ man man
-1   Executable programs or shell commands
-2   System calls (functions provided by the kernel)
-3   Library calls (functions within program libraries)
-4   Special files (usually found in /dev)
-5   File formats and conventions eg /etc/passwd
-6   Games
-7   Miscellaneous (including macro packages and conventions), e.g. man(7), groff(7)
-8   System administration commands (usually only for root)
-
-</pre></pre>
+    $ man man
+    1   Executable programs or shell commands
+    2   System calls (functions provided by the kernel)
+    3   Library calls (functions within program libraries)
+    4   Special files (usually found in /dev)
+    5   File formats and conventions eg /etc/passwd
+    6   Games
+    7   Miscellaneous (including macro packages and conventions), e.g. man(7), groff(7)
+    8   System administration commands (usually only for root)
 
 So out of all the results in that list, only the ones in sections 1 and 8 are
 usable as programs from the shell prompt. Using these tools, your knowledge of

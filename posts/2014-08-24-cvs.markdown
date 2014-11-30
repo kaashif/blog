@@ -38,41 +38,29 @@ that's near you and export the CVSROOT variable where it says
 "CVSROOT=anoncvs@blahblah". For example, I'm in the UK, so I'll pick a
 server in Europe and export CVSROOT:
 
-<pre>
-$ export CVSROOT=anoncvs@ftp5.eu.openbsd.org:/cvs
-
-</pre></pre>
+    $ export CVSROOT=anoncvs@ftp5.eu.openbsd.org:/cvs
 
 The next step is checking out the ports tree from the server:
 
-<pre>
-# cd /usr
-# cvs checkout ports
-
-</pre></pre>
+    # cd /usr
+    # cvs checkout ports
 
 Now you have a fully updated ports tree in /usr/ports! Note that I
 didn't specify any flags: on OpenBSD, there is a default ~/.cvsrc that
 comes by default in every user's home. Mine looks like this:
 
-<pre>
-# $OpenBSD: dot.cvsrc,v 1.1 2013/03/31 21:46:53 espie Exp $
-#
-diff -uNp
-update -P
-checkout -P
-
-</pre></pre>
+    # $OpenBSD: dot.cvsrc,v 1.1 2013/03/31 21:46:53 espie Exp $
+    #
+    diff -uNp
+    update -P
+    checkout -P
 
 ##Making a patch
 
 Now, you might want to find the file you want to change. In this
 example, it's in editors/joe, so lets go there in the ports tree:
 
-<pre>
-# cd /usr/ports/editors/joe
-
-</pre></pre>
+    # cd /usr/ports/editors/joe
 
 I'm not going to explain how to edit Makefiles and update ports in
 OpenBSD, a guide for that already exists
@@ -80,11 +68,8 @@ OpenBSD, a guide for that already exists
 assume you already know how to make changes (and you will, after reading
 that guide).
 
-<pre>
-# vi Makefile
-**make some changes**
-
-</pre></pre>
+    # vi Makefile
+    **make some changes**
 
 If you delete any files or add any files, you have to do `cvs delete
 <file>` or `cvs add <file>` for the changes to be tracked properly. Do
@@ -94,10 +79,7 @@ Now you have to get the changes you just made into an email, which is
 easy using `cvs diff`. Run `cvs diff` and redirect its output to a file
 somewhere.
 
-<pre>
-# cvs diff > /tmp/joe.diff
-
-</pre></pre>
+    # cvs diff > /tmp/joe.diff
 
 If you look at /tmp/joe.diff, you'll see that all the changes you made
 have been recorded in that file, in the format used by patch(1). You
@@ -119,16 +101,12 @@ In your email client, write a new message with the subject "UPDATE: joe
 maintainer in the Makefile. Write something short and descriptive in the
 body of the message, like this:
 
-<pre>
-Hello ports@,
-
-This is an update to joe which fixes this bug and that bug and adds a
-useful feature.
-
-OK?
-
-
-</pre></pre>
+    Hello ports@,
+    
+    This is an update to joe which fixes this bug and that bug and adds a
+    useful feature.
+    
+    OK?
 
 In the rest of the message, paste your diff. It's easier for everyone if
 you just put your diff in the body of the message, because they can then

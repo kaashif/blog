@@ -61,44 +61,34 @@ tree. You can't do that yet, though.
 
 Next, get and extract the pkgsrc tree:
 
-<pre>
-# cd /usr
-# wget ftp://ftp.netbsd.org/pub/pkgsrc/current/pkgsrc.tar.gz
-# tar xzvf pkgsrc.tar.gz
-</pre>
+    # cd /usr
+    # wget ftp://ftp.netbsd.org/pub/pkgsrc/current/pkgsrc.tar.gz
+    # tar xzvf pkgsrc.tar.gz
 
 Now, there is a ports-looking sort of thing under
 /usr/pkgsrc. Nifty. But you need NetBSD's make to use it. Luckily,
 there's a bootstrap script to get you started.
 
-<pre>
-# cd /usr/pkgsrc/bootstrap
-# ./bootstrap
-</pre>
+    # cd /usr/pkgsrc/bootstrap
+    # ./bootstrap
 
 Something should happen and at the end, there should be some binaries
 in /usr/pkg/bin and /usr/pkg/sbin. That's where all of the pkgsrc
 installed stuff will go, so you might want to add the following to
 your shell's profile:
 
-<pre>
-export PATH=$PATH:/usr/pkg/bin:/usr/pkg/sbin
-</pre>
+    export PATH=$PATH:/usr/pkg/bin:/usr/pkg/sbin
 
 Additionally, you might want man pages.
 
-<pre>
-export MANPATH=$MANPATH:/usr/pkg/man
-</pre>
+    export MANPATH=$MANPATH:/usr/pkg/man
 
 Now everything's set up to start building. You might not have an X
 server yet and even if you do, you'll want to replace it with
 pkgsrc's. Installing a port is easy:
 
-<pre>
-$ cd /usr/pkgsrc/x11/modular-xorg-server
-$ sudo bmake install
-</pre>
+    $ cd /usr/pkgsrc/x11/modular-xorg-server
+    $ sudo bmake install
 
 On my old laptop, this took several hours. If you have a more recent
 machine, it shouldn't take too long.

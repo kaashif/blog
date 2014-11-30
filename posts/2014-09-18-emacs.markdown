@@ -16,15 +16,13 @@ one, where the author's stupidity is front and center.
 I admit that Atom can't replace Vim, as the title says, but here is
 the kicker:
 
-<pre>
-If this sounds a bit commonplace, it's because Emacs' big idea has
-been widely influential and extensibility is today a standard feature
-in any serious editor. Sublime Text uses Python instead of Lisp, and
-Atom uses Coffeescript, but the fundamentals of commands and keymaps
-are built in to the core. Even Vim has absorbed Emacs' extensibility:
-Vim script can define new functions, which can be mapped to command
-keystrokes.
-</pre>
+> If this sounds a bit commonplace, it's because Emacs' big idea has
+> been widely influential and extensibility is today a standard feature
+> in any serious editor. Sublime Text uses Python instead of Lisp, and
+> Atom uses Coffeescript, but the fundamentals of commands and keymaps
+> are built in to the core. Even Vim has absorbed Emacs' extensibility:
+> Vim script can define new functions, which can be mapped to command
+> keystrokes.
 
 While Emacs' big idea has caught on, hardly any program, let alone any
 editor lets you customise it in the way Emacs does. For example, it is
@@ -37,11 +35,9 @@ limited extensibility.
 
 Here's another gem:
 
-<pre>
-This philosophy of minimalist commands that can be composed together
-is the fundamental originating philosophy of Unix, and Vim exemplifies
-it like no other editor.
-</pre>
+> This philosophy of minimalist commands that can be composed together
+> is the fundamental originating philosophy of Unix, and Vim exemplifies
+> it like no other editor.
 
 Unix philosophy = good. OK. I get it. I hear the same thing from
 anti-systemd zealots who spout this tripe without knowing what it

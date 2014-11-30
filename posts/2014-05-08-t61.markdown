@@ -52,21 +52,15 @@ well.
 After getting the install media, you'll want to dd it to a disk. Make
 sure to modify the following command for your disk:
 
-<pre>
-$ dd if=install55.fs of=/dev/sd1c
-
-</pre></pre>
+    $ dd if=install55.fs of=/dev/sd1c
 
 After that, the USB drive is bootable, so reboot, wait for the kernel
 messages to scroll by (all of that text with a blue background), and
 you'll be taken to a screen where you'll be asked the following
 question:
 
-<pre>
-Welcome to the OpenBSD/i386 5.5 installation program.
-(I)nstall, (U)pgrade, (A)utoinstall or (S)hell?
-
-</pre></pre>
+    Welcome to the OpenBSD/i386 5.5 installation program.
+    (I)nstall, (U)pgrade, (A)utoinstall or (S)hell?
 
 Here, you'll want to type "i" and hit enter, you're installing. Unless
 you're upgrading, but then, you probably don't need my help.
@@ -81,11 +75,8 @@ general OpenBSD installation, look to
 
 When you see this:
 
-<pre>
-Available network interfaces are: iwn0 re0 vlan0.
-Which one do you wish to configure? (or 'done') [re0]
-
-</pre></pre>
+    Available network interfaces are: iwn0 re0 vlan0.
+    Which one do you wish to configure? (or 'done') [re0]
 
 If you try to use the wireless card straight away, it will not work, and
 the kernel will spit out the error "iwn-4965: could not read firmware".
@@ -116,18 +107,12 @@ Assuming you went the same route I did, you'll want to create a new
 file system on the now-useless installation media, so you can use it to
 store firmware.
 
-<pre>
-$ mkfs_msdos /dev/sd1c
-
-</pre></pre>
+    $ mkfs_msdos /dev/sd1c
 
 Then take out the USB drive, download the firmware on another PC onto
 the drive, and install the firmware package on your laptop with pkg_add:
 
-<pre>
-$ sudo pkg_add -Dnosig iwn-firmware-5.10p0.tgz
-
-</pre></pre>
+    $ sudo pkg_add -Dnosig iwn-firmware-5.10p0.tgz
 
 You need to tell pkg_add to ignore signatures, because the firmware
 packages are signed by a different key to the normal packages, so
@@ -142,19 +127,13 @@ something that looks a bit different.
 
 If you're still in doubt, try this:
 
-<pre>
-$ dmesg | grep intel
-
-</pre></pre>
+    $ dmesg | grep intel
 
 My laptop shows this:
 
-<pre>
-inteldrm0 at vga1
-drm0 at inteldrm0
-inteldrm0: 1280x800
-
-</pre></pre>
+    inteldrm0 at vga1
+    drm0 at inteldrm0
+    inteldrm0: 1280x800
 
 That means that the Direct Rendering Manager works, and has managed to
 work out the resolution of the laptop's screen. This means that X will

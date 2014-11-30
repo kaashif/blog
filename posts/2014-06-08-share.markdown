@@ -30,28 +30,19 @@ quick-and-dirty web server solution.
 Even better it starts within a second even on really old hardware. If
 you want to share a directory, here's what you do:
 
-<pre>
-$ thttpd
-
-</pre></pre>
+    $ thttpd
 
 That was very simple, fast and easy! The problem is that you need to be
 root to bind to port 80, so just kill that process and start another
 one, like this:
 
-<pre>
-$ thttpd -p 8000
-
-</pre></pre>
+    $ thttpd -p 8000
 
 That can be run as any user, since port 8000 is high enough not to need
 root to be used. Since it daemonizes straight away, to kill it, you need
 to use `pkill`.
 
-<pre>
-$ pkill thttpd
-
-</pre></pre>
+    $ pkill thttpd
 
 And that's that. A _simpler_ than starting up an interpreter for a
 programming language and loading modules within modules of code just to
@@ -129,11 +120,8 @@ The finished script looks like this:
 
 And its output looks like this:
 
-<pre>
-Starting thttpd: done
-127.0.0.1:8000
-192.168.0.9:8000
-
-</pre></pre>
+    Starting thttpd: done
+    127.0.0.1:8000
+    192.168.0.9:8000
 
 Now you can type `share` and have a web server up in a minimum of time.

@@ -21,6 +21,14 @@ myPandocCompiler =
 pageRoute :: Routes
 pageRoute = customRoute $ replace ".markdown" "/index.html" . toFilePath
 
+myFeedConfiguration = FeedConfiguration
+    { feedTitle       = "/dev/kaashif"
+    , feedDescription = "Programming, software freedom and Unix"
+    , feedAuthorName  = "Kaashif Hymabaccus"
+    , feedAuthorEmail = "kaashif@kaashif.co.uk"
+    , feedRoot        = "http://kaashif.co.uk"
+    }
+
 main :: IO ()
 main = hakyll $ let pandocCompiler = myPandocCompiler in do
     match "static/*" $ do
@@ -34,15 +42,32 @@ main = hakyll $ let pandocCompiler = myPandocCompiler in do
     match (fromList ["about.markdown", "contact.markdown"]) $ do
         route   pageRoute
         compile $ pandocCompiler
-            >>= loadAndApplyTemplate "templates/default.html" defaultContext
-            >>= relativizeUrls
+          >>= loadAndApplyTemplate "templates/default.html" defaultContext
+          >>= relativizeUrls
 
     match "posts/*" $ do
         route $ setExtension "html"
         compile $ pandocCompiler
-            >>= loadAndApplyTemplate "templates/post.html"    postCtx
-            >>= loadAndApplyTemplate "templates/default.html" postCtx
-            >>= relativizeUrls
+          >>= saveSnapshot "content"   
+          >>= loadAndApplyTemplate "templates/post.html"    postCtx
+          >>= loadAndApplyTemplate "templates/default.html" postCtx
+          >>= relativizeUrls
+              
+    create ["atom.xml"] $ do
+      route idRoute
+      compile $ do
+        let feedCtx = postCtx `mappend` bodyField "description"
+        posts <- fmap (take 10) . recentFirst =<<
+            loadAllSnapshots "posts/*" "content"
+        renderAtom myFeedConfiguration feedCtx posts
+
+    create ["rss.xml"] $ do
+      route idRoute
+      compile $ do
+        let feedCtx = postCtx `mappend` bodyField "description"
+        posts <- fmap (take 10) . recentFirst =<<
+            loadAllSnapshots "posts/*" "content"
+        renderRss myFeedConfiguration feedCtx posts
 
     create ["archive/index.html"] $ do
         route idRoute
@@ -54,9 +79,9 @@ main = hakyll $ let pandocCompiler = myPandocCompiler in do
                     defaultContext
 
             makeItem ""
-                >>= loadAndApplyTemplate "templates/archive.html" archiveCtx
-                >>= loadAndApplyTemplate "templates/default.html" archiveCtx
-                >>= relativizeUrls
+              >>= loadAndApplyTemplate "templates/archive.html" archiveCtx
+              >>= loadAndApplyTemplate "templates/default.html" archiveCtx
+              >>= relativizeUrls
 
 
     match "index.html" $ do
@@ -77,6 +102,6 @@ main = hakyll $ let pandocCompiler = myPandocCompiler in do
 
 postCtx :: Context String
 postCtx =
-    (field "extract" $ return . unlines . take 15 . drop 31 . lines . itemBody) `mappend`
+    (field "extract" $ return.unlines.take 15.drop 31.lines.itemBody) `mappend`
     dateField "date" "%Y-%m-%d" `mappend`
     defaultContext

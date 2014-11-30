@@ -14,9 +14,9 @@ syntax-wise, but it's pretty hard for newcomers to pick up (cue terrible
 monad analogy tutorial)
 
 ##Useful Repos:
-[My dotfiles](http://hg.kaashif.co.uk/hgweb/dotfiles/file)
-[Hinfo - system info displayer](http://hg.kaashif.co.uk/hgweb/hinfo/file)
+* [My dotfiles](http://hg.kaashif.co.uk/hgweb/dotfiles/file)
+* [Hinfo - system info displayer](http://hg.kaashif.co.uk/hgweb/hinfo/file)
 
 ##Software running this site:
-[OpenBSD 5.6](http://openbsd.org)
-[Hakyll](http://jaspervdj.be/hakyll/)
+* [OpenBSD 5.6](http://openbsd.org)
+* [Hakyll](http://jaspervdj.be/hakyll/)

@@ -29,8 +29,12 @@ myFeedConfiguration = FeedConfiguration
     , feedRoot        = "http://kaashif.co.uk"
     }
 
+config = defaultConfiguration {
+           deployCommand = "rsync -avz _site/ server:/var/www/htdocs/kaashif.co.uk/"
+         }
+
 main :: IO ()
-main = hakyll $ let pandocCompiler = myPandocCompiler in do
+main = hakyllWith config $ do
     match "static/*" $ do
         route   idRoute
         compile copyFileCompiler
@@ -41,13 +45,13 @@ main = hakyll $ let pandocCompiler = myPandocCompiler in do
 
     match (fromList ["about.markdown", "contact.markdown"]) $ do
         route   pageRoute
-        compile $ pandocCompiler
+        compile $ myPandocCompiler
           >>= loadAndApplyTemplate "templates/default.html" defaultContext
           >>= relativizeUrls
 
     match "posts/*" $ do
         route $ setExtension "html"
-        compile $ pandocCompiler
+        compile $ myPandocCompiler
           >>= saveSnapshot "content"   
           >>= loadAndApplyTemplate "templates/post.html"    postCtx
           >>= loadAndApplyTemplate "templates/default.html" postCtx

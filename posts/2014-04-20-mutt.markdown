@@ -43,69 +43,65 @@ port.
 
 You need to create/edit the file `~/.muttrc` and input the following:
 
-<pre>
-# The bit before @gmail.com in your address
-set imap_user = "myname" 
-
-\# Google's IMAP server, used to view mail
-set folder = "imaps://imap.gmail.com:993"
-
-\# Google's SMTP server, used to send mail
-set smtp\_url = "smtp://myname@smtp.gmail.com:587/"
-
-\# Displayed in the "from" field of your mail
-set from = "myname@gmail.com"
-
-\# Change this to your preferred editor
-set editor = "vim + -c 'set textwidth=72' -c 'set wrap'"
-
-\# Sets your default inbox to the one on the IMAP server
-set spoolfile = "+INBOX"
-
-\# Makes sure all your folders are polled for new mail
-set imap\_check\_subscribed=yes
-
-\# Interval to check for new mail
-set mail\_check = 120
-
-\# Time to wait for server if connection drops
-set timeout = 300
-set imap\_keepalive = 300
-
-\# Where Mutt keeps drafts
-set postponed = "+[GMail]/Drafts"
-
-\# Mutt's cache settings, important for speed
-set header\_cache=~/.mutt/cache/headers
-set message\_cachedir=~/.mutt/cache/bodies
-
-\# Where mutt stores SSL certificates
-set certificate\_file=~/.mutt/certificates
-
-\# Mutt will never move mail from Gmail to your local mailbox
-set move = no
-
-\# Include message you're replying to in the reply
-set include
-
-\# Sorting by threads is very useful for keeping your mail in order
-set sort = 'threads'
-set sort\_aux = 'reverse-last-date-received'
-
-\# Sets the height of the window opened to view a message
-set pager\_index\_lines = 10
-
-\# I prefer not to show some of the headers, they get in the way
-ignore "Authentication-Results:"
-ignore "DomainKey-Signature:"
-ignore "DKIM-Signature:"
-hdr\_order Date From To Cc
-
-\# A useful key binding to refresh your inbox
-bind index "^" imap-fetch-mail
-
-
-</pre></pre>
+    # The bit before @gmail.com in your address
+    set imap_user = "myname" 
+    
+    # Google's IMAP server, used to view mail
+    set folder = "imaps://imap.gmail.com:993"
+    
+    # Google's SMTP server, used to send mail
+    set smtp_url = "smtp://myname@smtp.gmail.com:587/"
+    
+    # Displayed in the "from" field of your mail
+    set from = "myname@gmail.com"
+    
+    # Change this to your preferred editor
+    set editor = "vim + -c 'set textwidth=72' -c 'set wrap'"
+    
+    # Sets your default inbox to the one on the IMAP server
+    set spoolfile = "+INBOX"
+    
+    # Makes sure all your folders are polled for new mail
+    set imap_check_subscribed=yes
+    
+    # Interval to check for new mail
+    set mail_check = 120
+    
+    # Time to wait for server if connection drops
+    set timeout = 300
+    set imap_keepalive = 300
+    
+    # Where Mutt keeps drafts
+    set postponed = "+[GMail]/Drafts"
+    
+    # Mutt's cache settings, important for speed
+    set header_cache=~/.mutt/cache/headers
+    set message_cachedir=~/.mutt/cache/bodies
+    
+    # Where mutt stores SSL certificates
+    set certificate_file=~/.mutt/certificates
+    
+    # Mutt will never move mail from Gmail to your local mailbox
+    set move = no
+    
+    # Include message you're replying to in the reply
+    set include
+    
+    # Sorting by threads is very useful for keeping your mail in order
+    set sort = 'threads'
+    set sort_aux = 'reverse-last-date-received'
+    
+    # Sets the height of the window opened to view a message
+    set pager_index_lines = 10
+    
+    # I prefer not to show some of the headers, they get in the way
+    ignore "Authentication-Results:"
+    ignore "DomainKey-Signature:"
+    ignore "DKIM-Signature:"
+    hdr_order Date From To Cc
+    
+    # A useful key binding to refresh your inbox
+    bind index "^" imap-fetch-mail
 
 That might seem like a lot of variables, but they're all well-named and
 well-documented in [Mutt's online manual](http://www.mutt.org/doc/manual/).
@@ -120,10 +116,7 @@ until all the certs are accepted.
 
 Next, you'll see a password prompt, like this:
 
-<pre>
-Password for kaashifhymabaccus@gmail.com@imap.gmail.com:
-
-</pre></pre>
+    Password for kaashifhymabaccus@gmail.com@imap.gmail.com:
 
 Of course, type in your password, and it'll be sent off over an SSL
 connection to Google's IMAP server.
@@ -140,10 +133,7 @@ You can use the up and down arrow keys to scroll through the mail, as
 well as the standard Page Down and Page Up keys. You can also type in a
 number and a prompt should appear like this:
 
-<pre>
-Jump to message: 1
-
-</pre></pre>
+    Jump to message: 1
 
 If you look ot the far left of Mutt, you should see a column of numbers.
 Type in any one of those, and Mutt will jump to it.
@@ -155,10 +145,7 @@ the top 1/5.
 When you're at the index (the screen you see just after loggging in),
 you should see this at the top:
 
-<pre>
-q:Quit  d:Del  u:Undel  s:Save  m:Mail  r:Reply  g:Group  ?:Help
-
-</pre></pre>
+    q:Quit  d:Del  u:Undel  s:Save  m:Mail  r:Reply  g:Group  ?:Help
 
 You'll see bars like this at all screens of Mutt, so press "?" if you
 forget what a key does.
@@ -171,10 +158,7 @@ to maximise viewing pleasure for everyone involved.
 After quitting your editor, you'll be taken to a screen with this at the
 top:
 
-<pre>
-y:Send  q:Abort  t:To  c:CC  s:Subj  a:Attach file  d:Descrip  ?:Help
-
-</pre></pre>
+    y:Send  q:Abort  t:To  c:CC  s:Subj  a:Attach file  d:Descrip  ?:Help
 
 It should be obvious how to send the mail or change the headers.
 

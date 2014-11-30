@@ -192,3 +192,8 @@ footer p + p {
 footer p + p + p {
 	float: left;
 }
+
+a#feedimg {
+	float: right;
+	margin-right: 10px;
+}

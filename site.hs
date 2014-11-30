@@ -91,7 +91,7 @@ main = hakyllWith config $ do
     match "index.html" $ do
         route idRoute
         compile $ do
-            posts <- loadAll "posts/*" >>= recentFirst
+            posts <- loadAllSnapshots "posts/*" "content" >>= recentFirst
             let indexCtx =
                     listField "posts" postCtx (return posts) `mappend`
                     constField "title" "Home"                `mappend`
@@ -106,6 +106,6 @@ main = hakyllWith config $ do
 
 postCtx :: Context String
 postCtx =
-    (field "extract" $ return.unlines.take 15.drop 31.lines.itemBody) `mappend`
+    (field "extract" $ return.unlines.take 15.lines.itemBody) `mappend`
     dateField "date" "%Y-%m-%d" `mappend`
     defaultContext

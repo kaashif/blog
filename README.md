@@ -1,9 +1,7 @@
 /dev/kaashif
 ============
-This is the source for my blog. I use
-[tau](http://hg.kaashif.co.uk/hgweb/tau/file) to generate it, since I
-couldn't be bothered with compiling a load of code, a Perl script is
-much easier.
+I use [Hakyll](http://jaspervdj.be/hakyll/) to turn this site into
+servable HTML.
 
 See the finished product at <http://kaashif.co.uk>.
 

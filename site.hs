@@ -1,8 +1,12 @@
 {-# LANGUAGE OverloadedStrings #-}
 import Data.Monoid (mappend)
 import Data.List.Utils (replace)
+import Data.Char (isAlphaNum, toLower)
 import Text.Pandoc.Options
 import qualified Data.Set as S
+import qualified Data.Map as M
+import Data.List (intersperse)
+import Data.Maybe (fromJust)
 import Hakyll
 
 myPandocCompiler =
@@ -20,6 +24,17 @@ myPandocCompiler =
 
 pageRoute :: Routes
 pageRoute = customRoute $ replace ".markdown" "/index.html" . toFilePath
+
+postRoute :: Routes
+postRoute = metadataRoute $ \m -> constRoute $ concat $ intersperse "/" [ dateify (fromJust $ M.lookup "date" m)
+                                                                        , titleify (fromJust $ M.lookup "title" m)
+                                                                        , "index.html"  
+                                                                        ]
+titleify :: String -> String
+titleify = map toLower . filter (\c -> or [isAlphaNum c, c =='-']) . replace " " "-"
+
+dateify :: String -> String
+dateify = replace "-" "/"
 
 myFeedConfiguration = FeedConfiguration
     { feedTitle       = "/dev/kaashif"
@@ -50,7 +65,7 @@ main = hakyllWith config $ do
           >>= relativizeUrls
 
     match "posts/*" $ do
-        route $ setExtension "html"
+        route   postRoute
         compile $ myPandocCompiler
           >>= saveSnapshot "content"   
           >>= loadAndApplyTemplate "templates/post.html"    postCtx

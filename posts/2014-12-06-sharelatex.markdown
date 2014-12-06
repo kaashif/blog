@@ -1,7 +1,7 @@
 ---
 title: ShareLaTeX on OpenBSD
 comment: Setting up a self-hosted ShareLaTeX instance on an OpenBSD server
-date: 2014-06-12
+date: 2014-12-06
 ---
 
 The other day, I was trying to access <http://sharelatex.com> at

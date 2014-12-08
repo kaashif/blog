@@ -1,7 +1,7 @@
 /dev/kaashif
 ============
 I use [Hakyll](http://jaspervdj.be/hakyll/) to turn this site into
-servable HTML.
+servable HTML. It's cool, check it out.
 
 See the finished product at <http://kaashif.co.uk>.
 

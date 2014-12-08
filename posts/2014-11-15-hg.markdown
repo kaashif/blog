@@ -4,6 +4,10 @@ comment: I switched to Mercurial. Here's why I did and why you might want to.
 date: 2014-11-15
 ---
 
+UPDATE: I now use Mercurial on the client side (i.e. everything I do
+locally involves `hg`) and Git on the server-side. It just makes it
+easier to mirror to Gitorious, GitLab, etc. You can view all the
+repos at <http://kaashif.co.uk/code>.
 
 Earlier in the year, I was getting curious about version control
 systems other than Git. Git was my first VCS, and the one I was most

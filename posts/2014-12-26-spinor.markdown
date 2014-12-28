@@ -58,11 +58,19 @@ This matrix $M$ is a unitary matrix, if and only if:
 
 * $M^{\dagger}M = MM^{\dagger} = I$
 * Multiplying by $M$ preserves the inner product of two complex
-  vectors. i.e. $\langle Mx, My \rangle = \langle x,y \rangle$
+  vectors. i.e. $Mx \dot My = x \dot y$
 * $|\det(M)| = 1$
 
-There are a few other conditions, but they'd require a longer
-explanation. In any case, the most important parts are there.
+In case you're wondering, the inner product of two vectors in
+$\mathbb{C}^2$ is defined as:
+
+$$(a,b) \dot (c,d) = ac^\ast + bd^\ast$$
+
+This is known as the Hermitian inner product.
+
+There are a few other conditions for a matrix to be unitary, but
+they'd require a longer explanation. In any case, the most important
+parts are there.
 
 Importantly, all of these properties mean that unitary $n \times n$
 matrices form a group, $U(n)$ under matrix multiplication.
@@ -79,8 +87,8 @@ a bijection, since not all quaternions correspond to unitary
 matrices. Maybe that's not obvious yet.
 
 To see how $\mathbb{H}$ relates to $2 \times 2$ matrices, let's look
-at the mapping from from $\mathbb{C}$. Complex numbers can be
-represented by a real matrix in the form:
+at the mapping from from $\mathbb{C}$. Complex numbers in the form
+$a+bi$ can be represented by a real matrix in the form:
 
 $$
 \begin{bmatrix}
@@ -90,14 +98,18 @@ b & a
 $$
 
 Using that, it seems natural to say that $\mathbb{H}$ is isomorphic to
-$2 \times 2$ matrices in the form:
+$2 \times 2$ complex matrices in the form:
 
 $$
+X = 
 \begin{bmatrix}
-\alpha & -\beta^\ast \\
-\beta & \alpha^\ast
+\alpha & \beta \\
+-\beta^\ast & \alpha^\ast
 \end{bmatrix}
 $$
+
+Where $X = a + b\mathbf{i} + c\mathbf{j} + d\mathbf{k}$, $\alpha =
+a+bi$ and $\beta = c + di$.
 
 If we remember the handy quaternion multiplication table, use the
 right hand rule for vector multiplication, or use
@@ -105,8 +117,8 @@ right hand rule for vector multiplication, or use
 image (very intuitive), we remember that:
 
 $$
-\mathbf{i}\mathbf{j} = \mathbf{k},
-\mathbf{j}\mathbf{k} = \mathbf{i},
+\mathbf{i}\mathbf{j} = \mathbf{k},\;\;
+\mathbf{j}\mathbf{k} = \mathbf{i},\;\;
 \mathbf{k}\mathbf{i} = \mathbf{j}
 $$
 
@@ -118,12 +130,12 @@ $$
 \begin{bmatrix}
 i & 0 \\
 0 & -i
-\end{bmatrix},
+\end{bmatrix}\!,\;\;
 \mathbf{j} =
 \begin{bmatrix}
 0 & 1 \\
 -1 & 0
-\end{bmatrix},
+\end{bmatrix}\!,\;\;
 \mathbf{k} =
 \begin{bmatrix}
 0 & i \\
@@ -133,7 +145,12 @@ $$
 
 Obviously, the only quaternions that will end up with determinant 1
 will be the ones of norm 1 - the unit quaternions. Thus, the mapping
-is obviously injective.
+is obviously injective, since not all quaternions have this.
+
+The norm of a quaternion is simple to work out, since (intuitively)
+norm is a generalised idea of the length of a vector. For example, for
+the quaternion $X$ I mentioned earlier, its norm would be
+$\sqrt{a^2+b^2+c^2+d^2}$.
 
 ##What use is this?
 

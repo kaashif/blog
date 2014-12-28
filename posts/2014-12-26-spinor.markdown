@@ -156,10 +156,11 @@ Just a note: if you want to multiply quaternions $X$ and $Y$, it's
 easier to treat their real parts and imaginary parts separately. If we
 say $X = (x,\vec{x})$ and $Y=(y,\vec{y})$:
 
-$$XY = (xy - \vec{x} \dot \vec{y}) + (x\vec{y} + y\vec{x} + \vec{x}
-\times \vec{y})$$
+$$
+XY = (xy - \vec{x} \cdot \vec{y}) + (x\vec{y} + y\vec{x} + \vec{x} \times \vec{y})
+$$
 
-This is a lot easier because $\vec{x}$ and $\vec{y}$ are just normal
+This is a lot easier because $\vec{x}$ and $\vec{y}$ are just ordinary
 vectors in $\mathbb{R}^3$, which are very easy to deal with.
 
 ##What use is this?

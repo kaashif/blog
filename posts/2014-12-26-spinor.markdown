@@ -58,13 +58,13 @@ This matrix $M$ is a unitary matrix, if and only if:
 
 * $M^{\dagger}M = MM^{\dagger} = I$
 * Multiplying by $M$ preserves the inner product of two complex
-  vectors. i.e. $Mx \dot My = x \dot y$
+  vectors. i.e. $Mx \cdot My = x \cdot y$
 * $|\det(M)| = 1$
 
 In case you're wondering, the inner product of two vectors in
 $\mathbb{C}^2$ is defined as:
 
-$$(a,b) \dot (c,d) = ac^\ast + bd^\ast$$
+$$(a,b) \cdot (c,d) = ac^\ast + bd^\ast$$
 
 This is known as the Hermitian inner product.
 

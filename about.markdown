@@ -2,6 +2,11 @@
 title: About
 ---
 
+<p class="tengwar annatar"
+data-tengwar="nán hirindo, i anhanda atan or ambar"
+data-mode="classical">
+</p>
+
 #About
 I'm a programmer, student and free software "activist", meaning I bought
 a T-shirt from fsf.org once and wrote a patch for OpenBSD a few
@@ -14,8 +19,8 @@ syntax-wise, but it's pretty hard for newcomers to pick up (cue terrible
 monad analogy tutorial)
 
 ##Useful Repos:
-* [My dotfiles](http://hg.kaashif.co.uk/hgweb/dotfiles/file)
-* [Hinfo - system info displayer](http://hg.kaashif.co.uk/hgweb/hinfo/file)
+* [My dotfiles](http://kaashif.co.uk/code/dotfiles/)
+* [Hinfo - system info displayer](http://kaashif.co.uk/code/hinfo/)
 
 ##Software running this site:
 * [OpenBSD 5.6](http://openbsd.org)

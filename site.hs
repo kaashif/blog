@@ -50,7 +50,7 @@ config = defaultConfiguration {
 
 main :: IO ()
 main = hakyllWith config $ do
-    match "static/*" $ do
+    match "static/**" $ do
         route   idRoute
         compile copyFileCompiler
 

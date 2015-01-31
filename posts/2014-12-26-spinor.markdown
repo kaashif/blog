@@ -16,6 +16,7 @@ explain something that boring. Then I saw this quote:
 > sense they describe the "square root" of geometry and, just as
 > understanding the square root of -1 took centuries, the same might
 > be true of spinors.
+> <cite>Michael Atiyah</cite>
 
 Wow, that sounds cool. Maybe I'll be the one to explain spinors to
 everyone.

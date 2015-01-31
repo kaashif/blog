@@ -150,6 +150,7 @@ blockquote {
 	line-height: 1.45;
 	position: relative;
 	color: #383838;
+	margin-left: 15px;
 }
 
 img {

@@ -2,11 +2,6 @@
 title: About
 ---
 
-<p class="tengwar annatar"
-data-tengwar="nán hirindo, i anhanda atan or ambar"
-data-mode="classical">
-</p>
-
 #About
 I'm a programmer, student and free software "activist", meaning I bought
 a T-shirt from fsf.org once and wrote a patch for OpenBSD a few

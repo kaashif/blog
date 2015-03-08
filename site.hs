@@ -121,6 +121,7 @@ main = hakyllWith config $ do
 
 postCtx :: Context String
 postCtx =
-    (field "extract" $ return.unlines.take 15.lines.itemBody) `mappend`
+--  (field "extract" $ return.unlines.take 15.lines.itemBody) `mappend`
+    (field "extract" $ return.itemBody) `mappend`
     dateField "date" "%Y-%m-%d" `mappend`
     defaultContext

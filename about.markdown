@@ -11,7 +11,7 @@ These days, most programs I write are either in Python, Haskell or C.
 Python and C are the easiest languages around, and have so little syntax
 that anyone could learn all of it in a few weeks. Haskell is pretty easy
 syntax-wise, but it's pretty hard for newcomers to pick up (cue terrible
-monad analogy tutorial)
+monad analogy tutorial).
 
 ##Useful Repos:
 * [My dotfiles](http://kaashif.co.uk/code/dotfiles/)

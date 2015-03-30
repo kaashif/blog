@@ -45,7 +45,7 @@ myFeedConfiguration = FeedConfiguration
     }
 
 config = defaultConfiguration {
-           deployCommand = "rsync -avz _site/ server:/var/www/htdocs/kaashif.co.uk/"
+           deployCommand = "cd _site; git add .; git commit -m 'rebuilt'; git push -f -u ssh://55193ee3fcf9334054000012@blog-kaashif.rhcloud.com/~/git/blog.git/ master"
          }
 
 main :: IO ()

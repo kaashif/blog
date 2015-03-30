@@ -45,7 +45,7 @@ myFeedConfiguration = FeedConfiguration
     }
 
 config = defaultConfiguration {
-           deployCommand = "cd _site; git add .; git commit -m 'rebuilt'; git push -f -u ssh://55193ee3fcf9334054000012@blog-kaashif.rhcloud.com/~/git/blog.git/ master"
+           deployCommand = "cd _site; git init; git add .; git commit -m 'rebuilt'; git push -f -u ssh://55193ee3fcf9334054000012@blog-kaashif.rhcloud.com/~/git/blog.git/ master"
          }
 
 main :: IO ()
@@ -121,7 +121,7 @@ main = hakyllWith config $ do
 
 postCtx :: Context String
 postCtx =
---  (field "extract" $ return.unlines.take 15.lines.itemBody) `mappend`
-    (field "extract" $ return.itemBody) `mappend`
+    (field "extract" $ return.unlines.take 15.lines.itemBody) `mappend`
+--  (field "extract" $ return.itemBody) `mappend`
     dateField "date" "%Y-%m-%d" `mappend`
     defaultContext

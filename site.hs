@@ -45,7 +45,7 @@ myFeedConfiguration = FeedConfiguration
     }
 
 config = defaultConfiguration {
-           deployCommand = "cd _site; git init; git add .; git commit -m 'rebuilt'; git push -f -u ssh://55193ee3fcf9334054000012@blog-kaashif.rhcloud.com/~/git/blog.git/ master"
+           deployCommand = "cd _site; git init; git --git-dir=./.git add .; git --git-dir=./.git commit -m 'rebuilt'; git --git-dir=./.git push -f ssh://55193ee3fcf9334054000012@blog-kaashif.rhcloud.com/~/git/blog.git/ master"
          }
 
 main :: IO ()

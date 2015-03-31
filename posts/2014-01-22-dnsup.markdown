@@ -40,9 +40,11 @@ default on most GNU/Linux distros.
 There is some Perl boilerplate we have to get out of the way - the shebang and
 some "use" statements.
 
-    #!/usr/bin/env perl
-    use strict;
-    use warnings;
+```perl
+#!/usr/bin/env perl
+use strict;
+use warnings;
+```
 
 It's worth commenting on my use of "env". On FreeBSD (the OS my servers use),
 Perl is located at /usr/local/bin/perl, while on most GNU/Linux systems, it's at
@@ -54,33 +56,39 @@ the word "host" to mean the subdomain, e.g. the "www" part of "www.fsf.com". For
 this example, let's just say we want "ftp", "www" and "@", "@" being no
 subdomain, e.g. "mydomain.com".
 
-    my $password = "blahblahblah";
-    my $domain = "mydomain.com";
-    my @hosts = ("ftp", "www", "@");
-    my $update_url = "http://dynamicdns.com/update?domain=$domain&password=$password&host=";
+```perl
+my $password = "blahblahblah";
+my $domain = "mydomain.com";
+my @hosts = ("ftp", "www", "@");
+my $update_url = "http://dynamicdns.com/update?domain=$domain&password=$password&host=";
+```
 
 Notice we didn't attempt to put the hosts into the initial definition of the
 update URL. We will do that when we loop over the array and fetch the URL using
 cURL, thus updating the domain.
 
-    foreach(@hosts)
-    {
-        my $final_url = "$update_url$_";
-        my $output = `curl -s "$final_url"`;
+```perl
+foreach(@hosts)
+{
+	my $final_url = "$update_url$_";
+	my $output = `curl -s "$final_url"`;
+```
 
 So far, we have fetched the URL, so the IP of the host's A record should be
 updated at this point. We still need to check for errors and such, so let's do
 that next.
 
-        if ($output =~ /<ErrCount>0/)
-        {
-            print("Update of $_.$domain succeeded.");
-        }
-        else
-        {
-            print("Update of $_.$domain failed!");
-        }
-    }
+```perl
+	if ($output =~ /<ErrCount>0/)
+	{
+		print("Update of $_.$domain succeeded.");
+	}
+	else
+	{
+		print("Update of $_.$domain failed!");
+	}
+}
+```
 
 It's possible to use XML::Simple and actually parse the XML output by the server
 handling DNS updates, but that would be overkill and waste everyone's time. So I
@@ -101,7 +109,7 @@ or router), I tend to notice right away, get impatient, and run the script
 manually. That's beside the point, though, just add this to your /etc/crontab to
 make it run every 10 minutes.
 
-    */10 * * * * nobody /usr/local/bin/dnsup
+	*/10 * * * * nobody /usr/local/bin/dnsup
 
 I run it as "nobody" to avoid any unnecessary root usage. What if you made a
 mistake in the script and overwrote / with garbage? A program having privileges

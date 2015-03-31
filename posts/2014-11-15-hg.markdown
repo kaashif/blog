@@ -27,9 +27,11 @@ of my repos from Git. This posed a bit of a problem, as 99% of guides
 are for converting _from_ Darcs _to_ Git, which is obviously not what
 I want. In the end, I just settled for:
 
-    $ for repo in *; do
-	> (cd $repo; rm -rf .git; darcs initialize);
-	> done
+```bash
+$ for repo in *; do
+> (cd $repo; rm -rf .git; darcs initialize);
+> done
+```
 
 That's not ideal, because I'm essentially nuking all of my history for
 no reason, but as a lone developer, it doesn't matter. So that was
@@ -84,11 +86,15 @@ the classic example of reverting a file. How do you do that?
 
 (Git)
 
-    $ git checkout file
+```bash
+$ git checkout file
+```
 
 (Mercurial)
 
-    $ hg revert file
+```bash
+$ hg revert file
+```
 
 Well I suppose you'd eventually remember that checkout means
 revert... not that bad, right? Well, putting aside the fact that there
@@ -99,11 +105,15 @@ Let's look at reverting to the last commit.
 
 (Git)
 
-    $ git reset --hard c0mm1th45h
+```bash
+$ git reset --hard c0mm1th45h
+```
 
 (Mercurial)
 
-    $ hg rollback
+```bash
+$ hg rollback
+```
 
 I know, I know, I've cherry-picked examples that paint Git in a bad
 light. Whatever fruit I've been picking, the fact is that Mercurial is
@@ -112,7 +122,9 @@ a lot easier to use, and a lot harder to mess up than Git is.
 Also, it's shockingly easy to convert a Git repo (or any other repo)
 to Mercurial. Let's say there's a repo in "myrepo":
 
-    $ hg convert myrepo
+```bash
+$ hg convert myrepo
+```
 	
 Then there'll be a converted Mercurial repo in myrepo-hg. That's
 fantastic!
@@ -128,7 +140,7 @@ gitweb of Mercurial. It was a breeze to set up, you just fill in the
 path to the config in the script itself, set it up as a CGI script,
 and write a config file. Mine looks sort of like this:
 
-    [paths]
+	[paths]
 	blog = /home/hg/blog
 	tau = /home/hg/tau
 
@@ -146,14 +158,16 @@ server to push to BitBucket whenever there are incoming changes.
 This was surprisingly easy. All I had to do was edit the ~/.hgrc of
 the hg user and add a global hook and path to a script:
 
-    [hooks]
+	[hooks]
 	incoming = /usr/local/bin/push_to_bitbucket
 
 Now, when there are _incoming_ changes, they'll be received then
 pushed to BitBucket. Well, they will be after I write the script:
 
-    #!/bin/sh
-	hg push ssh://hg@bitbucket.org/kaashif/$(basename $(pwd))
+```bash
+#!/bin/sh
+hg push ssh://hg@bitbucket.org/kaashif/$(basename $(pwd))
+```
 
 Within 30 mins, I had everything set up. A lot quicker than I was able
 to do it with Git, although I suppose I now have the benefit of

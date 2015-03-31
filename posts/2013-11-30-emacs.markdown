@@ -76,14 +76,16 @@ unreadable binary format or weird markup language, it just appended
 some elisp (Emacs Lisp) to my ".emacs" file, which was nice. Here is
 the result of that:
 
-	(custom-set-variables
-	'(blink-cursor-mode nil)
-	'(custom-enabled-themes (quote (wombat)))
-	'(inhibit-startup-screen t)
-	'(tool-bar-mode nil)
-	'(tooltip-mode nil))
-	(custom-set-faces
-	'(default ((t (:family "Terminus" :foundry "xos4" :slant normal :weight normal :height 90 :width normal)))))
+```lisp
+(custom-set-variables
+'(blink-cursor-mode nil)
+'(custom-enabled-themes (quote (wombat)))
+'(inhibit-startup-screen t)
+'(tool-bar-mode nil)
+'(tooltip-mode nil))
+(custom-set-faces
+'(default ((t (:family "Terminus" :foundry "xos4" :slant normal :weight normal :height 90 :width normal)))))
+```
 
 Now I had to get line numbers, which was as simple as appending
 `(global-linum-mode 1)` to my ".emacs". To get a space between the
@@ -103,9 +105,11 @@ Emacs comes with a package manager called, imaginatively,
 I added a few, using the example on the EmacsWiki to guide me. Here is
 what I had to add:
 
-	(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-	                         ("marmalade" . "http://marmalade-repo.org/packages/")
-                             ("melpa" . "http://melpa.milkbox.net/packages/")))
+```lisp
+(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+ ("marmalade" . "http://marmalade-repo.org/packages/")
+ ("melpa" . "http://melpa.milkbox.net/packages/")))
+```
 
 Now I had 3 repos to install my favourite packages from. I needed
 something to auto pair parenthesis and the like, so I installed

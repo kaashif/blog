@@ -37,35 +37,39 @@ In C, let's say, you might want a function which takes a name and does
 something with it, returning something else, perhaps a boolean
 indicating whether the name is valid and in some database somewhere:
 
-    bool validate(char* name)
-    {
-        // some code
-    }
+```c
+bool validate(char* name)
+{
+	// some code
+}
+```
 
 That is all well and good, but what if the pointer passed to the
 function, instead of pointing to an array like you'd expect, is null?
 You'd have to add in a null check.
 
-    bool validate(char* name)
-    {
-        if (name == NULL)
-            return false;
-
-        // some code
-    }
+```c
+bool validate(char* name)
+{
+	if (name == NULL)
+		return false;
+	// some code
+}
+```
 
 That's not terribly shocking, but it's a bit inconvenient. That seems
 like a low-level problem you'd never get in a higher-level language like
 Java, for example. That is wrong. A similar function would look like
 this:
 
-    bool validate(String name)
-    {
-        if (name == null)
-            return false;
-
-        // code
-    }
+```c
+bool validate(String name)
+{
+	if (name == null)
+		return false;
+	// code
+}
+```
 
 Why are our types nullable? That seems like a terrible design decision
 which results in NullPointerExceptions for everyone. Abstracting the
@@ -75,7 +79,9 @@ In Haskell, types are not nullable. You can instead use optional types.
 For example, if you have a function that could fail, you either return
 "Just" the answer or "Nothing":
 
-    validate name = if ... then Just answer else Nothing
+```haskell
+validate name = if condition then Just answer else Nothing
+```
 
 While this sort of thing can and is done in other languages, beginners
 tend not to be exposed to them. Even if they were, the fact is that most
@@ -84,7 +90,9 @@ code out there is riddled with checks for null.
 Even worse, most people are unaware of how easy it is to code such a
 solution when you have a good algebraic type system:
 
-    data Maybe a = Just a | Nothing
+```haskell
+data Maybe a = Just a | Nothing
+```
 
 In other languages, this sort of thing would probably done via sentinel
 values, which brings with it a whole host of problems. Beginners would
@@ -99,9 +107,11 @@ started to learn Haskell, I thought it looked simple enough to write a
 simple text adventure in. In Python, such a game could be boiled down
 to:
 
-    player = Player()
-    while player.alive:
-        # get input, update world etc
+```python
+player = Player()
+while player.alive:
+	# get input, update world etc
+```
 
 The key part is that there is a main game loop. This is how it is in
 most games: there is some sort of loop that is run over and over until
@@ -110,13 +120,17 @@ the player dies or quits. Simple enough, right?
 My first experience with Haskell and IO was with the typical "Hello,
 world!" program:
 
-    main = putStrLn "Hello, world!"
+```haskell
+main = putStrLn "Hello, world!"
+```
 
 That seems simple, too. Surely it won't be too hard to do something like
 this:
 
-    player = new Player
-    main = while (alive player) (play game)
+```haskell
+player = new Player
+main = while (alive player) (play game)
+```
 
 Well, that would be very hard for a beginner to do, considering that
 "player" is a constant (there are no variables in Haskell) and there are

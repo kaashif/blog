@@ -57,12 +57,12 @@ characters on the screen. There are instructions to do that [here](http://www.op
 
 Here is what the relevant part of my /etc/rc.local looks like:
 
-    wsconscfg -dF 1
-    wsconscfg -dF 2
-    wsconscfg -dF 3
-    wsconscfg -t 80x50 1
-    wsconscfg -t 80x50 2
-    wsconscfg -t 80x50 3
+	wsconscfg -dF 1
+	wsconscfg -dF 2
+	wsconscfg -dF 3
+	wsconscfg -t 80x50 1
+	wsconscfg -t 80x50 2
+	wsconscfg -t 80x50 3
 
 So I just did that for screens 1, 2, and 3, so I can now see twice the amount of
 text.
@@ -91,14 +91,14 @@ configuration file it generates only does the obvious - it changes the driver to
 I already knew. To get my card to work, I had to add several options to the
 "Device" section. Here is what that part of my config looked like:
 
-    Section "Device"
-        Identifier "gfxcard"
-        Driver "trident"
-        Option "NoAccel" "True"
-        Option "ShadowFB" "Enable"
-        Option "NoPciBurst" "Enable"
-        Option "FramebufferWC"
-    EndSection
+	Section "Device"
+		Identifier "gfxcard"
+		Driver "trident"
+		Option "NoAccel" "True"
+		Option "ShadowFB" "Enable"
+		Option "NoPciBurst" "Enable"
+		Option "FramebufferWC"
+	EndSection
 
 To clarify, this did not go into my xorg.conf, I created a new file in
 /usr/X11R6/share/X11/xorg.conf.d called 99-trident.conf. The "99" ensured that
@@ -108,8 +108,8 @@ Documentation on what these options do can be found
 resolution is incorrect (it wasn't in my case), you may have a timing issue,
 which can be fixed by adding one of these options:
 
-    Option "UseTiming1024" # For 1024x768
-    Option "UseTiming800"  # For 800x600
+	Option "UseTiming1024" # For 1024x768
+	Option "UseTiming800"  # For 800x600
 
 With these settings, one finds that the performance of X is very, very bad on
 this hardware. After spending hours getting it to work, I decided to stick to

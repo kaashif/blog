@@ -18,11 +18,15 @@ about dependencies, I saw that I needed Node.js, Grunt, Redis,
 MongoDB, Aspell, and TeXLive. All of these are packaged in OpenBSD and
 they can all be easily installed:
 
-    # pkg_add node redis mongodb texlive_texmf-full aspell latexmk
+```bash
+# pkg_add node redis mongodb texlive_texmf-full aspell latexmk
+```
 
 After that, I installed Grunt using npm:
 
-    # npm install -g grunt-cli
+```bash
+# npm install -g grunt-cli
+```
 	
 That's that. I read through the instructions and they said I needed to
 configure MongoDB, but that's not actually necessary.
@@ -35,18 +39,22 @@ the PATH to be GNU make, and I couldn't be bothered to find some way
 to change this expectation, so I moved BSD make and symlinked GNU make
 in its place:
 
-    # mv /usr/bin/make /usr/bin/bmake
-	# ln -s /usr/local/bin/gmake /usr/bin/make
+```bash
+# mv /usr/bin/make /usr/bin/bmake
+# ln -s /usr/local/bin/gmake /usr/bin/make
+```
 
 Now I was ready to install billions of npm packages and let Grunt set
 up trillions of config files:
 
-    # git clone -b release \
-	https://github.com/sharelatex/sharelatex.git \
-	/var/www/sharelatex
-	# cd /var/www/sharelatex
-	# npm install
-	# grunt install
+```bash
+# git clone -b release \
+https://github.com/sharelatex/sharelatex.git \
+/var/www/sharelatex
+# cd /var/www/sharelatex
+# npm install
+# grunt install
+```
 
 That shouldn't show too many errors. Now, I followed the rest of the
 instructions on the wiki page I linked earlier. In case you're too
@@ -54,25 +62,31 @@ lazy to go there, they're reproduced below (and edited for BSD):
 
 Make a sharelatex user, and chown all files to it:
 
-    # useradd -b /var/www/sharelatex -G sharelatex sharelatex
-	# chown -R sharelatex:sharelatex /var/www/sharelatex
+```bash
+# useradd -b /var/www/sharelatex -G sharelatex sharelatex
+# chown -R sharelatex:sharelatex /var/www/sharelatex
+```
 
 Move the config files to a better place:
 
-    # mkdir /etc/sharelatex
-	# mv /var/www/sharelatex/config/settings.development.coffee \
-	/etc/sharelatex/settings.coffee
+```bash
+# mkdir /etc/sharelatex
+# mv /var/www/sharelatex/config/settings.development.coffee \
+/etc/sharelatex/settings.coffee
+```
 
 Edit that config file and make sure the dir variables read as follows:
 
-    DATA_DIR = '/var/lib/sharelatex/data'
-    TMP_DIR  = '/var/lib/sharelatex/tmp'
+	DATA_DIR = '/var/lib/sharelatex/data'
+	TMP_DIR  = '/var/lib/sharelatex/tmp'
 
 Make all of the directories:
 
-    # mkdir -p /var/lib/sharelatex/data/{user_files,compiles,cache}
-    # mkdir -p /var/lib/sharelatex/tmp/{uploads,dumpFolder}
-	# chown -R sharelatex:sharelatex /var/lib/sharelatex
+```bash
+# mkdir -p /var/lib/sharelatex/data/{user_files,compiles,cache}
+# mkdir -p /var/lib/sharelatex/tmp/{uploads,dumpFolder}
+# chown -R sharelatex:sharelatex /var/lib/sharelatex
+```
 
 That's it, there are only a few things left to do.
 
@@ -81,9 +95,11 @@ I tried to run ShareLaTeX, and it wouldn't work. It seems like
 there's a well-known bug in Node.js (or something like that) that
 causes it to fail unless you do the following:
 
-    # cd /var/www/sharelatex
-	# rm -rf web/node_modules/bcrypt
-	# npm install
+```bash
+# cd /var/www/sharelatex
+# rm -rf web/node_modules/bcrypt
+# npm install
+```
 
 Apparently, it's something to do with dependencies, but it doesn't
 matter, I just ran the above command and everything ended up working.
@@ -93,19 +109,21 @@ Obviously, the Upstart script supplied is impossible to use on
 OpenBSD, but it's not too hard to whip up an rc.d script. Here's the
 one I use:
 
-    #!/bin/sh
-	# /etc/rc.d/sharelatex
-	daemon=/usr/bin/tmux
-	daemon_user=sharelatex
-	daemon_flags="new-session -s sharelatex -d 'grunt run'"
-	
-	. /etc/rc.d/rc.subr
-	
-	rc_stop(){
-        ${rcexec} "sudo -u sharelatex ${daemon} kill-server"
-	}
+```bash
+#!/bin/sh
+# /etc/rc.d/sharelatex
+daemon=/usr/bin/tmux
+daemon_user=sharelatex
+daemon_flags="new-session -s sharelatex -d 'grunt run'"
 
-    rc_cmd $1
+. /etc/rc.d/rc.subr
+
+rc_stop(){
+	${rcexec} "sudo -u sharelatex ${daemon} kill-server"
+}
+
+rc_cmd $1
+```
 
 Obviously, it's a bit primitive, since it just runs in tmux with no
 logging and is killed by killing tmux, but it does work, and you can
@@ -114,11 +132,15 @@ start and stop it.
 The last thing I needed to do is to add everything to
 /etc/rc.conf.local:
 
-    pkg_scripts=redis mongod sharelatex
+```bash
+pkg_scripts=redis mongod sharelatex
+```
 
 And start it up with:
 
-    # /etc/rc.d/sharelatex start
+```bash
+# /etc/rc.d/sharelatex start
+```
 
 Now, it should work. If you've been following along, browse to port
 3000 on your server to check it out. I advise setting up Apache or

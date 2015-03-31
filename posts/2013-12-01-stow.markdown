@@ -35,11 +35,13 @@ symlinks. You do this by going into /usr/local/stow and typing `stow -D
 $PKGNAME`, which removes all of the symlinks in /usr/local. Here is a series of
 commands someone using `stow` might execute.
 
-    $ sudo mkdir /usr/local/stow/my_program
-    $ cd /tmp/my_program
-    $ make install DESTDIR=/usr/local/stow/my_program
-    $ cd /usr/local/stow
-    $ stow my_program
+```bash
+$ sudo mkdir /usr/local/stow/my_program
+$ cd /tmp/my_program
+$ make install DESTDIR=/usr/local/stow/my_program
+$ cd /usr/local/stow
+$ stow my_program
+```
 
 This makes it very simple to upgrade packages or keep multiple concurrent
 versions lying around.
@@ -55,41 +57,41 @@ Let's say a user named bob wants to check his dotfiles into his favourite
 version control system and deploy them easily and quickly on other computers.
 Right now he has a home directory which looks like this:
 
-    bob
-    |-- .bash_profile
-    |-- .bashrc
-    |-- .config
-    |-- .mutt
-    |   |-- config_1
-    |   |-- config_2
-    |   `-- config_3
-    |-- .vim
-    |   |-- bundle
-    |   `-- ftplugin
-    `-- .vimrc
+	bob
+	|-- .bash_profile
+	|-- .bashrc
+	|-- .config
+	|-- .mutt
+	|   |-- config_1
+	|   |-- config_2
+	|   `-- config_3
+	|-- .vim
+	|   |-- bundle
+	|   `-- ftplugin
+	`-- .vimrc
 
 Since `stow` works by recreating a tree of symlinks in the directory above where
 it is invoked, bob can make a directory called "~/dotfiles" or similar, put all
 of his dotfiles in there, and stow will create symlinks for him in the directory
 above "~/dotfiles", his home. His ~/dotfiles should look something like this:
 
-    bob
-    `-- dotfiles
-        |-- bash
-        |   |-- .bash_profile
-        |   `-- .bashrc
-        |-- config
-        |   `-- .config
-        |-- mutt
-        |   `-- .mutt
-        |       |-- config_1
-        |       |-- config_2
-        |       `-- config_3
-        `-- vim
-            |-- .vim
-            |   |-- bundle
-            |   `-- ftplugin
-            `-- .vimrc
+	bob
+	`-- dotfiles
+		|-- bash
+		|   |-- .bash_profile
+		|   `-- .bashrc
+		|-- config
+		|   `-- .config
+		|-- mutt
+		|   `-- .mutt
+		|	   |-- config_1
+		|	   |-- config_2
+		|	   `-- config_3
+		`-- vim
+			|-- .vim
+			|   |-- bundle
+			|   `-- ftplugin
+			`-- .vimrc
 
 This means that he can deploy his dotfiles by going into the dotfiles directory
 and executing `stow bash config mutt vim`, which creates symlinks in ~/,

@@ -17,7 +17,7 @@ Racket.
 This was pretty easy. Unlike with Guile, OpenBSD has a very up-to-date
 Racket package, so I just installed that.
 
-    # pkg_add racket
+	# pkg_add racket
 
 Now I had a Racket interpreter living at /usr/local/bin/racket. Sure,
 I could have just run that and started to play around, but I really
@@ -39,17 +39,21 @@ parentheses. In Racket, sometimes square brackets are used to clear
 things up, which really helps. I've never seen this in Common Lisp or
 other Schemes, so this must be something Racket-specific.
 
-    (let ((a 5)
-          (b 10))
-      (+ a b))
+```lisp
+(let ((a 5)
+	  (b 10))
+  (+ a b))
+```
 
 That seems pretty trivial and non-threatening, right? Right? Well, it
 doesn't stay very nice for long unless you use square brackets or some
 other distinct type of bracket.
 
-    (let ((a (map (lambda (x) (equal? x "hello"))))
-          (b (get-field info some-struct)))
-    (map list a b))
+```lisp
+(let ((a (map (lambda (x) (equal? x "hello"))))
+	  (b (get-field info some-struct)))
+(map list a b))
+```
 
 Maybe you don't think that's too bad, but it looks a lot better with
 square brackets. Mainly, it lets you keep track of which parens close
@@ -60,9 +64,11 @@ Coming from Haskell, it was a bit jarring to see that there was no
 type safety at all in default Racket. You could have something like
 this:
 
-    (if (equal? (read-line) "error out please")
-      (read-line 4 5)
-      (+ 3 4))
+```lisp
+(if (equal? (read-line) "error out please")
+  (read-line 4 5)
+  (+ 3 4))
+```
 
 Of course, since `(read-line)` doesn't take any arguments, you'll get
 an error at runtime complaining about giving it the wrong number of
@@ -75,33 +81,38 @@ all errors at compile-time with a good type system.
 In Racket, you start every file with a declaration of what language
 you're using. Usually:
 
-    #lang racket
+	#lang racket
 
 But sometimes you might be writing a document or info file for raco,
 so you'll want a different one. Here's one I always use, especially
 after that horror story about runtime errors:
 
-    #lang typed/racket
+	#lang typed/racket
 
 Pretty self-explanatory, I think. Here's how some normal Racket code
 might look:
 
-    (define (square n)
-      (* n n))
-
-    (define my-numbers (list 1 2 5 3 8 5))
+```lisp
+(define (square n)
+  (* n n))
+(define my-numbers (list 1 2 5 3 8 5))
+```
 
 In Typed Racket, you can put in type annotations, too! It's usually
 pretty easy to see what's meant. Here are the appropriate type
 annotations for the two bindings above:
 
-    (: square (-> Number Number))
-    (: my-numbers (Listof Integer))
+```lisp
+(: square (-> Number Number))
+(: my-numbers (Listof Integer))
+```
 
 Those actually do look similar to type annotations in Haskell:
 
-    square :: (Num a) => a -> a
-    myNumbers :: [Int]
+```haskell
+square :: (Num a) => a -> a
+myNumbers :: [Int]
+```
 
 Personally, I like the Haskell syntax more. Of course, since Racket is
 a Lisp, the syntax can be changed infinitely, so that's not really a

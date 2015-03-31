@@ -20,7 +20,9 @@ comes with `gcc` by default, and so do the vast majority of GNU/Linux distros.
 If not, you know what to do. The process of actually compiling source will be
 elaborated on later. For now, here is a command you can use to compile programs:
 
-    gcc -o hello hello.c
+```bash
+$ gcc -o hello hello.c
+```
 
 This compiles the source code in the text file `hello.c` and compiles it into
 the executable `hello`. The use of libraries will be covered later, or maybe not
@@ -30,14 +32,16 @@ at all. Look it up on StackOverflow or something.
 The standard "Hello, world!" program is the de facto standard for introducing a
 programming language. Here is a basic implementation:
 
-    // This is a comment
-    #include <stdio.h>
-    
-    int main ()
-    {
-        printf("Hello, world!");
-        return 0;
-    }
+```c
+// This is a comment
+#include <stdio.h>
+
+int main ()
+{
+	printf("Hello, world!");
+	return 0;
+}
+```
 
 The first line includes the standard header containing IO functions. In C, when
 you include a header, the C preprocessor just inserts the text contained in that
@@ -53,15 +57,17 @@ You could also use some macros (basically constants) defined in stdlib.h to
 denote failure and success exit codes. If we did that, we could rewrite the
 source as follows:
 
-    /* You can also do comments like this */
-    #include <stdlib.h>
-    #include <stdio.h>
+```c
+/* You can also do comments like this */
+#include <stdlib.h>
+#include <stdio.h>
 
-    int main ()
-    {
-        printf("Hello, world!");
-        return EXIT_SUCCESS;
-    }
+int main ()
+{
+	printf("Hello, world!");
+	return EXIT_SUCCESS;
+}
+```
 
 The advantages of using `EXIT_SUCCESS` and `EXIT_FAILURE` generally include
 things like portability across platforms where 1 could mean failure on one,
@@ -77,16 +83,22 @@ does have a few quirks you might need to know about.
 Let's say you had an int and you wanted to print it out, along with some words.
 In Python this would be simple:
 
-    print("The value of my integer is %d" % my_int)
+```c
+print("The value of my integer is %d" % my_int)
+```
 
 That syntax actually comes from C, `printf` has a very similar syntax:
 
-    printf("The value of my integer is %d", my_int);
+```c
+printf("The value of my integer is %d", my_int);
+```
 
 The format string and its arguments are all arguments to `printf`, and you can
 have as many of them as you like. For example:
 
-    printf("My car cost %d pounds and weighs %f kg", my_int, my_float);
+```c
+printf("My car cost %d pounds and weighs %f kg", my_int, my_float);
+```
 
 Simple so far, right? You may already be familiar with the idea of output
 streams if you use the command line. Everything `printf` prints, by default,
@@ -97,7 +109,9 @@ to only be read by a human. For this you use stderr, or the standard error
 output stream. Since `printf` only prints to `stdout`, we must use another
 function, `fprintf`. It is used as follows:
 
-    fprintf(stderr, "This is an error");
+```c
+fprintf(stderr, "This is an error");
+```
 
 That is essentially all the printing you'll ever need to know. 
 
@@ -109,10 +123,12 @@ function definitions start with a return type and a list of parameters, all
 specifying their type. If we look at the following function, we can see what I
 mean.
 
-    void say_hello(char* name)
-    {
-        printf("Hello, %s!", name);
-    }
+```c
+void say_hello(char* name)
+{
+printf("Hello, %s!", name);
+}
+```
 
 You should know what `void` means. If you tried to pass a float or a struct of
 some kind to this function, it would not compile. I assume returning other types
@@ -124,7 +140,9 @@ bit odd. Well, that's because all strings in C are really just arrays of
 characters, represented by the `char` data type. This will become clear in the
 following code snippet:
 
-    char hello[10] = "hello";
+```c
+char hello[10] = "hello";
+```
 
 That compiles and behaves as expected. You can pass the variable `hello` to any
 function that expects a C-style string and it will work. But isn't hello an
@@ -140,16 +158,18 @@ merely an address. If you know that, the act of "dereferencing" a pointer is
 also very easy, it's just accessing the data being pointed to. Here is some code
 to explain:
 
-    int my_int = 4;
-    // Creates an integer with the value of 4
-    
-    int* to_int = &my_int; 
-    // Creates a pointer to an integer, which is then set to the 
-    // address of the integer
+```c
+int my_int = 4;
+// Creates an integer with the value of 4
 
-    printf("%d", *to_int);
-    // Dereferences the pointer and prints the value
+int* to_int = &my_int; 
+// Creates a pointer to an integer, which is then set to the 
+// address of the integer
 
+printf("%d", *to_int);
+// Dereferences the pointer and prints the value
+```
+	
 There are some new operators in there: the `&` operator, which takes a variable
 of any type and returns the memory address at which the variable is stored. The
 `*` operator takes a pointer and returns the data stored there. It essentially
@@ -173,7 +193,9 @@ type and returns an int telling you how many bytes that data type takes up per
 instance. Let's say you wanted to allocate memory for an array of 24 ints. You'd
 combine `sizeof` and `malloc` to produce the following:
 
-    int* my_array = malloc(24*sizeof(int));
+```c
+int* my_array = malloc(24*sizeof(int));
+```
 
 And now the pointer `my_array` points to an allocated block of memory which can
 fit 24 ints. But how do you access the ints? Well, the variable's name should
@@ -186,7 +208,9 @@ it, this causes the memory usage of your program to grow and is known as a
 memory leak. These can be avoided by deallocating (or freeing) memory using the
 `free` function, which takes a pointer and frees the memory it points to.
 
-    free(my_array);
+```c
+free(my_array);
+```
 
 In your programs, every call to `malloc` should be accompanied by a call to
 `free` at some point, to eliminate memory leaks. This is very important when

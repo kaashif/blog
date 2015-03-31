@@ -43,15 +43,19 @@ people, or at least, as normal as a Haskell package user can be, I will
 upload it to [Hackage](http://hackage.haskell.org) and you'll be able to
 install it with a simple:
 
-    $ cabal install muon
+```bash
+$ cabal install muon
+```
 
 As it is, you have to get the latest snapshot from my darcs repository.
 You can still use cabal to install it, though, so dependencies are
 handled automatically.
 
-    $ darcs get http://repos.kaashif.co.uk/muon
-    $ cd muon
-    $ cabal install
+```bash
+$ darcs get http://repos.kaashif.co.uk/muon
+$ cd muon
+$ cabal install
+```
 
 It might take a while to build the dependencies from source, so if your
 OS's package manager already has prebuilt binary packages for them, look
@@ -63,7 +67,9 @@ If you want a quick rundown of what you can do with Muon, have a look at
 the README file in the darcs repo. If you're too lazy for that, just
 access Muon's help:
 
-    $ muon help
+```bash
+$ muon help
+```
 
 In reality, it doesn't matter what you type as the command - muon
 outputs a help message for all inputs that aren't already a command. So

@@ -18,13 +18,13 @@ about dependencies, I saw that I needed Node.js, Grunt, Redis,
 MongoDB, Aspell, and TeXLive. All of these are packaged in OpenBSD and
 they can all be easily installed:
 
-```bash
+```
 # pkg_add node redis mongodb texlive_texmf-full aspell latexmk
 ```
 
 After that, I installed Grunt using npm:
 
-```bash
+```
 # npm install -g grunt-cli
 ```
 	
@@ -39,7 +39,7 @@ the PATH to be GNU make, and I couldn't be bothered to find some way
 to change this expectation, so I moved BSD make and symlinked GNU make
 in its place:
 
-```bash
+```
 # mv /usr/bin/make /usr/bin/bmake
 # ln -s /usr/local/bin/gmake /usr/bin/make
 ```
@@ -47,7 +47,7 @@ in its place:
 Now I was ready to install billions of npm packages and let Grunt set
 up trillions of config files:
 
-```bash
+```
 # git clone -b release \
 https://github.com/sharelatex/sharelatex.git \
 /var/www/sharelatex
@@ -62,14 +62,14 @@ lazy to go there, they're reproduced below (and edited for BSD):
 
 Make a sharelatex user, and chown all files to it:
 
-```bash
+```
 # useradd -b /var/www/sharelatex -G sharelatex sharelatex
 # chown -R sharelatex:sharelatex /var/www/sharelatex
 ```
 
 Move the config files to a better place:
 
-```bash
+```
 # mkdir /etc/sharelatex
 # mv /var/www/sharelatex/config/settings.development.coffee \
 /etc/sharelatex/settings.coffee
@@ -82,7 +82,7 @@ Edit that config file and make sure the dir variables read as follows:
 
 Make all of the directories:
 
-```bash
+```
 # mkdir -p /var/lib/sharelatex/data/{user_files,compiles,cache}
 # mkdir -p /var/lib/sharelatex/tmp/{uploads,dumpFolder}
 # chown -R sharelatex:sharelatex /var/lib/sharelatex
@@ -95,7 +95,7 @@ I tried to run ShareLaTeX, and it wouldn't work. It seems like
 there's a well-known bug in Node.js (or something like that) that
 causes it to fail unless you do the following:
 
-```bash
+```
 # cd /var/www/sharelatex
 # rm -rf web/node_modules/bcrypt
 # npm install
@@ -109,7 +109,7 @@ Obviously, the Upstart script supplied is impossible to use on
 OpenBSD, but it's not too hard to whip up an rc.d script. Here's the
 one I use:
 
-```bash
+```
 #!/bin/sh
 # /etc/rc.d/sharelatex
 daemon=/usr/bin/tmux
@@ -132,13 +132,13 @@ start and stop it.
 The last thing I needed to do is to add everything to
 /etc/rc.conf.local:
 
-```bash
+```
 pkg_scripts=redis mongod sharelatex
 ```
 
 And start it up with:
 
-```bash
+```
 # /etc/rc.d/sharelatex start
 ```
 

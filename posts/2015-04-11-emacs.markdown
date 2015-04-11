@@ -1,0 +1,56 @@
+---
+title: Rainbow brackets in Emacs
+date: 2015-04-11
+comment: Too many parens? Look no further!
+---
+
+You know something that really annoys me? When I'm writing some
+Racket, Clojure, or any other Lispy language, and my editor won't
+cooperate. Emacs is far, far, better than most other editors for this
+sort of thing, mostly due to paredit-mode and SLIME (and geiser-mode,
+and clojure-mode, and evil-mode, and...), but there's still one
+problem I hadn't solved until recently.
+
+Matching up sets of parentheses.
+
+I know what you're thinking, a quick 2 second Google search would have
+told me to install rainbow-delimiters, and I did, with
+`M-x package-install RET rainbow-delimiters RET`. Then I added it to
+my .emacs file:
+
+```lisp
+(require 'rainbow-delimiters)
+(global-rainbow-delimiters-mode)
+```
+And that was that. Or was it? Take a look at this:
+
+![Absolutely disgusting](/static/paren1.png)
+
+How can you tell the colours apart when they're so...gray?
+
+How could I fix that? All the colours look the same! I don't want have
+to set all the colours manually, I just want to programatically make
+all of the colours brighter and less drab and indistinguishable from
+each other. Is that so much to ask?
+
+It turns out that it's not, and there's an easy way to do that, just
+`M-x package-install RET cl-lib RET` (although you might already have
+it) and add the following to your .emacs (after requiring
+rainbow-delimiters):
+
+```lisp
+(require 'cl-lib)
+(require 'color)
+(cl-loop
+ for index from 1 to rainbow-delimiters-max-face-count
+ do
+ (let ((face (intern (format "rainbow-delimiters-depth-%d-face" index))))
+   (cl-callf color-saturate-name (face-foreground face) 30)))
+```
+
+That increases the saturation on all the colours to the maximum, so
+they look nice and bright.
+
+![Aaah, much better](/static/paren2.png)
+
+Much better.

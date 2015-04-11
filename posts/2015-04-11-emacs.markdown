@@ -24,7 +24,7 @@ my .emacs file:
 ```
 And that was that. Or was it? Take a look at this:
 
-![Absolutely disgusting](/static/paren1.png)
+![](/static/paren1.png)
 
 How can you tell the colours apart when they're so...gray?
 
@@ -51,6 +51,6 @@ rainbow-delimiters):
 That increases the saturation on all the colours to the maximum, so
 they look nice and bright.
 
-![Aaah, much better](/static/paren2.png)
+![](/static/paren2.png)
 
 Much better.

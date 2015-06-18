@@ -83,6 +83,12 @@ and there actually isn't a man page for them, since the full
 definition is available in <sys/sysctl.h>. Look there
 (/usr/include/sys/sysctl.h) for info on information you can get.
 
+Almost forgot: this is supposed to be a valid program, so return
+something:
+
+	    return 0;
+	}
+
 ##See Also
 This short tutorial is basically just a gateway into the hundreds of
 possible things you can do with processes in OpenBSD. The

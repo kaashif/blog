@@ -1,4 +1,3 @@
-@import url(http://fonts.googleapis.com/css?family=Lato);
 html {
 	background: #FFFFFF;
 }
@@ -6,9 +5,8 @@ html {
 body {
 	padding: 50px 0;
 	margin: 0;
-	font-family: 'Lato', Helvetica, sans-serif;
+	font: 13.34px Helvetica, sans-serif;
 	color: #555;
-	font-weight: 300;
 }
 
 .wrapper {
@@ -48,9 +46,8 @@ header {
 header h1 {
 	margin: 0;
 	padding: 0;
-	font-size: 24px;
-	line-height: 1.2;
 	color: #2D2E2F;
+	font-size: 200%;
 }
 header p {
 	margin: 0;
@@ -67,7 +64,6 @@ header ul li {
 	padding: 13px 5px;
 }
 main {
-	font-size: 15px;
 	border-top: 1px solid #fff;
 	position: relative;
 	border-radius: 8px;
@@ -75,25 +71,20 @@ main {
 
 .content {
 	padding: 15px 20px 20px 20px;
+	margin-top: -50px;
 }
 
 h1, h2, h3, h4, h5, h6 {
+	font-size: 120%;
 	color: #666;
 	padding: 0;
-	margin: 0 0 20px;
-	line-height: 1.2;
 }
 
 p, ul, ol, table, pre, dl {
 	margin: 0 0 20px;
 }
 
-h1, h2, h3 {
-	line-height: 1.1;
-}
-
 h1 {
-	font-size: 28px;
 	color: #2D2E2F;
 }
 
@@ -104,19 +95,6 @@ h2 {
 h3, h4, h5, h6 {
 	color: #494949;
 }
-
-/*
-blockquote {
-	margin: 0px;
-	padding: 20px;
-	padding-bottom: 10px;
-	font-style: italic;
-	background: #ccc;
-	background: rgba(0, 0, 0, 0.06);
-	color: #222;
-	margin-bottom: 20px;
-}
-*/
 
 blockquote:before {
 	display: block;
@@ -141,13 +119,11 @@ blockquote cite:before {
 
 
 blockquote {
-	font-family: Georgia, serif;
-	font-size: 18px;
-	font-style: italic;
+	font-family: Helvetica, serif;
 	width: 500px;
 	margin: 0.25em 0;
 	padding: 0.25em 40px;
-	line-height: 1.45;
+	padding-top: 10px;
 	position: relative;
 	color: #383838;
 	margin-left: 15px;

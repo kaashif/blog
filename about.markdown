@@ -14,8 +14,8 @@ syntax-wise, but it's pretty hard for newcomers to pick up (cue terrible
 monad analogy tutorial).
 
 ##Useful Repos:
-* [My dotfiles](http://kaashif.co.uk/code/dotfiles/)
-* [Hinfo - system info displayer](http://kaashif.co.uk/code/hinfo/)
+* [My dotfiles](http://github.com/kaashif/dotfiles/)
+* [Hinfo - system info displayer](http://github.com/kaashif/hinfo/)
 
 ##Software running this site:
 * [RedHat OpenShift](https://www.openshift.com/)

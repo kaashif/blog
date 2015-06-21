@@ -138,13 +138,15 @@ img {
 
 pre {
 	font-family: monospace;
-	font-size: 10pt;
+	font-size: 90%;;
 	padding: 20px;
 	background: #EEE;
 	color: #555;
 	margin: 0px;
 	margin-bottom: 20px;
 	overflow-x:auto;
+	border-radius: 4px;
+	border: 1px solid #bbb;
 }
 
 li pre {

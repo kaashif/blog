@@ -2,7 +2,7 @@
 title: About
 ---
 
-#About
+##About
 I'm a programmer, student and free software "activist", meaning I bought
 a T-shirt from fsf.org once and wrote a patch for OpenBSD a few
 months ago, making me a fully-qualified expert.
@@ -18,5 +18,6 @@ monad analogy tutorial).
 * [Hinfo - system info displayer](http://kaashif.co.uk/code/hinfo/)
 
 ##Software running this site:
-* [OpenBSD 5.6](http://openbsd.org)
+* [RedHat OpenShift](https://www.openshift.com/)
+* [OpenBSD 5.7](http://openbsd.org)
 * [Hakyll](http://jaspervdj.be/hakyll/)

@@ -40,7 +40,7 @@ I assume you already have run `global-company-mode` (why wouldn't you),
 but if not, just add `(global-company-mode)` to the above to turn it
 on.
 
-Also, you will _definitely_ want to install `rainbow-parentheses` and
+Also, you will _definitely_ want to install `rainbow-delimiters` and
 `paredit-mode`, they are essential to any Lisp programming
 experience. They are, however, not impossible to do without and I
 won't go over how to use them in this article. Do install them,

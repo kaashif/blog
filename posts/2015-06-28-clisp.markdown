@@ -258,7 +258,7 @@ CL-USER> (stumpwm:select-window-by-number 1)
 NIL
 ```
 
-That should've switch to window number 1...so you are in control! Why
+That should've switched to window number 1...so you are in control! Why
 not rebind a key?
 
 ```

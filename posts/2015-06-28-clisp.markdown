@@ -266,7 +266,7 @@ CL-USER> (stumpwm:define-key stumpwm:*root-map* (stumpwm:kbd "u") "exec urxvt")
 NIL
 ```
 
-Try it: press <your prefix key> then "u" (by default, C-t u) and a
+Try it: press your prefix key then "u" (by default, C-t u) and a
 urxvt (replace with your favourite terminal) will spawn.
 
 And you did it all without leaving Emacs or restarting your WM!

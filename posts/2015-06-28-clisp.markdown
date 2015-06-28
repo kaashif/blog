@@ -243,8 +243,8 @@ If everything worked, fantastic!
 
 So you're sitting around coding up the next Node.js webscale NoSQL
 business synergy application when you notice something you want fixed
-with your window manager. You want to fix it. No worries, you can do
-it from within Emacs!
+with your window manager. You want to fix it _right now_ with minimal
+hassle. No worries, you can do it from within Emacs!
 
 `M-x slime-connect`. When prompted for host, accept 127.0.0.1. When
 prompted for port, put in 4004 (not 4005). You are now inside the live

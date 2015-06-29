@@ -8,6 +8,7 @@ import qualified Data.Map as M
 import Data.List (intersperse)
 import Data.Maybe (fromJust)
 import Hakyll
+import Sitemap
 
 myPandocCompiler =
     let mathExtensions = [Ext_tex_math_dollars]
@@ -41,7 +42,12 @@ myFeedConfiguration = FeedConfiguration
     , feedDescription = "Programming, software freedom and Unix"
     , feedAuthorName  = "Kaashif Hymabaccus"
     , feedAuthorEmail = "kaashif@kaashif.co.uk"
-    , feedRoot        = "http://kaashif.co.uk"
+    , feedRoot        = "http://www.kaashif.co.uk/"
+    }
+
+sitemapConfig :: SitemapConfiguration
+sitemapConfig = def
+    { sitemapBase     = "http://www.kaashif.co.uk/"
     }
 
 config = defaultConfiguration {
@@ -81,12 +87,12 @@ main = hakyllWith config $ do
         renderAtom myFeedConfiguration feedCtx posts
 
     create ["rss.xml"] $ do
-      route idRoute
-      compile $ do
-        let feedCtx = postCtx `mappend` bodyField "description"
-        posts <- fmap (take 10) . recentFirst =<<
-            loadAllSnapshots "posts/*" "content"
-        renderRss myFeedConfiguration feedCtx posts
+        route idRoute
+        compile $ do
+          let feedCtx = postCtx `mappend` bodyField "description"
+          posts <- fmap (take 10) . recentFirst =<<
+              loadAllSnapshots "posts/*" "content"
+          renderRss myFeedConfiguration feedCtx posts
 
     create ["archive/index.html"] $ do
         route idRoute
@@ -102,6 +108,9 @@ main = hakyllWith config $ do
               >>= loadAndApplyTemplate "templates/default.html" archiveCtx
               >>= relativizeUrls
 
+    create ["sitemap.xml"] $ do
+        route idRoute
+        compile $ generateSitemap sitemapConfig
 
     match "index.html" $ do
         route idRoute

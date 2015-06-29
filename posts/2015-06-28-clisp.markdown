@@ -1,5 +1,5 @@
 ---
-title: Common Lisp is literally voodoo
+title: Hacking StumpWM with Common Lisp
 comment: Or: How I learned to stop worrying and love the REPL
 date: 2015-06-28
 ---

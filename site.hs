@@ -3,13 +3,42 @@ import Data.Monoid (mappend)
 import Data.List.Utils (replace)
 import Data.Char (isAlphaNum, toLower)
 import Text.Pandoc.Options
+import Text.Pandoc.Definition
 import qualified Data.Set as S
 import qualified Data.Map as M
 import Data.List (intersperse)
 import Data.Maybe (fromJust)
 import Hakyll
 import Sitemap
+import Text.Blaze.Html
+import Text.Blaze
+import qualified Text.Blaze.Html5 as H
+import qualified Text.Blaze.Html5.Attributes as A
+import Pipes.Shell
+import qualified Data.ByteString.Char8 as C8
+import qualified Control.Exception as CE
+import Text.Blaze.Html.Renderer.String
+import System.IO.Unsafe
+import Data.IORef
+import System.Process
+    
 
+-- Some stuff for highlighting with Pygments
+pygTrans :: Block -> Block
+pygTrans (CodeBlock (cls, [lang], _) code) =
+    let composed = renderHtml $ H.div !
+                      (A.class_ . toValue) cls $ do
+                      preEscapedToHtml (runPygment lang code)
+    in RawBlock "html" composed
+pygTrans x = x
+
+runPygment :: String -> String -> String
+runPygment lang txt = unsafePerformIO $ do
+   readProcess "pygmentize" ["-l", lang, "-f", "html"] txt
+
+pygmentize :: Pandoc -> Pandoc
+pygmentize (Pandoc meta bs) = Pandoc meta (map pygTrans bs)
+                
 myPandocCompiler =
     let mathExtensions = [Ext_tex_math_dollars]
         defaultExtensions = writerExtensions defaultHakyllWriterOptions
@@ -21,7 +50,7 @@ myPandocCompiler =
                           writerExtensions = newExtensions,
                           writerHTMLMathMethod = MathJax ""
                         }
-    in pandocCompilerWith readerOptions writerOptions
+    in pandocCompilerWithTransform readerOptions writerOptions pygmentize
 
 pageRoute :: Routes
 pageRoute = customRoute $ replace ".markdown" "/index.html" . toFilePath

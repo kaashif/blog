@@ -53,7 +53,7 @@ Pod is very simple and was designed to be used for Perl. Despite that, it is
 very readable and it should be possible to get the gist of what this Pod markup
 means just by looking at it:
 
-```pod
+```perl
 	=head1 NAME
 	program -- does something
 

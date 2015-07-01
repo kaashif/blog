@@ -14,24 +14,20 @@ import Text.Blaze.Html
 import Text.Blaze
 import qualified Text.Blaze.Html5 as H
 import qualified Text.Blaze.Html5.Attributes as A
-import Pipes.Shell
-import qualified Data.ByteString.Char8 as C8
-import qualified Control.Exception as CE
 import Text.Blaze.Html.Renderer.String
 import System.IO.Unsafe
-import Data.IORef
 import System.Process
     
 
 -- Some stuff for highlighting with Pygments
 pygTrans :: Block -> Block
 pygTrans (CodeBlock (cls, [lang], _) code) =
-    let composed = renderHtml $ H.div !
-                      (A.class_ . toValue) cls $ do
-                      preEscapedToHtml (runPygment lang code)
+    let composed = renderHtml $ preEscapedToHtml $ replace "</div>" "" $ replace "<div class=\"highlight\">" "" (runPygment lang code)
     in RawBlock "html" composed
 pygTrans x = x
 
+-- This is actually pure, but I cannot prove it to the compiler,
+-- so unsafePerformIO _is_ appropriate.
 runPygment :: String -> String -> String
 runPygment lang txt = unsafePerformIO $ do
    readProcess "pygmentize" ["-l", lang, "-f", "html"] txt

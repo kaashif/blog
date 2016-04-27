@@ -19,6 +19,6 @@ racket-doc-link-prose? = true
 posts-index-uri = /index.html
 source-dir = _src
 output-dir = _out
-python-executable = true
+python-executable = python
 pygments-linenos? = false
 pygments-cssclass = source

@@ -21,4 +21,5 @@ source-dir = _src
 output-dir = _out
 python-executable = python
 pygments-linenos? = no
+pygments-linenos? = false
 pygments-cssclass = source

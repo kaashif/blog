@@ -1,7 +1,9 @@
 ##About
-I'm a programmer, student and free software "activist", meaning I bought
-a T-shirt from fsf.org once and wrote a patch for OpenBSD a few
-months ago, making me a fully-qualified expert.
+
+I'm a programmer, student at Oxford University (Maths and CS)and free
+software "activist", meaning I bought a T-shirt from fsf.org once and
+wrote a patch for OpenBSD a few months ago, making me a
+fully-qualified expert.
 
 These days, most programs I write are either in Python, Haskell or C.
 Python and C are the easiest languages around, and have so little syntax
@@ -11,9 +13,7 @@ monad analogy tutorial).
 
 ##Useful Repos:
 * [My dotfiles](http://github.com/kaashif/dotfiles/)
-* [Hinfo - system info displayer](http://github.com/kaashif/hinfo/)
 
 ##Software running this site:
 * [RedHat OpenShift](https://www.openshift.com/)
-* [OpenBSD 5.7](http://openbsd.org)
-* [Hakyll](http://jaspervdj.be/hakyll/)
+* [Frog](https://github.com/greghendershott/frog)

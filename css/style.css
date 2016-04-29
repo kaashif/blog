@@ -162,13 +162,14 @@ table {
 th, td {
 	text-align: left;
 	padding: 5px 10px;
-	padding-top: 10px;
-	padding-bottom: 10px;
-	border-bottom: 1px solid #aaa;
+	padding-top: 1px;
+	padding-bottom: 1px;
+	background-color: #eee;
 }
 
 td + td {
 	max-width: 200px;
+	text-align: right;
 }
 
 dt {
@@ -219,16 +220,21 @@ div.highlight {
 	border-radius: 4px;
 }
 
-table, caption, tbody, tfoot, thead, tr, th, td {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    outline: 0;
-    font-size: 100%;
-    vertical-align: baseline;
-    background: transparent;
-}
-
 td.linenos {
 	display: none;
+}
+
+td {
+	text-align: left;
+}
+
+ul.pagination {
+	list-style: none;
+	margin: auto;
+	width: 30%;
+}
+
+ul.pagination li {
+	display: inline;
+	padding: 5px;
 }

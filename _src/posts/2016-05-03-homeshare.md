@@ -226,8 +226,8 @@ differently, and in this case it is harmless, since the filesystem
 works correctly from both OSes, it's just that the number of backup
 superblocks Debian decided to keep was different than the number
 OpenBSD was expecting. I could look up the right way and the exact
-options to use to have perfect interop, but it works, so I can do that
-later.
+options to use to have perfect interop, but it works as is, so I can
+worry about that later.
 
 All I needed to do was disable the fscking of the partition at boot in
 the /etc/fstab on OpenBSD, and both OSes booted up fine.

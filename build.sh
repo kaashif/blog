@@ -31,6 +31,9 @@ rm _src/index-template.html
 cp -r css _out/
 cp -r static _out/
 
+#copy keybase
+cp keybase.txt _out/
+
 #preview the site
 raco frog -p
 

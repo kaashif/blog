@@ -238,3 +238,18 @@ ul.pagination li {
 	display: inline;
 	padding: 5px;
 }
+
+footer.read-more {
+	padding: 0 0 0 0;
+	margin: 0 0 0 0;
+	padding-bottom: 30px;
+}
+footer.read-more a {
+	position: absolute;
+	visibility: hidden;
+}
+
+footer.read-more a:before {
+	content: '>>> continue reading';
+	visibility: visible;
+}

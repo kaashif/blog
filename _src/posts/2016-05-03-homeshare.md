@@ -8,6 +8,7 @@ right, this should be really easy, but there are some weird things
 that happened while I set this up that I feel should have been written
 down somewhere, so my fear that I was completely borking my system
 would have been assuaged.
+<!-- more -->
 
 Anyway, let's get onto the first thing I had to do:
 

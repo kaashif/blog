@@ -8,6 +8,7 @@ While I think it's very important that children learn logical thinking
 and problem solving, I also realise that the majority of children, and
 people in general, would probably not benefit from a very language
 specific, rote learning based, generally old-fashioned approach to
+<!-- more -->
 teaching programming. Those that would enjoy programming largely have
 the aptitude to learn it themselves, with a bit of guidance. I think
 that the best way to learn is to do - write programs that serve some

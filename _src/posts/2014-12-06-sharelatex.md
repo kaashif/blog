@@ -8,6 +8,7 @@ Internet Explorer and possibly an overzealous filter that could have
 been blocking something. That's what I thought, anyway, until I tried
 it on Chrome and it still didn't work. Odd. The best solution was
 obviously to set up my own ShareLaTeX instance on my server.
+<!-- more -->
 
 ##Dependencies
 On the

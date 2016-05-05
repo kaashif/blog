@@ -8,6 +8,7 @@ me and suggest using Heroku for the next big thing they're
 planning. There is a problem with Heroku: it's not free (libre). That
 didn't stop me from at least trying it out to see what all the fuss
 was about.
+<!-- more -->
 
 ##Deploying a Haskell app on Heroku
 

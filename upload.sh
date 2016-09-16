@@ -9,4 +9,4 @@ cd _out
 #git --git-dir=./.git push -f ssh://55193ee3fcf9334054000012@blog-kaashif.rhcloud.com/~/git/blog.git/ master
 
 #new ec2 thing
-tar czf - . | ssh -i "~/misc/important/blog-aws.pem" ubuntu@ec2-52-16-74-211.eu-west-1.compute.amazonaws.com 'cat - > ~/site.tgz; sudo rm -rf /var/www/html/*; sudo tar -C /var/www/html -xvzf site.tgz'
+tar czf - . | ssh -i "~/.important/new-blog-aws.pem" ubuntu@ec2-52-211-56-49.eu-west-1.compute.amazonaws.com 'cat - > ~/site.tgz; sudo rm -rf /var/www/html/*; sudo tar -C /var/www/html -xvzf site.tgz'

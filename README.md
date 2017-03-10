@@ -3,10 +3,6 @@
 I use [Frog](https://github.com/greghendershott/frog) to turn this site into
 servable HTML. It's cool, check it out.
 
-I now use [OpenShift](http://openshift.redhat.com) to serve the site
-instead of using my own server. Unsurprisingly, Red Hat have better
-internet than I do, so it has turned out better.
-
 See the finished product at <http://www.kaashif.co.uk>.
 
 License

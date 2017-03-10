@@ -1,6 +1,6 @@
 scheme/host = http://www.kaashif.co.uk
 uri-prefix = /
-title = /dev/kaashif
+title = kaashif's blog
 author = Kaashif Hymabaccus
 editor = $EDITOR
 editor-command = {editor} {filename}

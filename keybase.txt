@@ -4,65 +4,58 @@ https://keybase.io/kaashif
 
 I hereby claim:
 
-  * I am an admin of http://www.kaashif.co.uk
+  * I am an admin of https://www.kaashif.co.uk
   * I am kaashif (https://keybase.io/kaashif) on keybase.
-  * I have a public key with fingerprint 3201 AA89 D231 A15E 7C8A  024F 321B 62EB 3CA2 B425
+  * I have a public key with fingerprint B37D 3D00 E91A 9E2F E419  9BAF 5AD1 D873 3E81 0B04
 
 To do so, I am signing this object:
 
 {
     "body": {
         "key": {
-            "eldest_kid": "01015e29f4aee0c205f8e04f797cbeccdf9583e4649b5fdb98668b2df39f8252f7b60a",
-            "fingerprint": "3201aa89d231a15e7c8a024f321b62eb3ca2b425",
+            "eldest_kid": "0101b0e7dc3ce54f885eb7e303a25d487205b622da5c7a8f8f57cbe5aa70bd4ea46c0a",
+            "fingerprint": "b37d3d00e91a9e2fe4199baf5ad1d8733e810b04",
             "host": "keybase.io",
-            "key_id": "321b62eb3ca2b425",
-            "kid": "01015e29f4aee0c205f8e04f797cbeccdf9583e4649b5fdb98668b2df39f8252f7b60a",
+            "key_id": "5ad1d8733e810b04",
+            "kid": "0101b0e7dc3ce54f885eb7e303a25d487205b622da5c7a8f8f57cbe5aa70bd4ea46c0a",
             "uid": "a4597b51c2d09f12c8914fe3cc095319",
             "username": "kaashif"
         },
         "service": {
             "hostname": "www.kaashif.co.uk",
-            "protocol": "http:"
+            "protocol": "https:"
         },
         "type": "web_service_binding",
         "version": 1
     },
-    "ctime": 1462373900,
+    "ctime": 1489165451,
     "expire_in": 157680000,
-    "prev": "359ca8fc1dfd1cef0b22c3b25a5925479ae1ddf53344e0c64e772b91a0cafff8",
-    "seqno": 11,
+    "prev": "a26e4318ead936e3b41ee4e1bcba1eb0aca9f59bdf4056ce9832d7c2fa73f78d",
+    "seqno": 27,
     "tag": "signature"
 }
 
 which yields the signature:
 
 -----BEGIN PGP MESSAGE-----
-Version: GnuPG v2
 
-owGtUm1QFVUYvpevxAmGAn/INWBWPhoC3D27e+8uOjESBUnSpIJwEa+7Z8/CBu7e
-Lz6uCIlSCTYNiBIK5OSkENUwBYiahtKHY2oyjghBURQ6oFRXTGAQqV2G/vWzX2fO
-c57nOc/7zFvj56lbpgcG/t66450R+isTvG5rtH94KcYrgguLL8Xy0eKBCgTkcFry
-JQGLx3ACJ2gEWJHiEMIhwGmRQTglmlgT5BGEgsjSDIkoI8XytCjwLGM0MjwQRJIV
-GUAD0cQbcQ6LwURJzkV2q12SnaotCXCC4xhWACTBqR+YIMPhgBJJQPBGgHgScoCn
-AK0K8xSHplDD8ZwDxUmKiqkXy2K8/+D/z7kLF+04imZNPE1AIOCsSADIsAQlIhJC
-nKVJgtWIDmSXuZ1Iy8pxjjxJxMpiMBUskiDSetUGWSIUFxfHLZHioBJXmK/qrXbF
-qUClQH3Oczqt8Zra6bIu0hFvWTKy8JIsqFWqgiJkd0iKjMUTKhM6Jc2ZoIyANJEs
-jsdgqMQq2ZFF0hi0ycjguIZa7ahIK45m4TaOESEhiAIBkYjzAECSBzRHs4CmTCyH
-CEEQaZKkKLVAI4VMJsCzBIdDThRFBtNms8mKak6oQblc1dQh5cqcs9COsLLlVR6r
-vHT6ZTofbw9ty3TLfQP+Xb2hwABd5/bMdQvvda8EpX+v/jw8uawO2dzCRKtnRd5b
-1d2U776LWGPTsN/HVR3uq8ffTwueCy0fDpwUQ78tyJ6JOlrNbbFGndNn1UY/PIru
-jF5lQtY+Pvtjz4W9e++emOpvi/561y9z3ZXfh3htSDAPvXzlbGcE8tze6/IYbzxH
-poyvnt+on37y4fXY52/ethRlJoR5fOJOuDYXW/lVU5D3wKWSrI4bAceSdp4uG1lx
-Y7gj6GDKWHj1dxc/OHIyanaNuyuSLUp9MbHe0FTx2hOTP9gaw9RuuE3yZx6/7Y6/
-dV9O865hc9qj9t/paU1qNtsaWtre7L+2u61Vn27Y6vJ5LtB/5PeVqKNp/wXzlvoK
-Ie5QABOsZPn7NO+Yn5qwrD9SM92SkbPi4KOZ4t4/T81JYa8cFjb31NV98WFi9a/j
-o2Plofk3/6hIHQut6j/1zIE9cE2MgU3/aPOGpKCBtBe8yL92dHX27Cp2vXumr6WB
-Ln+78umXDM1VsVb/4U8HM3L6RjPY0JFac8DPEclJh0LIhnembWMTffKxVUJJ9MbW
-SMEvbEp5/EZwxfqTfsza+5nzCbW3noILLSkhckj4YGxOwaa8n2KT2r/Zc6/Xkv5I
-yU99cN3Wnuno8rvtn23OJYeSI+fPmwdO1JzWF0YZSArOPqj3nax99kDiq5dnZhcc
-r2fvO3zZfcl4d/DMti/P/wM=
-=aGbg
+owGtkltoFUcYx8/RRGPiXYmt0EIXfIvHmZ2ds7sHKlpKaZuHNoiNeDvO5ZtkTTy7
+2T0nRxNCSEogfWgoWpXSEB9ErZR6i1FQkCheI4oRI2qigrZIIvogoXCkSbsb4lsf
+nZdhvvn9//P/PuaneTNjJfGNgw+C1W1lRfGbozy24dLIL80ad+UuLdWs1cHUBvUS
+gmy6zpFaSkMYYY7AlIIIoIayLArcBIII06k0LFNHlCd1XTIqTGYpS1FTcKCMmYhL
+A5iRFIhpFZpyMjXge76TyYa2nJiSSITAxswGXYGBbZszRZnE0jIJAQsjjoxQWOsG
+kSIMx1kACccNa+EhPRXvf/j3nDs3ZccMapucYqFLZCusC8vGhgIiBLIpwXYEBuBn
+2A6IsjIW1DpKa6nQwmKjIyCaa9TINJDP5xPTUEK4iVxdqPd8N+sKtz68rs1mvSAV
+ybO7vCkeeHraKc2djAxnGSoawQ8cN6OlcEiKrBNZYyNMlqQGxRUa7PQcH9JORFAz
+aaFwRe9AY9SRntwCBsEWMGmTJBBuYAADMBecYeCICWYranOpDESTAmyL6NIUumIm
+UaYltai5hoyrpXQzDMpqQtPAqcmwbM4HraX0hzgpisVLYh+Vf1LU2/JpbHR5z6o/
+P/z1+LsPWDwj+n2x0jkL31XQiZJYV2vHV7s39HakOyq/Xr66p7pvSWFg25llm/ZM
+Hl0wfqFrcuC4kp8bRwI+fBZ1P+58efjH+/79pWXj+8Y7V5a/Ku//1gvuPX/SsLOb
+Fs7vr9o9svjLydbC/sqrh+7evujVv+gf2TNcfKppXcPE9bdz3A8u+9eGCtX9ifys
+uWPf/DN3ya3KpvhnuKps7yyy7sq5L56ePvDX9qGHH3tHB4drTqxtc+XvvepOV/Pg
+sZhondiSKww8Gvque35TW7t6Kzbmrk88VGw9GcuvL25fZtS+nvHoj5V9s/9ekVlb
++r31ZkGqYvaKWwdHt9486bVsZvPJ1Ss31uDComfnG561/9s5/nPdtd/G+v4D
+=U+s0
 -----END PGP MESSAGE-----
 
 And finally, I am proving ownership of this host by posting or
@@ -71,3 +64,4 @@ appending to this document.
 View my publicly-auditable identity here: https://keybase.io/kaashif
 
 ==================================================================
+

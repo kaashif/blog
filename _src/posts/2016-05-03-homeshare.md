@@ -1,6 +1,5 @@
 	Title: Sharing /home between OpenBSD and Debian
 	Date: 2016-05-03T00:00:00
-	Tags:
 
 Some people reading this might be thinking: "hey, it's really easy to
 do this, why is he writing an article on this?". You are partially

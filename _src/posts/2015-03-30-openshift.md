@@ -1,6 +1,5 @@
     Title: OpenShift vs Heroku: Haskell
     Date: 2015-03-30T00:00:00
-    Tags:
 
 There are a few Platform as a Service (PaaS) services out there, and
 the most famous is probably Heroku. I know I've had people come up to

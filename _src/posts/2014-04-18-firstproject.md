@@ -1,6 +1,5 @@
     Title: Ideas for a project
     Date: 2014-04-18T00:00:00
-    Tags:
 
 
 There is always a lot of buzz around the idea of "learning to program".

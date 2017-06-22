@@ -1,3 +1,9 @@
+############################################################################
+#
+# THIS FILE IS NO LONGER USED.
+# Use frog.rkt instead.
+#
+############################################################################
 scheme/host = http://www.kaashif.co.uk
 uri-prefix = /
 title = kaashif's blog

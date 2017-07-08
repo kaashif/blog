@@ -1,20 +1,20 @@
 ##About
 
 I'm a programmer, student at Oxford University (Maths and CS) and free
-software "activist", meaning I bought a T-shirt from fsf.org once and
-wrote a patch for OpenBSD a few months ago, making me a
-fully-qualified expert.
+software "activist", meaning I occasionally write patches for software
+projects I use and I bought a t-shirt from fsf.org.
 
-These days, most programs I write are either in Python, Haskell or C.
-Python and C are the easiest languages around, and have so little syntax
-that anyone could learn all of it in a few weeks. Haskell is pretty easy
-syntax-wise, but it's pretty hard for newcomers to pick up (cue terrible
-monad analogy tutorial).
+I've written a lot of abandoned side projects you can check out at my
+GitHub (link above). I've also done some other stuff you can find if
+you google my name.
 
 ##Useful Repos:
 * [My dotfiles](http://github.com/kaashif/dotfiles/)
 
-##Software running this site:
-* [Amazon EC2](https://aws.amazon.com/ec2/)
+##Stuff running this site
+* [DigitalOcean](https://www.digitalocean.com)
 * [Frog](https://github.com/greghendershott/frog)
+* [OpenBSD](http://openbsd.org)
+* [OpenBSD's httpd](http://cvsweb.openbsd.org/cgi-bin/cvsweb/src/usr.sbin/httpd/)
+* [Let's Encrypt](https://letsencrypt.org/)
 

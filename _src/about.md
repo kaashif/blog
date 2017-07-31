@@ -15,8 +15,8 @@ projects I use and I bought a t-shirt from fsf.org.
   Qt program for managing notes on customizing *nix systems.
 
 * [quenya-verb](https://github.com/kaashif/quenya-verb): Haskell
-  program (and web app) that conjugates verbs in the Tolkien's
-  constructed language Quenya (an Elvish language).
+  program (and web app) that conjugates verbs in Tolkien's constructed
+  language Quenya (an Elvish language).
 
 * [muon](https://github.com/kaashif/muon): Haskell static site
   generator I used to use to build this site (I now use frog, see

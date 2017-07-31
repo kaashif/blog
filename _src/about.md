@@ -28,7 +28,7 @@ projects I use and I bought a t-shirt from fsf.org.
 
 ## Other things
 
-I'm like to contribute to my operating system, OpenBSD. I am the
+I like to contribute to my operating system, OpenBSD. I am the
 maintainer of a few ports (check out
 [my repology.org page](https://repology.org/maintainer/kaashif@kaashif.co.uk))
 and try to send a patch in when I see a problem I can fix (usually an

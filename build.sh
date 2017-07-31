@@ -33,6 +33,7 @@ cp -r static _out/
 
 #copy keybase
 cp keybase.txt _out/
+cp favicon.ico _out/
 
 #preview the site
 raco frog -p

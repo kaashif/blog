@@ -6,6 +6,9 @@ projects I use and I bought a t-shirt from fsf.org.
 
 ## Software I wrote
 
+* [rnn](https://github.com/kaashif/rnn): Neural network that
+  generates terminal color schemes given a wallpaper.
+
 * [stargate-search](https://github.com/kaashif/stargate-search):
   Attoparsec-based tool for doing searches by character, location,
   etc. on transcripts of the Stargate TV show.

@@ -1,5 +1,5 @@
-    Title: ShareLaTeX on OpenBSD
-    Date: 2014-12-06T00:00:00
+ShareLaTeX on OpenBSD
+2014-12-06
 
 The other day, I was trying to access <http://sharelatex.com> at
 school, and it didn't really work, probably due to a combination of

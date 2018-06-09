@@ -1,0 +1,16 @@
+<html>
+  <head>
+    <title>{$title}</title>
+  </head>
+  <body>
+    {unless ($subtemplate eq "NONE") {
+    Text::Template::fill_in_file($subtemplate, HASH => {
+	content => $content,
+	title => $title,
+	date => $date,
+	  });
+	} else {
+	  $content
+	}}
+  </body>
+</html>

@@ -63,7 +63,7 @@ sub handle_cmd {
   } elsif ($cmd eq "upload") {
     upload();
   } else {
-	usage();
+	help();
   }
 }
 
@@ -85,7 +85,7 @@ sub serve {
 }
 
 sub usage {
-  print "usage: tau [-hv] [-r root]\n";
+  print "usage: tau command [-hv] [-r root]\n";
 }
 
 sub help {

@@ -1,9 +1,0 @@
-hw.machine = i386
-hw.model = Intel Pentium (P54C) ("GenuineIntel" 586-class)
-hw.ncpu = 1
-hw.byteorder = 1234
-hw.physmem = 33140736
-hw.usermem = 32948224
-hw.pagesize = 4096
-hw.disknames = wd0,fd0
-hw.diskcount = 2

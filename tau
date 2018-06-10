@@ -30,6 +30,7 @@ my $data_root = "/usr/local/share/tau";
 my $site_root = ".";
 my $url = "http://www.kaashif.co.uk";
 my $command = shift(@ARGV);
+my $uploadcmd = "true";
 
 getopt('hvr:');
 $site_root = $opt_r if (defined($opt_r));
@@ -59,9 +60,17 @@ sub handle_cmd {
 	init();
   } elsif ($cmd eq "serve") {
     serve();
+  } elsif ($cmd eq "upload") {
+    upload();
   } else {
 	usage();
   }
+}
+
+sub upload {
+  read_config();
+  print "==> Running \"$uploadcmd\"\n";
+  system($uploadcmd);
 }
 
 sub serve {
@@ -88,6 +97,7 @@ Commands:
     init     initialise the current directory as a default site
     regen    regenerate the site in the "site/" directory
     serve    serve "site/" on http://localhost:8080
+    upload   run the uploadcmd in config.ini
 
 Options:
 
@@ -147,6 +157,7 @@ sub read_config {
   $author = $cfg->val("site", "author");
   $tagline = $cfg->val("site", "tagline");
   $url = $cfg->val("site", "url");
+  $uploadcmd = $cfg->val("site", "uploadcmd");
   $tmpl_vars{title} = $title;
   $tmpl_vars{author} = $author;
   $tmpl_vars{tagline} = $tagline;

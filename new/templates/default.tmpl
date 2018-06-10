@@ -1,16 +1,59 @@
+<!DOCTYPE html>
 <html>
-  <head>
-    <title>{$title}</title>
-  </head>
-  <body>
-    {unless ($subtemplate eq "NONE") {
+<head>
+<title>kaashif.co.uk: <% $title %></title>
+<link rel="icon" type="image/png" href="/static/logo.png" />
+<link rel="stylesheet" type="text/css" href="/css/style.css" />
+<link rel="stylesheet" type="text/css" href="/css/monokai.css" />
+<link href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="kaashif's blog" />
+
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<meta name=viewport content="width=device-width, initial-scale=1">
+</head>
+<body>
+<div class="wrapper">
+<main>
+<header>
+        <h1>kaashif's blog</h1>
+        <p>Programming, software freedom and Unix</p>
+        <ul>
+            <li> <a href="/index.html">Home</a></li>
+            <li>//</li>
+            <li> <a href="/about.html">About</a></li>
+            <li>//</li>
+            <li> <a href="/contact.html">Contact</a></li>
+            <li>//</li>
+            <li> <a href="/archive.html">Archive</a></li>
+            <li>//</li>
+            <li> <a href="https://gitlab.com/kaashif">GitLab</a></li>
+        </ul>
+		<a id="feedimg" href="/feeds/all.atom.xml"><img src="/static/feed.png" /></a>
+</header>
+<hr style="clear: both; visibility: hidden;" />
+<div class="content">
+  <% unless ($subtemplate eq "NONE") {
     Text::Template::fill_in_file($subtemplate, HASH => {
 	content => $content,
 	title => $title,
 	date => $date,
-	  });
+    link => $link,
+	  }, DELIMITERS => ['<%', '%>']);
 	} else {
 	  $content
-	}}
-  </body>
+	} %>
+</div>
+</main>
+</div>
+<footer>
+<p>&copy; <time>2013-2018</time> Kaashif Hymabaccus</p>
+<p><a href="https://github.com/kaashif/blog">Source</a></p>
+<p>Copying, redistribution and modification of this page and
+  everything else on this website is permitted under the terms of
+  the <a href=http://creativecommons.org/licenses/by-nc/3.0/>
+  Creative Commons Attribution-NonCommercial License Version 3.0,
+  unless specified otherwise.</a></p>
+</footer>
+</body>
 </html>

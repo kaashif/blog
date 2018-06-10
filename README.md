@@ -1,9 +1,9 @@
-/dev/kaashif
-============
-I use [Frog](https://github.com/greghendershott/frog) to turn this site into
-servable HTML. It's cool, check it out.
+kaashif's blog
+==============
 
-See the finished product at <http://www.kaashif.co.uk>.
+These files are turned into a website by a small Perl script, tau.
+
+See the finished product at <https://www.kaashif.co.uk>.
 
 License
 -------

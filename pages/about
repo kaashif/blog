@@ -6,28 +6,23 @@ projects I use and I bought a t-shirt from fsf.org.
 
 ## Software I wrote
 
-* [rnn](https://github.com/kaashif/rnn): Neural network that
+* [rnn](https://gitlab.com/kaashif/rnn): Neural network that
   generates terminal color schemes given a wallpaper.
 
-* [stargate-search](https://github.com/kaashif/stargate-search):
+* [stargate-search](https://gitlab.com/kaashif/transcript-search):
   Attoparsec-based tool for doing searches by character, location,
   etc. on transcripts of the Stargate TV show.
 
-* [rice_info](https://github.com/kaashif/rice_info):
+* [rice_info](https://gitlab.com/kaashif/rice_info):
   [ricerous](https://github.com/nixers-projects/ricerous)-compatible
   Qt program for managing notes on customizing *nix systems.
 
-* [quenya-verb](https://github.com/kaashif/quenya-verb): Haskell
+* [quenya-verb](https://gitlab.com/kaashif/quenya-verb): Haskell
   program (and web app) that conjugates verbs in Tolkien's constructed
   language Quenya (an Elvish language).
 
-* [muon](https://github.com/kaashif/muon): Haskell static site
-  generator I used to use to build this site (I now use frog, see
-  below).
-
-* [battleship game](https://github.com/wzwright/GroupDesignBattleship):
-  battleships game web app developed working with
-  [Palantir](https://www.palantir.com/).
+* [muon](https://gitlab.com/kaashif/muon): Haskell static site
+  generator I used to use to build this site.
 
 ## Other things
 
@@ -46,7 +41,6 @@ submitting a port to OpenBSD.
 
 ##Stuff running this site
 * [DigitalOcean](https://www.digitalocean.com): VPS
-* [Frog](https://github.com/greghendershott/frog): static site generator
 * [OpenBSD](http://openbsd.org): operating system
 * [OpenBSD's httpd](http://cvsweb.openbsd.org/cgi-bin/cvsweb/src/usr.sbin/httpd/):
   web server

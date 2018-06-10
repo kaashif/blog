@@ -1,0 +1,321 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+use Getopt::Std;
+use Config::IniFiles;
+use File::Copy::Recursive qw(dircopy);
+use Text::Markdown qw(markdown);
+use Text::Template;
+use Text::Trim;
+use File::Slurp;
+use File::Spec;
+use File::Find;
+use File::Path qw(remove_tree rmtree make_path);
+use Time::Piece;
+use Data::Dumper; # For debugging
+use HTTP::Server::Brick;
+
+our ($opt_r, $opt_h, $opt_v);
+
+my %tmpl_vars = (
+				 title => "",
+				 content => "Default content, please replace",
+				);
+
+my $title = "Default title";
+my $author = "Foobar McBaz";
+my $tagline = "Something descriptive";
+
+my $data_root = "/usr/local/share/tau";
+my $site_root = ".";
+my $url = "http://www.kaashif.co.uk";
+my $command = shift(@ARGV);
+
+getopt('hvr:');
+$site_root = $opt_r if (defined($opt_r));
+if (defined($opt_h)) {
+  help();
+  exit(0);
+}
+
+my $v = 1;
+
+sub main {
+  if (defined $command) {
+	handle_cmd($command);
+  } else {
+	print("You must supply a command!\n");
+	help();
+  }
+}
+
+sub handle_cmd {
+  my $cmd = shift;
+  if ($cmd eq "regen") {
+	regen();
+  } elsif ($cmd eq "help") {
+	help();
+  } elsif ($cmd eq "init") {
+	init();
+  } elsif ($cmd eq "serve") {
+    serve();
+  } else {
+	usage();
+  }
+}
+
+sub serve {
+  if (not -d "site") {
+    print "==> No site/ directory! Run 'tau regen' then try again!\n" if $v;
+    return;
+  }
+  print "==> Starting HTTP::Server::Brick\n" if $v;
+  my $server = HTTP::Server::Brick->new(port=>8080);
+  $server->mount("/"=>{path=>"site"});
+  $server->start();
+}
+
+sub usage {
+  print "usage: tau [-hv] [-r root]\n";
+}
+
+sub help {
+  usage();
+  print <<'EOT';
+Commands:
+
+    help     show this help message
+    init     initialise the current directory as a default site
+    regen    regenerate the site in the "site/" directory
+    serve    serve "site/" on http://localhost:8080
+
+Options:
+
+    -h       show this help message (regardless of command)
+    -v       be more verbose
+    -r DIR   chdir to DIR before executing any commands
+
+Report bugs to <kaashif@kaashif.co.uk>
+EOT
+}
+
+sub regen {
+  die "not a blog, no config.ini!" unless is_a_blog();
+  read_config();
+  print "===> Regenerating blog\n";
+  chdir($site_root);
+  rmtree("site");
+  mkdir("site");
+  print("--> Building home\n") if $v;
+  build_home();
+  print("--> Building archive\n") if $v;
+  build_archive();
+  build_pages();
+  print("--> Building posts\n") if $v;
+  build_posts();
+  print("--> Building feeds\n") if $v;
+  build_feeds();
+  print("--> Copying extra files\n") if $v;
+  copy_extra();
+  copy_static();
+  print("--> Building sitemap\n") if $v;
+  build_sitemap();
+}
+
+sub copy_extra {
+  system("cp -R css keybase.txt favicon.ico site/");
+}
+
+sub build_sitemap {
+  our $sitemap = "";
+  sub wanted {
+    if (/.*.html$/) {
+      my $pageurl = $File::Find::name;
+      $pageurl =~ s/index.html$//;
+      $pageurl =~ s/^site//;
+      $pageurl = $url . $pageurl . "\n";
+      $sitemap .= $pageurl;
+    }
+  }
+  find(\&wanted, 'site');
+  write_file("site/sitemap.txt", $sitemap);
+}
+
+sub read_config {
+  my $cfg = Config::IniFiles->new( -file => "config.ini" );
+  $title = $cfg->val("site", "title");
+  $author = $cfg->val("site", "author");
+  $tagline = $cfg->val("site", "tagline");
+  $url = $cfg->val("site", "url");
+  $tmpl_vars{title} = $title;
+  $tmpl_vars{author} = $author;
+  $tmpl_vars{tagline} = $tagline;
+  $tmpl_vars{url} = $url;
+}
+
+sub is_a_blog {
+  (-e "config.ini");
+}
+
+sub build_home {
+  my $home_content = "";
+  foreach my $post_ref (get_all_posts()) {
+	my %post = %$post_ref;
+	$home_content .= "<a href='".$post{link}."'><h2>".$post{title}."</h2></a>\n";
+	$home_content .= "<h3>".$post{date}."</h3>\n";
+	my @post_lines = split("\n", $post{content});
+    my @new_lines;
+    foreach (@post_lines) {
+      if (/<!--/) {
+        last;
+      }
+      push(@new_lines, $_);
+    }
+	my $extract = join("\n", @new_lines);
+	$extract =~ s/h3/h4/g;
+	$extract =~ s/h2/h3/g;
+	$extract =~ s/h1/h2/g;
+	$home_content .= $extract;
+	$home_content .= "</code></pre></ul></ol></p>\n";
+	$home_content .= "<br/><p><a href='".$post{link}."'>Read more</a></p><hr/>";
+  }
+  my $template = Text::Template->new(SOURCE => 'templates/default.tmpl', DELIMITERS => ['<%', '%>']) or die "making template failed!";
+  $tmpl_vars{content} = $home_content;
+  $tmpl_vars{subtemplate} = "NONE";
+  write_file("site/index.html", $template->fill_in(HASH => \%tmpl_vars, DELIMITERS => ['<%', '%>']));
+}
+
+sub build_archive {
+  my $archive_content = "";
+  foreach my $post_ref (get_all_posts()) {
+	my %post = %$post_ref;
+    $archive_content .= <<EOT
+<table>
+ <tr>
+  <td>
+   <time datetime="$post{date}" pubdate="true">$post{date}</time>
+  </td>
+  <td>
+   <a href="$post{link}">$post{title}</a>
+  </td>
+ </tr>
+</table>
+EOT
+  }
+  my $template = Text::Template->new(SOURCE => 'templates/default.tmpl', DELIMITERS => ['<%', '%>']) or die "making template failed!";
+  $tmpl_vars{content} = $archive_content;
+  $tmpl_vars{subtemplate} = "NONE";
+  write_file("site/archive.html", $template->fill_in(HASH => \%tmpl_vars, DELIMITERS => ['<%', '%>']));
+}
+
+sub build_pages {
+  opendir(my $page_dir, "pages") or die $!;
+  while (readdir($page_dir)) {
+	next if (/^\./);
+	print("--> Building page $_\n") if $v;
+	my $raw_markdown = read_file("pages/$_");
+	my $no_template_html = markdown($raw_markdown);
+	$tmpl_vars{content} = $no_template_html;
+	$tmpl_vars{subtemplate} = "NONE";
+	my $template = Text::Template->new(SOURCE => 'templates/default.tmpl', DELIMITERS => ['<%', '%>']) or die "making template failed!";
+	my $templated_html = $template->fill_in(HASH => \%tmpl_vars, DELIMITERS => ['<%', '%>']);
+	write_file("site/${_}.html", $templated_html);
+  }
+}
+
+sub build_posts {
+  foreach my $post_ref (get_all_posts()) {
+	my %post = %$post_ref;
+	my $post_path = "site/";
+	my $date = $post{date};
+	$date =~ s/-/\//g;
+	my $title = titleify($post{title});
+	$post_path = "$post_path/$date/$title";
+	make_path($post_path);
+	$tmpl_vars{title} = $post{title};
+	$tmpl_vars{content} = $post{content};
+	$tmpl_vars{date} = $post{date};
+	$tmpl_vars{subtemplate} = File::Spec->rel2abs("templates/post.tmpl");
+    $tmpl_vars{link} = $post{link};
+	my $template = Text::Template->new(SOURCE => 'templates/default.tmpl', DELIMITERS => ['<%', '%>']) or die "making template failed!\n";
+	my $templated_html = $template->fill_in(HASH => \%tmpl_vars, DELIMITERS => ['<%', '%>']);
+	write_file("$post_path/index.html", $templated_html);
+  }
+}
+
+sub titleify {
+  my $unclean = shift;
+  $unclean =~ s/[^-[:alnum:]]/-/g;
+  $unclean =~ s/--/-/g;
+  $unclean =~ s/-$//g;
+  trim $unclean;
+  return lc($unclean);
+}
+
+sub get_all_posts {
+  my @posts;
+  opendir(my $post_dir, "posts") or die $!;
+  while (readdir($post_dir)) {
+	next if (/^\./);
+	my @lines = read_file("posts/$_");
+	my $title = shift @lines;
+	my $date = shift @lines;
+	chomp $title;
+	chomp $date;
+	my $html = markdown(join("", @lines));
+	my %new_post = (
+					title => $title,
+					date => $date,
+					comment => "",
+					content => $html,
+				   );
+	$new_post{link} = "/".($new_post{date} =~ tr/-/\//r)."/".titleify($new_post{title})."/";
+	push(@posts, \%new_post);
+  }
+  return reverse(@posts);
+}
+
+sub copy_static {
+  system("cp -R static site/static");
+}
+
+sub build_feeds {
+  mkdir("site/feeds");
+  my $rss = <<EOT;
+<rss version="2.0">
+<channel>
+<title>$title</title>
+<link>$url</link>
+<description>$tagline</description>
+EOT
+  foreach my $post_ref (get_all_posts()) {
+	my %post = %$post_ref;
+	my $rfc_date = Time::Piece->strptime($post{date}, '%Y-%m-%d')->strftime('%a, %d %b %Y %X -0000');
+	my $title = $post{title};
+	my $link = $post{link};
+	my $desc = $post{comment};
+	my $rss_entry = <<EOT;
+<item>
+<title>$title</title>
+<link>$url$link</link>
+<description>$desc</description>
+<pubDate>$rfc_date</pubDate>
+<guid>$link</guid>
+</item>
+EOT
+	$rss .= $rss_entry;
+  }
+  $rss .= "</channel></rss>";
+  write_file("site/feeds/all.rss.xml", $rss);
+}
+
+sub init {
+  print "===> Initialising default blog\n";
+  opendir(my $site_dir, $site_root) or die $!;
+  my @entries = readdir($site_dir);
+  die "directory '$site_root' is not empty!" unless (scalar(@entries) == 2);
+  chdir($site_root);
+  system("cp -R $data_root/* $site_root/");
+}
+
+main();

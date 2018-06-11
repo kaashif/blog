@@ -14,6 +14,8 @@ use File::Path qw(remove_tree rmtree make_path);
 use Time::Piece;
 use Data::Dumper; # For debugging
 use HTTP::Server::Brick;
+use Switch;
+use YAML::Tiny;
 
 our ($opt_r, $opt_h, $opt_v);
 
@@ -31,6 +33,7 @@ my $site_root = ".";
 my $url = "http://www.kaashif.co.uk";
 my $command = shift(@ARGV);
 my $uploadcmd = "true";
+my @extrafiles = [];
 
 getopt('hvr:');
 $site_root = $opt_r if (defined($opt_r));
@@ -52,18 +55,12 @@ sub main {
 
 sub handle_cmd {
   my $cmd = shift;
-  if ($cmd eq "regen") {
-	regen();
-  } elsif ($cmd eq "help") {
-	help();
-  } elsif ($cmd eq "init") {
-	init();
-  } elsif ($cmd eq "serve") {
-    serve();
-  } elsif ($cmd eq "upload") {
-    upload();
-  } else {
-	help();
+  switch ($cmd) {
+    case "regen" { regen(); }
+    case "init" { init(); }
+    case "serve" { serve(); }
+    case "upload" { upload(); }
+    else { help(); }
   }
 }
 
@@ -133,7 +130,8 @@ sub regen {
 }
 
 sub copy_extra {
-  system("cp -R css keybase.txt favicon.ico site/");
+  my $extras = join(" ", @extrafiles);
+  system("cp -R $extras site/");
 }
 
 sub build_sitemap {
@@ -152,12 +150,14 @@ sub build_sitemap {
 }
 
 sub read_config {
-  my $cfg = Config::IniFiles->new( -file => "config.ini" );
-  $title = $cfg->val("site", "title");
-  $author = $cfg->val("site", "author");
-  $tagline = $cfg->val("site", "tagline");
-  $url = $cfg->val("site", "url");
-  $uploadcmd = $cfg->val("site", "uploadcmd");
+  my $yaml = YAML::Tiny->read("config.yaml");
+  $title = $yaml->[0]->{site}->{title};
+  $author = $yaml->[0]->{site}->{author};
+  $tagline = $yaml->[0]->{site}->{tagline};
+  $url = $yaml->[0]->{site}->{url};
+  $uploadcmd = $yaml->[0]->{site}->{uploadcmd};
+  my $ref = $yaml->[0]->{site}->{extrafiles};
+  @extrafiles = @$ref;
   $tmpl_vars{title} = $title;
   $tmpl_vars{author} = $author;
   $tmpl_vars{tagline} = $tagline;
@@ -165,7 +165,7 @@ sub read_config {
 }
 
 sub is_a_blog {
-  (-e "config.ini");
+  (-e "config.yaml");
 }
 
 sub build_home {

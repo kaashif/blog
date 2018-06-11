@@ -107,7 +107,7 @@ EOT
 }
 
 sub regen {
-  die "not a blog, no config.ini!" unless is_a_blog();
+  die "not a blog, no config.yaml!" unless is_a_blog();
   read_config();
   print "===> Regenerating blog\n";
   chdir($site_root);

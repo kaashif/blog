@@ -165,7 +165,7 @@ sub read_config {
 }
 
 sub is_a_blog {
-  (-e "config.yaml");
+  (-f "config.yaml") and (-d "pages") and (-d "posts") and (-d "static") and (-d "templates");
 }
 
 sub build_home {

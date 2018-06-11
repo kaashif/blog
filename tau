@@ -31,7 +31,6 @@ my $tagline = "Something descriptive";
 my $data_root = "/usr/local/share/tau";
 my $site_root = ".";
 my $url = "http://www.kaashif.co.uk";
-my $command = shift(@ARGV);
 my $uploadcmd = "true";
 my @extrafiles = [];
 
@@ -41,6 +40,7 @@ if (defined($opt_h)) {
   help();
   exit(0);
 }
+my $command = shift(@ARGV);
 
 my $v = 1;
 

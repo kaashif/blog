@@ -283,7 +283,8 @@ sub get_all_posts {
 	$new_post{link} = "/".($new_post{date} =~ tr/-/\//r)."/".titleify($new_post{title})."/";
 	push(@posts, \%new_post);
   }
-  return reverse(@posts);
+  @posts = sort { $b->{date} cmp $a->{date} } @posts;
+  return @posts;
 }
 
 sub copy_static {

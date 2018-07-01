@@ -16,6 +16,7 @@ use Data::Dumper; # For debugging
 use HTTP::Server::Brick;
 use Switch;
 use YAML::Tiny;
+use HTML::Escape qw(escape_html);
 
 our ($opt_r, $opt_h, $opt_v);
 
@@ -293,6 +294,8 @@ sub copy_static {
 
 sub build_feeds {
   mkdir("site/feeds");
+
+  my @posts = get_all_posts();
   my $rss = <<EOT;
 <rss version="2.0">
 <channel>
@@ -300,7 +303,7 @@ sub build_feeds {
 <link>$url</link>
 <description>$tagline</description>
 EOT
-  foreach my $post_ref (get_all_posts()) {
+  foreach my $post_ref (@posts) {
 	my %post = %$post_ref;
 	my $rfc_date = Time::Piece->strptime($post{date}, '%Y-%m-%d')->strftime('%a, %d %b %Y %X -0000');
 	my $title = $post{title};
@@ -319,6 +322,59 @@ EOT
   }
   $rss .= "</channel></rss>";
   write_file("site/feeds/all.rss.xml", $rss);
+
+  my $ref = $posts[0];
+  my %first_post = %$ref;
+  my $root_updated = Time::Piece->strptime($first_post{date}, '%Y-%m-%d')->strftime('%Y-%m-%dT00:00:00Z');
+  my $root_id = idify("$url/index.html");
+
+  my $atom = <<EOT;
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+<title type="text">$title: $tagline</title>
+<link rel="self" href="$url/feeds/all.atom.xml" />
+<link href="$url/index.html" />
+<id>$root_id</id>
+<updated>$root_updated</updated>
+EOT
+  foreach my $post_ref (@posts) {
+	my %post = %$post_ref;
+	my $rfc_date = Time::Piece->strptime($post{date}, '%Y-%m-%d')->strftime('%Y-%m-%dT00:00:00Z');
+	my $title = $post{title};
+	my $link = $post{link};
+	my $desc = $post{comment};
+    my $id = idify("$url$link");
+	my $atom_entry = <<EOT;
+<entry>
+  <title type="text">$title</title>
+  <link rel="alternate" href="$url$link" />
+  <id>$id</id>
+  <published>$rfc_date</published>
+  <updated>$rfc_date</updated>
+  <author>
+   <name>$author</name>
+  </author>
+  <content type="html">
+EOT
+    $atom_entry .= escape_html($post{content});
+    $atom_entry .= "\n</content></entry>\n";
+	$atom .= $atom_entry;
+  }
+  $atom .= "</feed>";
+  write_file("site/feeds/all.atom.xml", $atom);
+}
+
+sub idify {
+  my $input = shift;
+  $input =~ s,/$,,;
+  $input =~ s,^$url,,;
+  my $id_url = $url;
+  $id_url =~ s,:,,;
+  $id_url =~ s,//,/,;
+  $id_url =~ s,/,-,g;
+  $id_url =~ s,\.,-,g;
+  $input =~ s,/,-,g;
+  return "urn:$id_url:$input";
 }
 
 sub init {

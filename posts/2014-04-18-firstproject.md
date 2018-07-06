@@ -40,8 +40,8 @@ you can change the internal structure of the object without
 repercussions, provided the interface remains the same. Here's an
 example, in Python.
 
-<!--```python-->
-<pre><code>class Enemy:
+```python
+class Enemy:
 	def search(self):
 		# Very long and complicated search algorithm
 		return direction_moved
@@ -51,7 +51,7 @@ enemy = Enemy()
 while True:
 	direction = enemy.search()
 	print "Enemy moved " + direction + " while searching for you"
-</code></pre>
+```
 
 In the while loop, the Enemy instance's search method is called and a
 result obtained. The person programming the while loop does not have to
@@ -92,8 +92,8 @@ and output. Everything else is optional, but it's very easy for such a
 game to be very deep and complex, both for the programmer and player,
 believe it or not. Here is a very basic example, in Python.
 
-<!--```python-->
-<pre><code>print("Welcome to Generic Text Adventure!")
+```python
+print("Welcome to Generic Text Adventure!")
 
 running = True
 
@@ -106,7 +106,7 @@ while running:
 		running = False
 	else:
 		print("Command not recognised!")
-</code></pre>
+```
 		
 That's not a very fun game, but it's easy to see how it could be
 extended using your programming knowledge. Perhaps the command processor

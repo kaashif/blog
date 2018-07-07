@@ -264,6 +264,31 @@ sub titleify {
   return lc($unclean);
 }
 
+sub fix_fences {
+  my $md = shift;
+  my $in_code_block = 0;
+  my $result = "";
+  foreach (split "\n", $md) {
+    if (/```/) {
+      if ($in_code_block) {
+        $result .= "</code></pre>\n";
+      } else {
+        $result .= "<pre><code>";
+      }
+      $in_code_block = !$in_code_block;
+    } else {
+      if ($in_code_block) {
+        $result .= (escape_html($_));
+        $result .= "\n";
+      } else {
+        $result .= ($_);
+        $result .= "\n";
+      }
+    }
+  }
+  return $result;
+}
+
 sub get_all_posts {
   my @posts;
   opendir(my $post_dir, "posts") or die $!;
@@ -274,7 +299,14 @@ sub get_all_posts {
     my $date = shift @lines;
     chomp $title;
     chomp $date;
-    my $html = markdown(join("", @lines));
+    my $raw_md = join("", @lines);
+
+    # if it has fenced code blocks, we need to fix them,
+    # Text::Markdown doesn't handle them
+    if ($raw_md =~ /```/) {
+      $raw_md = fix_fences($raw_md);
+    }
+    my $html = markdown($raw_md);
     my %new_post = (
                     title => $title,
                     date => $date,

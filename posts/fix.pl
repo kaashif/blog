@@ -10,7 +10,7 @@ while (<>) {
     if ($in_code_block) {
       print "</code></pre>\n";
     } else {
-      print "<pre><code>\n";
+      print "<pre><code>";
     }
     $in_code_block = !$in_code_block;
   } else {

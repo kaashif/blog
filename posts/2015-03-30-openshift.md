@@ -24,15 +24,13 @@ apparently faster, so I tried that out.
 
 Setting the buildpack was as easy as:
 
-```bash
-$ heroku buildpack:set https://github.com/mietek/haskell-on-heroku.git -a quenya
-```
+<pre><code>$ heroku buildpack:set https://github.com/mietek/haskell-on-heroku.git -a quenya
+</code></pre>
 
 Apparently, it _was_ now just as easy as pushing. So I tried:
 
-```bash
-$ git push heroku master
-```
+<pre><code>$ git push heroku master
+</code></pre>
 
 And it failed, with the following errors:
 
@@ -45,9 +43,8 @@ lines. This wasn't supposed to happen. After looking around on the
 tutorial page, I see that this error occurs when you're trying to
 build using a one-off dyno. Maybe I could still make it work!
 
-```bash
-$ heroku run -s 1X build
-```
+<pre><code>$ heroku run -s 1X build
+</code></pre>
 
 And that failed, telling me private storage was expected (an S3
 bucket). Well, I should've expected that, I suppose, considering the
@@ -60,15 +57,13 @@ Well anyway, let's try the other buildpack.
 
 I set the buildpack to the first one I looked at:
 
-```bash
-$ heroku buildpack:set https://github.com/begriffs/heroku-buildpack-ghc -a quenya
-```
+<pre><code>$ heroku buildpack:set https://github.com/begriffs/heroku-buildpack-ghc -a quenya
+</code></pre>
 
 That worked fine. Then, I pushed.
 
-```bash
-$ git push heroku master
-```
+<pre><code>$ git push heroku master
+</code></pre>
 
 It seemed to be going well, GHC was downloaded, cabal-install was
 downloaded, and it was about to run when suddenly:

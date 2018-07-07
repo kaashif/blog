@@ -45,6 +45,8 @@ my $command = shift(@ARGV);
 
 my $v = 1;
 
+my @POSTS;
+
 sub main {
   if (defined $command) {
 	handle_cmd($command);
@@ -108,6 +110,7 @@ EOT
 }
 
 sub regen {
+  @POSTS = get_all_posts();
   die "not a blog, no config.yaml!" unless is_a_blog();
   read_config();
   print "===> Regenerating blog\n";
@@ -171,7 +174,7 @@ sub is_a_blog {
 
 sub build_home {
   my $home_content = "";
-  foreach my $post_ref (get_all_posts()) {
+  foreach my $post_ref (@POSTS) {
 	my %post = %$post_ref;
 	$home_content .= "<a href='".$post{link}."'><h2>".$post{title}."</h2></a>\n";
 	$home_content .= "<h3>".$post{date}."</h3>\n";
@@ -199,7 +202,7 @@ sub build_home {
 
 sub build_archive {
   my $archive_content = "";
-  foreach my $post_ref (get_all_posts()) {
+  foreach my $post_ref (@POSTS) {
 	my %post = %$post_ref;
     $archive_content .= <<EOT
 <table>
@@ -236,7 +239,7 @@ sub build_pages {
 }
 
 sub build_posts {
-  foreach my $post_ref (get_all_posts()) {
+  foreach my $post_ref (@POSTS) {
     my %post = %$post_ref;
     my $post_path = "site/";
     my $date = $post{date};
@@ -268,20 +271,42 @@ sub fix_fences {
   my $md = shift;
   my $in_code_block = 0;
   my $result = "";
+  my $current_code_block = "";
+  my $current_lang = "";
   foreach (split "\n", $md) {
     if (/```/) {
       if ($in_code_block) {
-        $result .= "</code></pre>\n";
+        # just reached the end of a code block
+
+        # if a language was given, pygmentize
+        if (length $current_lang > 0) {
+          open(my $prog, "|pygmentize -f html -l $current_lang > /tmp/tau_tmp");
+          print $prog $current_code_block;
+          close($prog);
+          open(my $color, "/tmp/tau_tmp");
+          $result .= join("", <$color>);
+          close($color);
+          unlink("/tmp/tau_tmp");
+        } else {
+          # else just escape the html and use that
+          $result .= "<pre><code>";
+          $result .= escape_html($current_code_block);
+          $result .= "</code></pre>\n";
+        }
+        # clear the current block
+        $current_code_block = "";
       } else {
-        $result .= "<pre><code>";
+        # at the start of a new code block, try to get language
+        /```(.*)$/;
+        $current_lang = $1;
       }
       $in_code_block = !$in_code_block;
     } else {
       if ($in_code_block) {
-        $result .= (escape_html($_));
-        $result .= "\n";
+        # record the raw code instead
+        $current_code_block .= "$_\n";
       } else {
-        $result .= ($_);
+        $result .= $_;
         $result .= "\n";
       }
     }
@@ -290,10 +315,12 @@ sub fix_fences {
 }
 
 sub get_all_posts {
+  print "===> Reading all posts\n" if $v;
   my @posts;
   opendir(my $post_dir, "posts") or die $!;
   while (readdir($post_dir)) {
     next unless (/\.md$/);
+    print "--> Reading post \"$_\"\n" if $v;
     my @lines = read_file("posts/$_");
     my $title = shift @lines;
     my $date = shift @lines;
@@ -327,7 +354,6 @@ sub copy_static {
 sub build_feeds {
   mkdir("site/feeds");
 
-  my @posts = get_all_posts();
   my $rss = <<EOT;
 <rss version="2.0">
 <channel>
@@ -335,7 +361,7 @@ sub build_feeds {
 <link>$url</link>
 <description>$tagline</description>
 EOT
-  foreach my $post_ref (@posts) {
+  foreach my $post_ref (@POSTS) {
     my %post = %$post_ref;
     my $rfc_date = Time::Piece->strptime($post{date}, '%Y-%m-%d')->strftime('%a, %d %b %Y %X -0000');
     my $title = $post{title};
@@ -355,7 +381,7 @@ EOT
   $rss .= "</channel></rss>";
   write_file("site/feeds/all.rss.xml", $rss);
 
-  my $ref = $posts[0];
+  my $ref = $POSTS[0];
   my %first_post = %$ref;
   my $root_updated = Time::Piece->strptime($first_post{date}, '%Y-%m-%d')->strftime('%Y-%m-%dT00:00:00Z');
   my $root_id = idify("$url/index.html");
@@ -369,7 +395,7 @@ EOT
 <id>$root_id</id>
 <updated>$root_updated</updated>
 EOT
-  foreach my $post_ref (@posts) {
+  foreach my $post_ref (@POSTS) {
     my %post = %$post_ref;
     my $rfc_date = Time::Piece->strptime($post{date}, '%Y-%m-%d')->strftime('%Y-%m-%dT00:00:00Z');
     my $title = $post{title};

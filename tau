@@ -223,35 +223,35 @@ EOT
 sub build_pages {
   opendir(my $page_dir, "pages") or die $!;
   while (readdir($page_dir)) {
-	next if (/^\./);
-	print("--> Building page $_\n") if $v;
-	my $raw_markdown = read_file("pages/$_");
-	my $no_template_html = markdown($raw_markdown);
-	$tmpl_vars{content} = $no_template_html;
-	$tmpl_vars{subtemplate} = "NONE";
-	my $template = Text::Template->new(SOURCE => 'templates/default.tmpl', DELIMITERS => ['<%', '%>']) or die "making template failed!";
-	my $templated_html = $template->fill_in(HASH => \%tmpl_vars, DELIMITERS => ['<%', '%>']);
-	write_file("site/${_}.html", $templated_html);
+    next if (/^\./);
+    print("--> Building page $_\n") if $v;
+    my $raw_markdown = read_file("pages/$_");
+    my $no_template_html = markdown($raw_markdown);
+    $tmpl_vars{content} = $no_template_html;
+    $tmpl_vars{subtemplate} = "NONE";
+    my $template = Text::Template->new(SOURCE => 'templates/default.tmpl', DELIMITERS => ['<%', '%>']) or die "making template failed!";
+    my $templated_html = $template->fill_in(HASH => \%tmpl_vars, DELIMITERS => ['<%', '%>']);
+    write_file("site/${_}.html", $templated_html);
   }
 }
 
 sub build_posts {
   foreach my $post_ref (get_all_posts()) {
-	my %post = %$post_ref;
-	my $post_path = "site/";
-	my $date = $post{date};
-	$date =~ s/-/\//g;
-	my $title = titleify($post{title});
-	$post_path = "$post_path/$date/$title";
-	make_path($post_path);
-	$tmpl_vars{title} = $post{title};
-	$tmpl_vars{content} = $post{content};
-	$tmpl_vars{date} = $post{date};
-	$tmpl_vars{subtemplate} = File::Spec->rel2abs("templates/post.tmpl");
+    my %post = %$post_ref;
+    my $post_path = "site/";
+    my $date = $post{date};
+    $date =~ s/-/\//g;
+    my $title = titleify($post{title});
+    $post_path = "$post_path/$date/$title";
+    make_path($post_path);
+    $tmpl_vars{title} = $post{title};
+    $tmpl_vars{content} = $post{content};
+    $tmpl_vars{date} = $post{date};
+    $tmpl_vars{subtemplate} = File::Spec->rel2abs("templates/post.tmpl");
     $tmpl_vars{link} = $post{link};
-	my $template = Text::Template->new(SOURCE => 'templates/default.tmpl', DELIMITERS => ['<%', '%>']) or die "making template failed!\n";
-	my $templated_html = $template->fill_in(HASH => \%tmpl_vars, DELIMITERS => ['<%', '%>']);
-	write_file("$post_path/index.html", $templated_html);
+    my $template = Text::Template->new(SOURCE => 'templates/default.tmpl', DELIMITERS => ['<%', '%>']) or die "making template failed!\n";
+    my $templated_html = $template->fill_in(HASH => \%tmpl_vars, DELIMITERS => ['<%', '%>']);
+    write_file("$post_path/index.html", $templated_html);
   }
 }
 
@@ -268,21 +268,21 @@ sub get_all_posts {
   my @posts;
   opendir(my $post_dir, "posts") or die $!;
   while (readdir($post_dir)) {
-	next if (/^\./);
-	my @lines = read_file("posts/$_");
-	my $title = shift @lines;
-	my $date = shift @lines;
-	chomp $title;
-	chomp $date;
-	my $html = markdown(join("", @lines));
-	my %new_post = (
-					title => $title,
-					date => $date,
-					comment => "",
-					content => $html,
-				   );
-	$new_post{link} = "/".($new_post{date} =~ tr/-/\//r)."/".titleify($new_post{title})."/";
-	push(@posts, \%new_post);
+    next unless (/\.md$/);
+    my @lines = read_file("posts/$_");
+    my $title = shift @lines;
+    my $date = shift @lines;
+    chomp $title;
+    chomp $date;
+    my $html = markdown(join("", @lines));
+    my %new_post = (
+                    title => $title,
+                    date => $date,
+                    comment => "",
+                    content => $html,
+                   );
+    $new_post{link} = "/".($new_post{date} =~ tr/-/\//r)."/".titleify($new_post{title})."/";
+    push(@posts, \%new_post);
   }
   @posts = sort { $b->{date} cmp $a->{date} } @posts;
   return @posts;
@@ -304,12 +304,12 @@ sub build_feeds {
 <description>$tagline</description>
 EOT
   foreach my $post_ref (@posts) {
-	my %post = %$post_ref;
-	my $rfc_date = Time::Piece->strptime($post{date}, '%Y-%m-%d')->strftime('%a, %d %b %Y %X -0000');
-	my $title = $post{title};
-	my $link = $post{link};
-	my $desc = $post{comment};
-	my $rss_entry = <<EOT;
+    my %post = %$post_ref;
+    my $rfc_date = Time::Piece->strptime($post{date}, '%Y-%m-%d')->strftime('%a, %d %b %Y %X -0000');
+    my $title = $post{title};
+    my $link = $post{link};
+    my $desc = $post{comment};
+    my $rss_entry = <<EOT;
 <item>
 <title>$title</title>
 <link>$url$link</link>
@@ -318,7 +318,7 @@ EOT
 <guid>$link</guid>
 </item>
 EOT
-	$rss .= $rss_entry;
+    $rss .= $rss_entry;
   }
   $rss .= "</channel></rss>";
   write_file("site/feeds/all.rss.xml", $rss);
@@ -338,13 +338,13 @@ EOT
 <updated>$root_updated</updated>
 EOT
   foreach my $post_ref (@posts) {
-	my %post = %$post_ref;
-	my $rfc_date = Time::Piece->strptime($post{date}, '%Y-%m-%d')->strftime('%Y-%m-%dT00:00:00Z');
-	my $title = $post{title};
-	my $link = $post{link};
-	my $desc = $post{comment};
+    my %post = %$post_ref;
+    my $rfc_date = Time::Piece->strptime($post{date}, '%Y-%m-%d')->strftime('%Y-%m-%dT00:00:00Z');
+    my $title = $post{title};
+    my $link = $post{link};
+    my $desc = $post{comment};
     my $id = idify("$url$link");
-	my $atom_entry = <<EOT;
+    my $atom_entry = <<EOT;
 <entry>
   <title type="text">$title</title>
   <link rel="alternate" href="$url$link" />
@@ -358,7 +358,7 @@ EOT
 EOT
     $atom_entry .= escape_html($post{content});
     $atom_entry .= "\n</content></entry>\n";
-	$atom .= $atom_entry;
+    $atom .= $atom_entry;
   }
   $atom .= "</feed>";
   write_file("site/feeds/all.atom.xml", $atom);

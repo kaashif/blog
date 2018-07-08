@@ -145,7 +145,9 @@ would help OpenBSD see it. No, that didn't work.
 Anyway, the actual solution was really simple, I just had to edit the
 disklabel and add a record of this partition:
 
-	$ doas disklabel -e sd0
+```bash
+$ doas disklabel -e sd0
+```
 
 At that moment, my disklabel looked something like this:
 

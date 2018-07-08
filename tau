@@ -284,7 +284,9 @@ sub titleify {
   return lc($unclean);
 }
 
-sub fix_fences {
+# This fixes fenced code blocks, renders latex maths (so no need for
+# MathJax)
+sub process_content {
   my $md = shift;
   my $in_code_block = 0;
   my $result = "";
@@ -292,6 +294,7 @@ sub fix_fences {
   my $current_lang = "";
   foreach (split "\n", $md) {
     if (/```/) {
+      # Something to do with code blocks is happening
       if ($in_code_block) {
         # just reached the end of a code block
 
@@ -344,12 +347,7 @@ sub get_all_posts {
     chomp $title;
     chomp $date;
     my $raw_md = join("", @lines);
-
-    # if it has fenced code blocks, we need to fix them,
-    # Text::Markdown doesn't handle them
-    if ($raw_md =~ /```/) {
-      $raw_md = fix_fences($raw_md);
-    }
+    $raw_md = process_content($raw_md);
     my $html = markdown($raw_md);
     my %new_post = (
                     title => $title,

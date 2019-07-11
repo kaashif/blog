@@ -4,7 +4,7 @@ site:
   author: Kaashif Hymabaccus
   tagline: Programming, software freedom and Unix
   url: http://www.kaashif.co.uk
-  uploadcmd: rsync -avuz site/ fingolfin.kaashif.co.uk:/var/www/htdocs/
+  uploadcmd: rsync -rvz site/ kaashif.co.uk:/var/www/htdocs/
   extrafiles:
     - css
     - keybase.txt

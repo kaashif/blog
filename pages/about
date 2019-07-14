@@ -1,21 +1,27 @@
 ##About
 
-I'm a programmer, student at Oxford University (Maths and CS) and free
-software "activist", meaning I occasionally write patches for software
-projects I use and I bought a t-shirt from fsf.org.
+I'm a software engineer, graduate from the University of Oxford
+(MMathCompSci, graduated 2019), and a burgeoning electronics
+hobbyist. I am also an avid contributor to many free software projects
+and a supporter of the
+[Free Software movement](https://www.gnu.org/philosophy/free-software-intro.en.html).
+
+Currently, I work at Bloomberg as a software engineer.
 
 ## Software I wrote
 
 * [rnn](https://gitlab.com/kaashif/rnn): Neural network that
   generates terminal color schemes given a wallpaper.
 
-* [stargate-search](https://gitlab.com/kaashif/transcript-search):
+* [transcript-search](https://gitlab.com/kaashif/transcript-search):
   Attoparsec-based tool for doing searches by character, location,
-  etc. on transcripts of the Stargate TV show.
+  etc. on transcripts of Star Trek and Stargate. There is an instance
+  hosted here: <https://transcripts.kaashif.co.uk>
 
 * [rice_info](https://gitlab.com/kaashif/rice_info):
   [ricerous](https://github.com/nixers-projects/ricerous)-compatible
-  Qt program for managing notes on customizing *nix systems.
+  Qt program for managing notes on customizing *nix
+  systems. Essentially a toy program, does barely anything.
 
 * [quenya-verb](https://gitlab.com/kaashif/quenya-verb): Haskell
   program (and web app) that conjugates verbs in Tolkien's constructed
@@ -40,7 +46,7 @@ working with the author to remove/modify platform-specific code,
 submitting a port to OpenBSD.
 
 ##Stuff running this site
-* [DigitalOcean](https://www.digitalocean.com): VPS
+* [Vultr](https://www.vultr.com/): VPS
 * [OpenBSD](http://openbsd.org): operating system
 * [OpenBSD's httpd](http://cvsweb.openbsd.org/cgi-bin/cvsweb/src/usr.sbin/httpd/):
   web server

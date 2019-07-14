@@ -3,8 +3,8 @@ site:
   title: kaashif's blog
   author: Kaashif Hymabaccus
   tagline: Programming, software freedom and Unix
-  url: http://www.kaashif.co.uk
-  uploadcmd: rsync -rvz site/ kaashif.co.uk:/var/www/htdocs/
+  url: https://kaashif.co.uk
+  uploadcmd: rsync -rvz site/ kaashif.co.uk:/var/www/htdocs/kaashif.co.uk/
   extrafiles:
     - css
     - keybase.txt

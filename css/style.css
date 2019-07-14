@@ -25,6 +25,10 @@ a {
 	text-decoration: none;
 }
 
+p a {
+    text-decoration: underline;
+}
+
 p {
 	margin: 0 0 20px;
 	padding: 0;
@@ -112,7 +116,7 @@ blockquote cite {
 	display: block;
 	margin-top: 5px;
 }
- 
+
 blockquote cite:before {
 	content: "\2014 \2009";
 }

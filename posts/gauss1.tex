@@ -1,0 +1,24 @@
+\documentclass{article}
+\usepackage{circuitikz}
+\begin{document}
+\begin{circuitikz}[x=1cm, y=1cm]
+  \draw
+  (3,-3)
+    to[diode] (0,0)
+    to[diode] (-3,-3)
+  (3,-3)
+    to[diode] (0,-6)
+    to[diode] (-3,-3)
+  (0,-6)
+    -- (10,-6)
+    to[sinusoidal voltage source] (10,0)
+    -- (0,0)
+  (-3,-3)
+    -- (-4, -3)
+    -- (-4, -10)
+    to[capacitor] (4, -10)
+    -- (4, -3)
+    -- (3, -3)
+  ;
+\end{circuitikz}
+\end{document}

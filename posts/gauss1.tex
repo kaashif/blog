@@ -1,7 +1,7 @@
-\documentclass{article}
+\documentclass{standalone}
 \usepackage{circuitikz}
 \begin{document}
-\begin{circuitikz}[x=1cm, y=1cm]
+\begin{circuitikz}[x=0.7cm, y=0.7cm]
   \draw
   (3,-3)
     to[diode] (0,0)
@@ -13,12 +13,21 @@
     -- (10,-6)
     to[sinusoidal voltage source] (10,0)
     -- (0,0)
+  ;
+  \draw
   (-3,-3)
     -- (-4, -3)
-    -- (-4, -10)
-    to[capacitor] (4, -10)
+    to[switch] (-4, -10)
+    to[ecapacitor] (4, -10)
     -- (4, -3)
     -- (3, -3)
   ;
+  \draw (-4, -6) node[label={left:SW1}] {};
+  \draw(-4, -10)
+    to[switch] (-4, -16)
+    to[inductor] (4, -16)
+    -- (4, -10)
+  ;
+  \draw (-4, -13) node[label={left:SW2}] {};
 \end{circuitikz}
 \end{document}

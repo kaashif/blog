@@ -1,0 +1,66 @@
+\documentclass{standalone}
+\usepackage{circuitikz}
+\begin{document}
+\begin{circuitikz}[x=0.7cm, y=0.7cm]
+  \draw
+  (3,-3)
+    to[diode] (0,0)
+    to[diode] (-3,-3)
+  (3,-3)
+    to[diode] (0,-6)
+    to[diode] (-3,-3)
+  (0,-6)
+    -- (10,-6)
+    to[sinusoidal voltage source] (10,0)
+    -- (0,0)
+  ;
+  \draw
+  (-3,-3)
+    -- (-4, -3)
+    to[switch] (-4, -6)
+    to[lamp] (-4, -10)
+  ;
+  \draw
+    (4, -10)
+    -- (4, -3)
+    -- (3, -3)
+  ;
+  \draw (-4, -4.5) node[label={left:SW1}] {};
+
+  \draw (-4, -10)
+    -- (-3, -10)
+    -- (-3, -9)
+    to[ecapacitor] (3, -9)
+    -- (3, -10)
+    -- (4, -10)
+  ;
+
+  \draw (-3, -10)
+    -- (-3, -11)
+    to[ecapacitor] (3, -11)
+    -- (3, -10)
+  ;
+  \draw (-4, -10)
+    to[thyristor] (-4, -16)
+    to[inductor] (4, -16)
+    -- (4, -10)
+  ;
+
+  \draw (-3, -14)
+    to[battery] (-2, -14)
+    to[switch] (0, -14)
+    -- (0, -15)
+    -- (-4, -15)
+  ;
+
+  \draw (-1, -14) node[label={[label distance=0.4cm]above:SW2}] {};
+
+  \draw (-2.5, -14) node[label={[label distance=0.4cm]above:3V}] {};
+
+  \draw (2, -16)
+    -- (2, -18)
+    to[diode] (-2, -18)
+    -- (-2, -16)
+  ;
+\end{circuitikz}
+\end{document}

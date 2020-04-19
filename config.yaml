@@ -2,7 +2,7 @@
 site:
   title: kaashif's blog
   author: Kaashif Hymabaccus
-  tagline: Programming, software freedom and Unix
+  tagline: Computers, with some mathematics on the side
   url: https://kaashif.co.uk
   uploadcmd: rsync -rvz site/ kaashif.co.uk:/var/www/htdocs/kaashif.co.uk/
   extrafiles:

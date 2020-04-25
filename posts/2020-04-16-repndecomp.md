@@ -37,7 +37,7 @@ non-mathematicians, a group is:
 
 * A set $G$ (for example, the real numbers or the rational numbers)
 
-* With an binary operation $\ast$ (like addition or multiplication)
+* With a binary operation $\ast$ (like addition or multiplication)
   which takes two elements of $G$ and gives you another element of $G$
 
 * Such that $\ast$ is associative, meaning bracketing doesn't matter -
@@ -249,7 +249,7 @@ $$p = \sum_g \alpha(g)$$
 *This* is where the key speed gain is: we can use the summation trick
 from before. The sacrifice is that the matrices $\alpha(g)$ are
 absolutely huge. If $n$ is the dimension of $V$, this uses
-$\text{O}(n^4 |G|)$ space. Terrible unless you come up with another trick
+$\text{O}(n^4)$ space. Terrible unless you come up with another trick
 to cut down the space usage.
 
 ### Be lazy where possible to get the space back
@@ -265,16 +265,30 @@ invertible in a rigorous sense: the determinant map $B \mapsto
 just generate a random matrix and it will always work as a basis
 change matrix.
 
-The tensor product has a neat property: $(A \otimes B)C = AC \otimes
-BC$. So in the end we don't need to ever compute the matrices $\tau
-\otimes \rho^\ast$ in full, we can just compute:
+So in the end we don't need to ever compute the matrices $\tau \otimes
+\rho^\ast$ in full all at the same time, we can just compute:
 
-$$A = pB = \sum_g \tau(g)B \otimes \rho^\ast(g)B$$
+$$A = pB = \sum_g (\tau(g) \otimes \rho^\ast(g))(B)$$
 
-We still need $\text{O}(n^4)$ space, but $|G|$ is no longer a factor.
+The tensor product has the neat property that $(A \otimes B)(C \otimes
+D) = AC \otimes BD$. We can write the matrix $B$ as $\sum_{i,j} B_{ij}
+e\_i \otimes e\_j$, that is we "vectorise" the matrix $B$ into an
+$n^2$ length vector. Then the equation above simplifies to:
 
-This frees us to compute with huge groups. My algorithm can operate on
-small degree representations of groups like $S_{10}$, with $10!$
+$$A = \sum_g \sum_{i,j} B_{ij} \tau(g)e_i \otimes \rho^\ast(g)e_j$$
+
+So we have ended up with a formula for $A$ (the basis change matrix)
+which doesn't require the computation of any matrices with $n^4$
+entries, and is amenable to the fast group summing method vaguely
+mentioned earlier.
+
+Since we still have to do matrix multiplications many times, this
+whole algorithm is still at least $\text{O}(n^3)$ but using clever
+tensor product tricks, we got it down from $\text{O}(n^4)$. Not bad!
+
+One thing to mention is that the independences of the run time from
+$|G|$ frees us to compute with huge groups. My algorithm can operate
+on small degree representations of groups like $S_{10}$, with $10!$
 elements (3.6 million elements).
 
 Hopefully this has been some kind of insight into what computational
@@ -287,9 +301,10 @@ gritty details.
 There's one huge thing I haven't explained. Have you guessed what it
 is?
 
-You can't represent $\mathbb{C}$ in a computer! So how were we
-multiplying matrices and adding up coefficients in $\mathbb{C}$?
-There's another trick: restrict your attention to the
+You can't represent $\mathbb{C}$ in a computer! Floating point is
+useless for algebra! So how were we multiplying matrices and adding up
+coefficients in $\mathbb{C}$?  There's another trick: restrict your
+attention to the
 [cyclotomic numbers](https://en.wikipedia.org/wiki/Cyclotomic_field).
 
 But why is that good enough? Is multiplication still constant time?

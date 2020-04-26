@@ -152,17 +152,14 @@ $$\rho(g) = \begin{pmatrix}
 & & \rho_{i_m}(g)
 \end{pmatrix}$$
 
-Where the anything not labelled above is zero. This easy for some
-small groups. For example, if you have the representation of $\{\pm
-1\}$ given by:
+Where anything not labelled above is zero. This is easy for some small
+groups. For example, if you have the representation of $\{\pm 1\}$
+given by:
 
-$$-1 \mapsto \begin{pmatrix}
+$$\pm 1 \mapsto \begin{pmatrix}
 1 & 0 \\\\
-0 & -1
+0 & \pm 1
 \end{pmatrix}$$
-
-(with 1 mapped to the identity matrix, since representations are
-homomorphisms)
 
 It's easy to spot this is given by two $1 \times 1$ blocks. But that's
 because we already know all of the irreducible representations (let's
@@ -241,8 +238,9 @@ Kronecker product of $\tau$ and the conjugate transpose of $\rho$
 coordinate-free). The key thing here is that $A$ is a suitable basis
 change matrix if and only if $\alpha(g)A = A$ for all $g \in G$.
 
-Even better, the map from $\text{GL}(V)$ to the suitable $A$ is given
-by the map (a specialisation of a more general theorem from Serre):
+Even better, the projection from $\text{GL}(V)$ to the subspace of the
+suitable $A$ is given by the map (a specialisation of a more general
+theorem from Serre):
 
 $$p = \sum_g \alpha(g)$$
 

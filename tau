@@ -21,7 +21,7 @@ use warnings;
 use Getopt::Std;
 use Config::IniFiles;
 use File::Copy::Recursive qw(dircopy);
-use Text::Markdown qw(markdown);
+use Text::Markdown::Discount qw(markdown);
 use Text::Template;
 use Text::Trim;
 use File::Slurp;
@@ -284,8 +284,7 @@ sub titleify {
   return lc($unclean);
 }
 
-# This fixes fenced code blocks, renders latex maths (so no need for
-# MathJax)
+# highlights code blocks
 sub process_content {
   my $md = shift;
   my $in_code_block = 0;

@@ -147,9 +147,9 @@ $\rho_i$ as blocks in all possible ways that give matrices of the
 correct size. That is, you try to find some $i_j$ such that:
 
 $$\rho(g) = \begin{pmatrix}
-\rho_{i_1}(g) & & \\\\
+\rho\_{i\_1}(g) & & \\\\
 & \ddots & \\\\
-& & \rho_{i_m}(g)
+& & \rho\_{i\_m}(g)
 \end{pmatrix}$$
 
 Where anything not labelled above is zero. This is easy for some small
@@ -168,8 +168,8 @@ better, the matrices are already given in the nicest basis
 possible. It's not really obvious how to "observe" the structure of a
 representation like this in general.
 
-Here's the dirty trick. Define $\chi_\rho(g) :=
-\text{trace}(\rho(g))$. $\chi_\rho$ is called the character of
+Here's the dirty trick. Define $\chi\_\rho(g) :=
+\text{trace}(\rho(g))$. $\chi\_\rho$ is called the character of
 $\rho$. It has the useful property that for a finite $G$, a finite
 dimensional representation (meaning the matrices are finite size), and
 coefficients in $\mathbb{C}$: $\rho$ is isomorphic to $\tau$ (as

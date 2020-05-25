@@ -269,22 +269,23 @@ So in the end we don't need to ever compute the matrices $\tau \otimes
 $$A = pB = \sum_g (\tau(g) \otimes \rho^\ast(g))(B)$$
 
 The tensor product has the neat property that $(A \otimes B)(C \otimes
-D) = AC \otimes BD$. We can write the matrix $B$ as $\sum_{i,j} B_{ij}
-e\_i \otimes e\_j$, that is we "vectorise" the matrix $B$ into an
-$n^2$ length vector. Then the equation above simplifies to:
+D) = AC \otimes BD$. We can write the matrix $B$ as $\sum\_{i,j}
+B\_{ij} e\_i \otimes e\_j$, that is we "vectorise" the matrix $B$ into
+an $n\^2$ length vector. Then the equation above simplifies to:
 
-$$A = \sum_g \sum_{i,j} B_{ij} \tau(g)e_i \otimes \rho^\ast(g)e_j$$
+$$A = \sum\_g \sum\_{i,j} B\_{ij} \tau(g)e\_i \otimes
+\rho\^\ast(g)e\_j$$
 
 So we have ended up with a formula for $A$ (the basis change matrix)
-which doesn't require the computation of any matrices with $n^4$
+which doesn't require the computation of any matrices with $n\^4$
 entries, and is amenable to the fast group summing method vaguely
 mentioned earlier.
 
 Since we still have to do matrix multiplications many times, this
-whole algorithm is still at least $\text{O}(n^3)$ but using clever
-tensor product tricks, we got it down from $\text{O}(n^4)$. Not bad!
+whole algorithm is still at least $\text{O}(n\^3)$ but using clever
+tensor product tricks, we got it down from $\text{O}(n\^4)$. Not bad!
 
-One thing to mention is that the independences of the run time from
+One thing to mention is that the independence of the run time from
 $|G|$ frees us to compute with huge groups. My algorithm can operate
 on small degree representations of groups like $S_{10}$, with $10!$
 elements (3.6 million elements).

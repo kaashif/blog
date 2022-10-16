@@ -1,21 +1,23 @@
-Why do programmers constantly and needlessly obfuscate code?
+Don't hide things from people reading your code
 2022-10-16
 
-People write code as if they think they'll always have the entire system in
-their heads at all times, and thus consider hiding and obfuscating information
-to be harmless. This is harmful for anyone reading the code in the future,
-including (especially) the original author.
+People write code that relies on all sorts of implicit or obfuscated knowledge.
+In the worst case, people write code that requires any caller to read through
+the entire source to work out how to use it or what it does.
+
+What confuses me is that people often seem to do this intentionally, it's like
+they want to require omniscient knowledge of the codebase for anyone wanting to
+call or write tests for their code.
 
 I can hear you saying that's ridiculous, and telling me to ask literally anyone
 whether they think they have the entire codebase in their heads: they'll
 definitely say no.
 
-They may be lying - everyone will *say* fitting a huge codebase into their
-mental working memory is impossible, but actions speak louder than words. Many
-people (I see it all the time) constantly choose programming patterns and
-idioms that only make sense if you think everyone coming after you will have
-read, digested, and memorised all of the code.  There are a few really
-important ones:
+Everyone will *say* fitting a huge codebase into their mental working memory is
+impossible, but actions speak louder than words. Many people (I see it all the
+time) constantly choose programming patterns and idioms that only make sense if
+you think everyone coming after you will have read, digested, and memorised all
+of the code.  There are a few really important ones:
 
 * Using nullability
 * Using mutable state
@@ -30,7 +32,9 @@ In the same breath as complaining about something a coworker has written,
 people will go on to make the same faulty assumptions and obfuscate their code,
 perhaps in a slightly different but materially equivalent way.
 
-Let's look at why, and how to convince them to stop.
+Let's look at what the problems are. How to convince your coworkers to stop is
+left as an exercise for the reader.
+
 <!--more-->
 
 ## Nullability
@@ -41,8 +45,9 @@ has `None` that people like to pass around. Even Rust often has people passing
 around `None` `std::option`s and going to great pains to handle that as
 unsafely as possible.
 
-It's well known that `null` was itself a mistake in Java. Here's some code that
-a programmer committing the central fallacy might write:
+It's well known that `null` was itself a mistake in Java, and this is one of
+the reasons I agree with that. Here's some code that a programmer trying to
+confuse callers might write:
 
 ```java
 public Pet getPet() {
@@ -66,7 +71,7 @@ public Pet getPet() {
 
 That seems reasonable. It even has comments. But the intention of this code is
 *only* encoded in comments, not in the null values, which mean different
-things. Suppose later the class is extended:
+things but are the same to any caller. Suppose later the class is extended:
 
 ```java
 public void adoptPet(Snake snake);
@@ -98,10 +103,12 @@ remember what you meant in 2 years when getPet gives you back null. If there's
 an error, please please please don't just return null, throw an informative
 exception.  And no - logging and returning null is not as good as an exception.
 
-This applies in exactly the same way to `Optional.empty()`.
+This applies in exactly the same way to `Optional.empty()`. Just because you're
+being explicit that you can return a meaningless empty `Optional` doesn't mean
+that's actually much better for readability than returning null.
 
-Generic nullability (e.g. null reference or Optional) is never good in my
-opinion. Here are some alternatives:
+Generic nullability (e.g. null reference or Optional without any context) is
+never good in my opinion. Here are some alternatives:
 
 * In Rust, prefer Result (which can include a message) over Option
 * In Java, prefer exceptions over null and Optional
@@ -170,7 +177,8 @@ will happen when you call `executor.execute()`, you don't just have to read
 that line of code, you have to read *all lines of code that could possibly be
 executed before it*.
 
-(Note: final doesn't save us here and does almost nothing to help)
+(Note: final doesn't save us here and does almost nothing to help - Java has no
+language level immutability enforcement)
 
 The solution here is to change the interface of Executor to avoid requiring
 mutation:
@@ -212,8 +220,8 @@ code.
 In particular, this is a godsend for pull request reviews - you no longer need
 to build up a mental model of the temporal ordering of everything that happens
 before every line of code. You can skip around and know no state is changing in
-the lines you skip over, which is helpful since looking at diffs involves
-skipping over many lines.
+the lines you skip over, which is helpful since looking at diffs inherently
+involves skipping over many lines.
 
 # Global variables
 
@@ -306,4 +314,5 @@ language where those problems have been solved - use languages that enforce
 immutability, allow a wide range of meaningful non-null return values
 (exceptions are fine, I guess), and never use global state!
 
-Just say no to mutable state!
+Just say no to mutable state! It confuses you (even if you don't think it does)
+and definitely confuses your code reviewers.

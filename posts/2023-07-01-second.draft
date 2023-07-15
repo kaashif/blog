@@ -1,0 +1,79 @@
+The second system effect in the real world
+2023-07-01
+
+Over the years, my friends working in tech have told me stories about how
+things have gone wrong. A common theme in a few stories has been the [second
+system effect](https://en.wikipedia.org/wiki/Second-system_effect), a phrase
+first coined by Fred Brooks in the immortal book The Mythical Man-Month. You
+should read it.
+
+His summary of the effect is:
+
+> The general tendency is to over-design the second system, using all the ideas
+> and frills that were cautiously sidetracked on the first one.
+
+Closely related is ["You aren't gonna need it"
+(YAGNI)](https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_it), which is a
+principle you can follow to try to avoid the second system effect. The real
+problem is that people convince themselves they will need to over-engineer.
+
+I've got two examples that I've been subject to rants about, where an initial
+system was built, it worked, and a second over-engineered system was built.
+
+* A static configuration system naturally increased in complexity and a second
+  "more flexible" system was built. The problem is the first system continued
+  to work well and migration was (1) slow and (2) provided little value to
+  customers.
+
+* Someone got a data model wrong and provided data to customers in a way that
+  didn't scale efficiently. A second "ultra scalable" system was built, but
+  such focus was put on big data technologies and scalability that no-one
+  realised that "less scalable" traditional databases would've worked just fine.
+
+These examples are from two companies you might have heard of but shall remain
+nameless.
+
+<!--more-->
+
+# The second configuration system
+
+This story has parallels to the [configuration complexity
+clock](http://mikehadlow.blogspot.com/2012/05/configuration-complexity-clock.html).
+
+The story is very simple: an application was written that was initially
+relatively simple. Over time, more and more configuration was needed and it was
+all done in configuration files. Eventually, the configuration format evolved,
+gaining branching, growing in complexity, becoming harder to read and write,
+and requiring more and more code to parse and interpret.
+
+At this point, the config language begins to resemble a DSL, the final stage of
+the configuration complexity clock. People realised this and in a stroke of
+self-awareness, realised where they were on the clock. From the article:
+
+> In the pub after work someone quips, “we’re back where we started four years
+> ago, hard coding everything, except now in a much crappier language.” 
+
+The solution chosen was to rebuild the config management system, making it more
+flexible and using a better programming language rather than a homemade DSL.
+
+This is the eponymous Second System.
+
+The first system had been built over the course of many years and had
+accumulated a huge number of non-obvious bug fixes and absorbed a lot of
+inherent domain complexity. It worked.
+
+The second system incorporated ideas that a lot of engineers really liked. It
+used a real programming language instead of config files. It unified several
+config formats into one. This would be the new, ultimate standard adopted
+across the whole company!
+
+No. Problems:
+
+1. The old system *actually* worked fine, so users of the old system didn't
+   want to migrate and can't be made to.
+
+2. Because the old system worked fine and didn't provide any new product
+   capabilities or anything customers wanted, management wasn't really on board.
+
+
+# The second database

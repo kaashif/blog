@@ -1,0 +1,129 @@
+Avoiding the repugnant conclusion by valuing variety
+2023-09-12
+
+There's a conclusion in population ethics called the repugnant conclusion. It's
+described in some detail in [this
+article](https://plato.stanford.edu/ARCHIVES/WIN2009/entries/repugnant-conclusion/#AppOthVal)
+- give that a read if you're interested in some analysis by actual philosophers
+or whatever.
+
+Essentially, the problem is that if you value a population by adding the value
+of individuals then for any population, there's a much larger population that
+we value the same, where everyone has lives barely worth living.
+
+One guy has 10 happiness, that's worth the same as 10 guys with 1 happiness,
+that kind of thing. That's the repugnant conclusion. It's "repugnant" because
+replacing very happy people with many much less happy people seems like it
+should be worse.
+
+I don't have this problem because I don't value populations by assigning
+everyone a number and adding them together. Populations can only be valued as a
+whole, and there are ways of valuing populations that avoid this conclusion.
+
+<!--more-->
+
+## How interesting is the world?
+
+Our goal is to come up with a way to compare populations and decide which is
+better. Let's start with one principle.
+
+I think populations are better if they're more varied. Two Einsteins on two
+islands each inventing general relativity isn't as good as one Einstein and one
+Heisenberg each doing different things.
+
+But we can't determine the value of a person just from how they are at a
+specific time, we need to value their whole life.
+
+What are the ways in which a life can be different? Let's say we have $n$
+measures on which a life can vary ($n$ may be very large), so a person's life
+$v$ can be represented as a vector $v \in \mathbb{R}^n$.
+
+For a population $V$ (a set of lives), let's define $f(V) = \sum_{v,w \in V} |v - w|$,
+i.e. the sum of the differences (distances) between lives lived by those in that population.
+
+Here are some facts that follow from this value function:
+
+* A small, varied population can be more valuable than a large, homogeneous
+  population.
+
+* People whose lives nearly match on these measures we picked don't add anything to
+  the total value of the population.
+
+And we avoid the repugnant conclusion.
+
+## Avoiding the repugnant conclusion
+
+Let's suppose we have our small but very valuable population. Can we replace it
+by a larger but individually worse population?
+
+The question barely makes sense because we don't assign value to individuals in
+isolation anymore, but only to the population as a whole.
+
+But if we replace a billion super varied lives with *any number* of subsistence
+farmers barely getting by, the value we assign doesn't increase, because all of
+those lives barely worth living are kind of samey and boring.
+
+I think that makes sense: if we say all suffering is interchangeable and just
+varies in intensity, lives with lots of suffering are substantially similar.
+Suffering is just boring
+
+## Even more repugnant conclusions
+
+We trade the original repugnant conclusion for some even worse ones:
+
+* Torturing two people in varied ways is better than torturing two people in
+  the same way, even if the varied ways are more painful and worse by any
+  reasonable morality. We can kind of get around this by only counting
+  non-suffering people, but then we value one torture victim the same as a
+  million, even though we "should" only prefer one victim.
+
+* Two very different people can be more valuable than billions upon billions of
+  the same person. I actually think this is reasonable in most cases, but we
+  can get around this problem by bounding the possible differences between
+  people. That's reasonable because a person can be 6 feet tall but not 6 light
+  years tall - there can only be so much difference.
+
+* Two populations valued separately may score low, but together score high. I
+  don't think this is a problem because we're not valuing sub populations, only
+  the whole population. Values of sub populations implies nothing and has no
+  relation to the value of the whole population, except that making the
+  population larger won't make the value smaller.
+
+## What does this look like in practice?
+
+Someone who values maximising total difference between people may do things
+like:
+
+* Advocate for people to live in different and extreme places e.g. on other
+  planets or in space.
+
+* Maintain differences between populations rather than allowing them to mix and
+  completely homogenize.
+
+* Desire some level of mixing between populations insofar as this creates new,
+  different experiences.
+
+* Preserve unique local customs, languages, and foods.
+
+* Preserve unique local ecosystems and biodiversity.
+
+* Advocate for more competition and variety of ideas.
+
+Those are all good. Here are some bad things that hypothetical person might try:
+
+* Increase the variety in a few people's lifestyles at the cost of the
+  suffering of others.
+
+* Not care about the suffering of others all that much as long as it makes for
+  interesting reading.
+
+* Actively cause suffering for entertainment or pleasure, as long as it's
+  interesting.
+
+Yeah, not great. Although I do cause suffering for my own pleasure on a regular
+basis - flying long distances in a plane causes suffering through intense
+carbon emissions. Eating meat also causes suffering.
+
+## Conclusion
+
+Don't ask me for advice.

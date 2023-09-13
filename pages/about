@@ -1,12 +1,11 @@
-##About
+## About
 
-I'm a software engineer, graduate from the University of Oxford
-(MMathCompSci, graduated 2019), and a burgeoning electronics
-hobbyist. I am also an avid contributor to many free software projects
-and a supporter of the
-[Free Software movement](https://www.gnu.org/philosophy/free-software-intro.en.html).
+I'm a software engineer.
 
 ## Software I wrote
+
+This list is horrifically out of date. I care enough to add this note, but not
+enough to update it.
 
 * [rnn](https://gitlab.com/kaashif/rnn): Neural network that
   generates terminal color schemes given a wallpaper.

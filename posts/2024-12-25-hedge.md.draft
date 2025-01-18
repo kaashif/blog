@@ -29,14 +29,15 @@ is $T$, then $\log(T) \sim \mathcal{N}(0,1)$. Some questions:
 
 * What's the distribution of latencies of the hedged request?
 
-* Does this change if the latency has a different distribution?
+* Does this change if the latency has a different distribution? Does lognormal even make sense?
 
 * What do the limits as $n$ goes to infinity look like? What distribution does
   infinitely hedged request latency have under these assumptions? And what
   about in the real world?
 
-I haven't been able to find rigorous statistical descriptions of these gRPC
-hedging strategies online. I discuss queueing theory a bit below.
+I haven't been able to find rigorous statistical descriptions of these
+hedging strategies online. I discuss queueing theory a bit below, which is
+unsatisfying, but maybe I haven't dug deep enough yet.
 
 <!--more-->
 
@@ -58,7 +59,7 @@ independent.
 It's a general result that for $X\_i$ independent and identically distributed,
 with CDF $F$, then the CDF $F\_n$ of $\min\_i(X\_i)$ is $ 1-(1-F(x))^n$. Proving this
 is an exercise for the reader (saying this is totally rigorous, do not send me
-complaints).
+complaints). Similarly, the max would be $F(x)^n$.
 
 The hedged latency distribution $H\_n$ is $\min(T\_1, \dots, T\_n)$.
 
@@ -99,8 +100,17 @@ hedging, it allows you to reduce variance.
 I'm not aware of a closed form for the variance of $N = \min\_i N\_i$ for $N\_i$
 independent, normal, identically distributed.
 
-$\text{P}(N > k) = \prod\_i \text{P}(N\_i > k)$ - for the minimum to be greater
-than a value, all values must be greater.
+It is relatively easy to prove that the variance of the min of i.i.d. lognormal
+random variables tends to zero the more you add. I won't pretend I didn't just
+look it up on [Math StackExchange](https://math.stackexchange.com/a/2971221).
+
+This works because lognormal variables have support $(0,\infty]$.
+
+The variance doesn't just decrease, it converges to zero as $n \to \infty$.
+
+The intuition for this is clear, going from $F(x)$ to $1-(1-F(x))^n$ squashes
+the right part of the CDF towards 1 and leaves the left half unscathed. This
+looks more and more like a step function as you increase $n$.
 
 ## Why not lognormal?
 
@@ -123,7 +133,7 @@ d\_i$. But why even take the log, the total delay is just $\sum\_i d\_i$, so
 the total delay is normally distributed - but this is obvious nonsense since it
 has nonzero density on the whole real line, allowing negative service times.
 
-It was actually better to say latency is lognormal and not explain it at all.
+We must assume more about the $d\_i$ to make sense of this.
 
 Wow, it turns out everything we just did was pointless! Fear not, we can think
 of a better distribution to use, right?
@@ -168,10 +178,27 @@ So let's do an experiment!
 
 I set up a Java gRPC service which does nothing but wait for a random time
 drawn from various distributions. We'll benchmark it and measure times taken
-with request hedging.
+with request hedging for various distributions.
 
 This is overkill - I could've simply written a model in a Jupyter Notebook and
 come up with these same numbers. It's a more satisfying conclusion for me
 though, after being unable to prove anything.
 
-The request arrival rate is constant since we just want to 
+The request arrival rate is constant since we just want to think about service
+times.
+
+The proto file looks like this:
+
+```
+
+```
+
+We'll use a unary RPC and JMH to benchmark. This is the method we're benchmarking:
+
+```java
+
+```
+
+Where the `rateLimiter` is a Guava rate limiter.
+
+##

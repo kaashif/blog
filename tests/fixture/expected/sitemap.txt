@@ -2,4 +2,3 @@ https://example.test/
 https://example.test/about.md.html
 https://example.test/archive.html
 https://example.test/2024/02/03/markup--escaping/
-https://example.test/2024/01/02/lists-and-links/

@@ -1,3 +1,4 @@
 _out/
 .frog/
 site/
+*.sw?

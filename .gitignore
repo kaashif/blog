@@ -1,4 +1,5 @@
 _out/
 .frog/
 site/
+node_modules/
 *.sw?

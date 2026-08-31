@@ -1,0 +1,49 @@
+name: Deploy to Cloudflare Pages
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  deployments: write
+
+concurrency:
+  group: cloudflare-pages-production
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the blog
+        uses: actions/checkout@v6
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes cpanminus python3-pygments
+          sudo cpanm --notest \
+            Config::IniFiles \
+            File::Copy::Recursive \
+            File::Slurp \
+            HTML::Escape \
+            HTTP::Server::Brick \
+            Switch \
+            Text::Markdown::Discount \
+            Text::Template \
+            Text::Trim \
+            YAML::Tiny
+
+      - name: Build the site
+        run: ./tau regen
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v4
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy site --project-name=blog --branch=main
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}

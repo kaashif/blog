@@ -57,9 +57,9 @@ $i$th request $T\_i$, with $\log(T\_i) \sim \mathcal{N}(0,1)$, where the $T\_i$ 
 independent.
 
 It's a general result that for $X\_i$ independent and identically distributed,
-with CDF $F$, then the CDF $F\_n$ of $\min\_i(X\_i)$ is $1-(1-F(x))^n$. Proving
+with CDF $F$, then the CDF $F\_n$ of $\min\_i(X\_i)$ is $1-(1-F(x))\^n$. Proving
 this is an exercise for the reader (saying this is totally rigorous, do not
-send me complaints). Similarly, the max would be $F(x)^n$.
+send me complaints). Similarly, the max would be $F(x)\^n$.
 
 The hedged latency distribution $H\_n$ is $\min(T\_1, \dots, T\_n)$.
 
@@ -69,11 +69,11 @@ $\log$ is increasing, so this is $\min(\log(T\_1), \dots, \log(T\_n))$.
 
 Writing $\Phi$ and $\phi$ for the standard normal CDF and PDF, we have
 
-$$P(\log H\_n \le y) = 1-(1-\Phi(y))^n$$
+$$P(\log H\_n \le y) = 1-(1-\Phi(y))\^n$$
 
 and the PDF is
 
-$$f\_{\log H\_n}(y) = n(1-\Phi(y))^{n-1}\phi(y).$$
+$$f\_{\log H\_n}(y) = n(1-\Phi(y))\^{n-1}\phi(y).$$
 
 We can plot it for various values of $n$ to build some intuition before we
 prove some facts.
@@ -86,7 +86,7 @@ flatter and the distribution is narrower.
 
 For any fixed $x>0$, $F(x)>0$, so
 
-$$\lim\_{n \to \infty} 1-(1-F(x))^n = 1.$$
+$$\lim\_{n \to \infty} 1-(1-F(x))\^n = 1.$$
 
 For $x \le 0$, every $F\_n(x)$ is zero, so $H\_n$ converges in distribution to
 zero. This cannot be uniform: at $x=0$ every $F\_n$ is zero but the CDF of the
@@ -118,12 +118,12 @@ look it up on [Math StackExchange](https://math.stackexchange.com/a/2971221).
 
 This works because lognormal variables have support $(0,\infty)$ and finite
 second moments. $H\_n$ tends to zero and $0 \le H\_n \le T\_1$, so dominated
-convergence gives $E[H\_n] \to 0$ and $E[H\_n^2] \to 0$.
+convergence gives $E[H\_n] \to 0$ and $E[H\_n\^2] \to 0$.
 
 The variance converges to zero as $n \to \infty$. This doesn't by itself prove
 that it decreases at every single step.
 
-The intuition for this is clear, going from $F(x)$ to $1-(1-F(x))^n$ squashes
+The intuition for this is clear, going from $F(x)$ to $1-(1-F(x))\^n$ squashes
 the right part of the CDF towards 1 faster than the left. This looks more and
 more like a step function as you increase $n$.
 
@@ -247,7 +247,7 @@ measuring an unhedged request and producing a very boring result.
 ## Does the experiment match theory?
 
 The solid lines below are measured gRPC latencies and the dashed lines are the
-theoretical CDFs $1-(1-F(x))^n$.
+theoretical CDFs $1-(1-F(x))\^n$.
 
 ![](/static/hedged-cdf.png)
 

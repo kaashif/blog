@@ -21,21 +21,23 @@ jobs:
       - name: Check out the blog
         uses: actions/checkout@v6
 
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache Rust builds
+        uses: Swatinem/rust-cache@v2
+
       - name: Install build dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install --yes cpanminus python3-pygments
-          sudo cpanm --notest \
-            Config::IniFiles \
-            File::Copy::Recursive \
-            File::Slurp \
-            HTML::Escape \
-            HTTP::Server::Brick \
-            Switch \
-            Text::Markdown::Discount \
-            Text::Template \
-            Text::Trim \
-            YAML::Tiny
+          sudo apt-get install --yes python3-pygments
+
+      - name: Check Tau
+        run: |
+          cargo fmt --all --check
+          cargo clippy --locked --all-targets -- -D warnings
+          cargo build --release --locked
+          tests/parity.sh
 
       - name: Build the site
         run: ./tau regen

@@ -1,0 +1,12 @@
+<!doctype html>
+<title><% $title %></title>
+<main><% unless ($subtemplate eq "NONE") {
+Text::Template::fill_in_file($subtemplate, HASH => {
+content => $content,
+title => $title,
+date => $date,
+link => $link,
+}, DELIMITERS => ['<%', '%>']);
+} else {
+$content
+} %></main>

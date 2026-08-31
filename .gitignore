@@ -2,4 +2,6 @@ _out/
 .frog/
 site/
 node_modules/
+target/
+.tau-site-new/
 *.sw?

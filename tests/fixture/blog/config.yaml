@@ -1,0 +1,9 @@
+---
+site:
+  title: Fixture blog
+  author: Fixture Author
+  tagline: Exact output test
+  url: https://example.test
+  uploadcmd: "true"
+  extrafiles:
+    - extra.txt

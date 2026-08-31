@@ -1,7 +1,11 @@
 kaashif's blog
 ==============
 
-These files are turned into a website by a small Perl script, tau.
+These files are turned into a website by a small Rust program, tau.
+
+To build the site, install stable Rust, a C compiler, make, and Pygments,
+then run `./tau regen`. `tests/parity.sh` checks the generated files
+byte-for-byte against output from the old Perl implementation.
 
 See the finished product at <https://www.kaashif.co.uk>.
 

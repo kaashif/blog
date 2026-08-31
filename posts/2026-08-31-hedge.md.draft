@@ -1,5 +1,5 @@
 Rigorously hedging against tail latency
-2025-12-25
+2026-08-31
 
 I saw a talk at CppCon 2024 delivered by a friend of mine on request latency
 outliers. I couldn't find the talk on YouTube, I think it'll be released

@@ -57,28 +57,40 @@ $i$th request $T\_i$, with $\log(T\_i) \sim \mathcal{N}(0,1)$, where the $T\_i$ 
 independent.
 
 It's a general result that for $X\_i$ independent and identically distributed,
-with CDF $F$, then the CDF $F\_n$ of $\min\_i(X\_i)$ is $ 1-(1-F(x))^n$. Proving this
-is an exercise for the reader (saying this is totally rigorous, do not send me
-complaints). Similarly, the max would be $F(x)^n$.
+with CDF $F$, then the CDF $F\_n$ of $\min\_i(X\_i)$ is $1-(1-F(x))^n$. Proving
+this is an exercise for the reader (saying this is totally rigorous, do not
+send me complaints). Similarly, the max would be $F(x)^n$.
 
 The hedged latency distribution $H\_n$ is $\min(T\_1, \dots, T\_n)$.
 
-$\log(H\_n) \sim \log(\min(T\_1, \dots, T\_n)$
+$$\log(H\_n) = \log(\min(T\_1, \dots, T\_n))$$
 
 $\log$ is increasing, so this is $\min(\log(T\_1), \dots, \log(T\_n))$.
 
-Using the earlier result, we now know the PDF of $\log(H\_N)$ and can plot it
-for various values of $N$ to build some intuition before we prove some facts.
+Writing $\Phi$ and $\phi$ for the standard normal CDF and PDF, we have
+
+$$P(\log H\_n \le y) = 1-(1-\Phi(y))^n$$
+
+and the PDF is
+
+$$f\_{\log H\_n}(y) = n(1-\Phi(y))^{n-1}\phi(y).$$
+
+We can plot it for various values of $n$ to build some intuition before we
+prove some facts.
 
 ![](/static/hedged.png)
 
 It's clear from looking at this that the hedged distribution isn't lognormal.
-It isn't just moving to the left, it's now asymmetric, the tail on the right is
+It isn't just moving to the left, it's now asymmetric, the tail on the left is
 flatter and the distribution is narrower.
 
-Clearly $\lim\_{n \to \infty} (1-(1-F(x))^n = 0$ because $F(x) \in [0,1)$.
-But this cannot converge uniformly, it's still a CDF and the limit as
-$x \to \infty$ is always $1$.
+For any fixed $x>0$, $F(x)>0$, so
+
+$$\lim\_{n \to \infty} 1-(1-F(x))^n = 1.$$
+
+For $x \le 0$, every $F\_n(x)$ is zero, so $H\_n$ converges in distribution to
+zero. This cannot be uniform: at $x=0$ every $F\_n$ is zero but the CDF of the
+constant zero random variable is one.
 
 This makes sense - requests may have latency arbitrarily close to zero.  So
 with more hedging, the hedged latency distribution gets more and more squeezed
@@ -104,13 +116,16 @@ It is relatively easy to prove that the variance of the min of i.i.d. lognormal
 random variables tends to zero the more you add. I won't pretend I didn't just
 look it up on [Math StackExchange](https://math.stackexchange.com/a/2971221).
 
-This works because lognormal variables have support $(0,\infty]$.
+This works because lognormal variables have support $(0,\infty)$ and finite
+second moments. $H\_n$ tends to zero and $0 \le H\_n \le T\_1$, so dominated
+convergence gives $E[H\_n] \to 0$ and $E[H\_n^2] \to 0$.
 
-The variance doesn't just decrease, it converges to zero as $n \to \infty$.
+The variance converges to zero as $n \to \infty$. This doesn't by itself prove
+that it decreases at every single step.
 
 The intuition for this is clear, going from $F(x)$ to $1-(1-F(x))^n$ squashes
-the right part of the CDF towards 1 and leaves the left half unscathed. This
-looks more and more like a step function as you increase $n$.
+the right part of the CDF towards 1 faster than the left. This looks more and
+more like a step function as you increase $n$.
 
 ## Why not lognormal?
 
@@ -140,13 +155,14 @@ of a better distribution to use, right?
 
 ## Which distribution should we use?
 
-Is latency different if there are 1 billion qps or 1 qps? Of course it is. This
-means our model must model the distribution of request arrivals, otherwise it's
-nonsense.
+Is latency different if there are 1 billion qps or 1 qps? Of course it is. To
+model the effects of load, our model must model the distribution of request
+arrivals.
 
 A clear contender for modelling time between arrivals is the exponential
-distribution - it models the time between events where the average arrival rate
-is constant in any interval, i.e. number of arrivals has a Poisson distribution.
+distribution - it models the time between independent events where the average
+arrival rate is constant, i.e. the number of arrivals has a Poisson
+distribution.
 
 We also have to pick a model for service times. You could pick any
 distribution. Here's an argument for using the exponential distribution:
@@ -161,7 +177,7 @@ theory.
 
 There's no general answer for this that doesn't make service time assumptions.
 
-Note also that queuing theory is in general useless because _service times
+Note also that this queueing model is in general useless because _service times
 aren't independent!_
 
 And there's another problem, request arrivals are usually not independent,
@@ -170,7 +186,8 @@ events, news, market events. This means the "constant average arrival rate"
 assumption behind using the exponential distribution is wrong.
 
 Once you lose independence and don't know the distributions of anything, you
-can no longer do any useful statistics except experimentally.
+can no longer use the nice closed form results and have to measure
+experimentally.
 
 So let's do an experiment!
 
@@ -178,27 +195,99 @@ So let's do an experiment!
 
 I set up a Java gRPC service which does nothing but wait for a random time
 drawn from various distributions. We'll benchmark it and measure times taken
-with request hedging for various distributions.
+with request hedging for various distributions. The code is
+[here](https://github.com/kaashif/grpc-hedge-benchmark).
 
 This is overkill - I could've simply written a model in a Jupyter Notebook and
 come up with these same numbers. It's a more satisfying conclusion for me
 though, after being unable to prove anything.
 
-The request arrival rate is constant since we just want to think about service
-times.
+The benchmark uses a fixed 32 concurrent client requests since we just want to
+think about service times. The server samples a new independent delay for every
+attempt and schedules the response without blocking a thread. I used these two
+distributions:
+
+* $5\text{ms} + \operatorname{Exponential}(20\text{ms})$
+* $5\text{ms} + \operatorname{Lognormal}(\log(10\text{ms}), 1)$
+
+The extra 5ms gives gRPC enough time to start every zero-delay hedge before one
+of them finishes.
 
 The proto file looks like this:
 
+```proto
+service BenchmarkService {
+  rpc Process (BenchmarkRequest) returns (BenchmarkResponse) {}
+}
 ```
 
+The hedging config looks like this for $n=3$:
+
+```json
+{
+  "methodConfig": [{
+    "name": [{"service": "benchmark.BenchmarkService"}],
+    "hedgingPolicy": {
+      "maxAttempts": 3,
+      "hedgingDelay": "0s"
+    }
+  }]
+}
 ```
 
-We'll use a unary RPC and JMH to benchmark. This is the method we're benchmarking:
+The first version of the benchmark used JMH iteration averages as though they
+were individual request times. That was wrong, we need all the individual
+times if we want to look at a distribution. The fixed benchmark records 5,000
+individual calls for each distribution and each value of $n$.
 
-```java
+I also added counters to the server for attempts, completed attempts and
+cancelled attempts. This verifies that gRPC is actually hedging instead of just
+measuring an unhedged request and producing a very boring result.
 
-```
+## Does the experiment match theory?
 
-Where the `rateLimiter` is a Guava rate limiter.
+The solid lines below are measured gRPC latencies and the dashed lines are the
+theoretical CDFs $1-(1-F(x))^n$.
 
-##
+![](/static/hedged-cdf.png)
+
+Every measured p50, p95 and p99 is within 1.6ms of the theoretical value. The
+measured values include gRPC, HTTP/2 and scheduling overhead while the theory
+only includes the delay sampled by the server, so they shouldn't be exactly
+equal.
+
+![](/static/hedged-percentiles.png)
+
+Here are the tail results. "Theory" is the exact p99 of the minimum of $n$
+independent service times.
+
+| Distribution | $n$ | Observed p99 | Theory p99 | Attempts/call |
+|---|---:|---:|---:|---:|
+| Exponential | 1 | 98.69ms | 97.10ms | 1.00 |
+| Exponential | 2 | 50.19ms | 51.05ms | 2.00 |
+| Exponential | 3 | 35.42ms | 35.70ms | 3.00 |
+| Exponential | 5 | 23.70ms | 23.42ms | 5.00 |
+| Lognormal | 1 | 108.63ms | 107.40ms | 1.00 |
+| Lognormal | 2 | 42.50ms | 41.02ms | 2.00 |
+| Lognormal | 3 | 27.56ms | 26.98ms | 3.00 |
+| Lognormal | 5 | 18.03ms | 17.95ms | 5.00 |
+
+There's a cost, obviously. Zero-delay hedging started exactly $n$ server
+attempts for every request. At $n=5$, the exponential run cancelled 19,901 of
+25,000 attempts and the lognormal run cancelled 19,819. A small number of the
+losing attempts completed before cancellation reached the server.
+
+![](/static/hedged-load.png)
+
+So the simple model was not pointless after all. It predicts the result very
+well when we deliberately make the assumptions true.
+
+This doesn't mean you should send five copies of every request. Real attempts
+may be correlated because they share a database or overloaded backend. The
+extra attempts also consume real resources, cancellation can arrive too late,
+and the operation must be safe to run more than once.
+
+A delayed second request is less silly than sending five immediately. For
+example, you could send it around the ordinary p95 latency, targeting the tail
+without doubling the load for every request. gRPC has throttling and server
+pushback for similar reasons.

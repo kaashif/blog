@@ -36,6 +36,7 @@ jobs:
         run: |
           cargo fmt --all --check
           cargo clippy --locked --all-targets -- -D warnings
+          cargo test --locked
           cargo build --release --locked
           tests/parity.sh
 

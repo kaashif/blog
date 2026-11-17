@@ -10,11 +10,14 @@ filesystem-dependent URL ordering in the sitemap.
 
 See the finished product at <https://www.kaashif.co.uk>.
 
-The build renders TeX equations to SVG with accessible MathML, embeds the
-text fonts in the shared stylesheet, and reserves space for local images.
+The build renders TeX equations to SVG with accessible MathML and reserves
+space for local images. Text uses Helvetica/Arial system fonts, with no
+webfont downloads or font swaps.
 Published pages need no JavaScript. Disqus is no longer included.
+CSS reveals the page when the complete HTML has arrived, avoiding partially
+painted paragraphs while the browser is still parsing the response.
 The combined stylesheet has a content hash and long-lived browser caching;
-changing the CSS or fonts gives it a new URL automatically.
+changing the CSS gives it a new URL automatically.
 Run `node scripts/check-site.mjs site` to audit every generated post for
 unrendered math and unwanted scripts. Deployment runs this check automatically.
 
@@ -31,10 +34,6 @@ An aside belongs in a footnote.[^aside]
 
     Indent continuation paragraphs by four spaces.
 ```
-
-The site serves Latin Modern webfonts locally from `static/fonts/`, with
-regular, bold, italic, and bold italic faces. Font sources and licensing
-are recorded in that directory.
 
 License
 -------

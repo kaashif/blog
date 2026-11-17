@@ -18,14 +18,8 @@ const root = path.resolve(process.argv[2] || 'site');
 const adaptor = jsdomAdaptor(JSDOM, { fontSize: 16 });
 AssistiveMmlHandler(RegisterHTMLHandler(adaptor));
 
-// One cacheable, render-blocking stylesheet contains all four text font faces.
-// They are available as soon as CSS is parsed, with no later font requests/swaps.
+// One cacheable stylesheet; text uses system fonts with no font downloads.
 let css = await readFile(path.join(root, 'css/style.css'), 'utf8');
-for (const match of [...css.matchAll(/url\('([^']+\.woff2)'\)/g)]) {
-  const font = await readFile(path.join(root, match[1]));
-  css = css.replace(match[0], `url('data:font/woff2;base64,${font.toString('base64')}')`);
-}
-css = css.replaceAll('font-display: swap', 'font-display: block');
 css += '\n' + await readFile(path.join(root, 'css/monokai.css'), 'utf8');
 await writeFile(path.join(root, 'css/style.css'), css);
 const cssName = `style.${createHash('sha256').update(css).digest('hex').slice(0, 16)}.css`;
@@ -94,6 +88,9 @@ for await (const filename of htmlFiles(root)) {
     const style = document.outputJax.svgStyles;
     if (style && adaptor.parent(style)) adaptor.remove(style);
   }
+  const body = adaptor.body(document.document);
+  const ready = document.document.getElementById('page-ready');
+  if (ready) adaptor.append(body, ready);
   const output = adaptor.doctype(document.document) + '\n' + adaptor.outerHTML(adaptor.root(document.document));
   if (/<merror\b/.test(output)) errors.push(`${path.relative(root, filename)}: invalid rendered equation`);
   await writeFile(filename, output);

@@ -37,7 +37,7 @@ html {
 body {
 	padding: 50px 0;
 	margin: 0;
-	font: 18px/1.55 'Latin Modern', 'Computer Modern', Georgia, serif;
+	font: 16px/1.55 'Latin Modern', 'Computer Modern', Georgia, serif;
 	color: #222;
 	overflow-wrap: anywhere;
 }
@@ -68,7 +68,21 @@ a:focus-visible {
 }
 
 .content a h2 {
-	color: inherit;
+	color: #222;
+}
+
+.content > h2:first-child, .content > a > h2 {
+	color: #222;
+	font-size: 1.4em;
+	font-weight: 700;
+	line-height: 1.3;
+	margin-bottom: 0.4em;
+}
+
+.content > h2:first-child + h3, .content > a + h3 {
+	font-size: 0.875em;
+	font-weight: 400;
+	color: #666;
 }
 
 p a {

@@ -15,7 +15,7 @@ import '@mathjax/src/js/input/tex/newcommand/NewcommandConfiguration.js';
 import { imageSize } from 'image-size';
 
 const root = path.resolve(process.argv[2] || 'site');
-const adaptor = jsdomAdaptor(JSDOM, { fontSize: 18 });
+const adaptor = jsdomAdaptor(JSDOM, { fontSize: 16 });
 AssistiveMmlHandler(RegisterHTMLHandler(adaptor));
 
 // One cacheable, render-blocking stylesheet contains all four text font faces.

@@ -147,9 +147,9 @@ $\rho_i$ as blocks in all possible ways that give matrices of the
 correct size. That is, you try to find some $i_j$ such that:
 
 $$\rho(g) = \begin{pmatrix}
-\rho\_{i\_1}(g) & & \\\\
+\rho_{i_1}(g) & & \\\\
 & \ddots & \\\\
-& & \rho\_{i\_m}(g)
+& & \rho_{i_m}(g)
 \end{pmatrix}$$
 
 Where anything not labelled above is zero. This is easy for some small
@@ -168,8 +168,8 @@ better, the matrices are already given in the nicest basis
 possible. It's not really obvious how to "observe" the structure of a
 representation like this in general.
 
-Here's the dirty trick. Define $\chi\_\rho(g) :=
-\text{trace}(\rho(g))$. $\chi\_\rho$ is called the character of
+Here's the dirty trick. Define $\chi_\rho(g) :=
+\text{trace}(\rho(g))$. $\chi_\rho$ is called the character of
 $\rho$. It has the useful property that for a finite $G$, a finite
 dimensional representation (meaning the matrices are finite size), and
 coefficients in $\mathbb{C}$: $\rho$ is isomorphic to $\tau$ (as
@@ -269,21 +269,21 @@ So in the end we don't need to ever compute the matrices $\tau \otimes
 $$A = pB = \sum_g (\tau(g) \otimes \rho^\ast(g))(B)$$
 
 The tensor product has the neat property that $(A \otimes B)(C \otimes
-D) = AC \otimes BD$. We can write the matrix $B$ as $\sum\_{i,j}
-B\_{ij} e\_i \otimes e\_j$, that is we "vectorise" the matrix $B$ into
-an $n\^2$ length vector. Then the equation above simplifies to:
+D) = AC \otimes BD$. We can write the matrix $B$ as $\sum_{i,j}
+B_{ij} e_i \otimes e_j$, that is we "vectorise" the matrix $B$ into
+an $n^2$ length vector. Then the equation above simplifies to:
 
-$$A = \sum\_g \sum\_{i,j} B\_{ij} \tau(g)e\_i \otimes
-\rho\^\ast(g)e\_j$$
+$$A = \sum_g \sum_{i,j} B_{ij} \tau(g)e_i \otimes
+\rho^\ast(g)e_j$$
 
 So we have ended up with a formula for $A$ (the basis change matrix)
-which doesn't require the computation of any matrices with $n\^4$
+which doesn't require the computation of any matrices with $n^4$
 entries, and is amenable to the fast group summing method vaguely
 mentioned earlier.
 
 Since we still have to do matrix multiplications many times, this
-whole algorithm is still at least $\text{O}(n\^3)$ but using clever
-tensor product tricks, we got it down from $\text{O}(n\^4)$. Not bad!
+whole algorithm is still at least $\text{O}(n^3)$ but using clever
+tensor product tricks, we got it down from $\text{O}(n^4)$. Not bad!
 
 One thing to mention is that the independence of the run time from
 $|G|$ frees us to compute with huge groups. My algorithm can operate

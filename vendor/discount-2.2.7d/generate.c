@@ -1305,6 +1305,33 @@ smartypants(int c, int *flags, MMIOT *f)
 } /* smartypants */
 
 
+/* Preserve inline TeX before Markdown can turn exponents into <sup> tags.
+ * Single dollars use the same syntax as the blog's MathJax configuration.
+ */
+static int
+inline_mathhandler(MMIOT *f)
+{
+    int i = 0;
+    while (peek(f, ++i) != EOF) {
+        if (peek(f, i) == '\\' && peek(f, i+1) != EOF) {
+            ++i;
+        } else if (peek(f, i) == '$') {
+            cputc('$', f);
+            while (i-- > 0) {
+                int c = pull(f);
+                /* Older posts escaped Markdown's sub/superscript syntax. */
+                if (c == '\\' && i > 0 && (peek(f, 1) == '_' || peek(f, 1) == '^')) {
+                    c = pull(f);
+                    --i;
+                }
+                cputc(c, f);
+            }
+            return 1;
+        }
+    }
+    return 0;
+}
+
 /* process latex with arbitrary 2-character ( $$ .. $$, \[ .. \], \( .. \)
  * delimiters
  */
@@ -1578,6 +1605,8 @@ text(MMIOT *f)
 			    break;
 			Qchar('$', f);
 		    }
+		    else if ( is_flag_set(f->flags, MKD_LATEX) && inline_mathhandler(f) )
+			break;
 		    /* fall through to default */
 
 	default:    f->last = c;

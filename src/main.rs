@@ -140,6 +140,18 @@ fn regen() -> Result<()> {
     println!("--> Copying extra files");
     copy_extras(staging, &config.site.extrafiles)?;
     copy_tree(Path::new("static"), &staging.join("static"))?;
+    let prepare = Path::new("scripts/prepare-site.mjs");
+    if prepare.is_file() {
+        println!("--> Preparing fonts, images, and static equations");
+        let status = ProcessCommand::new("node")
+            .arg(prepare)
+            .arg(staging)
+            .status()
+            .context("running site preparation (install Node.js and run npm ci)")?;
+        if !status.success() {
+            bail!("site preparation failed with {status}");
+        }
+    }
     println!("--> Building sitemap");
     build_sitemap(staging, &config.site.url)?;
 
@@ -784,6 +796,24 @@ mod tests {
         let math = r"$$x^{2} + a_b + c_d + \{y\} + \frac12
 = z^{2}$$";
         assert_eq!(render_markdown(math).unwrap(), format!("<p>{math}</p>\n"));
+    }
+
+    #[test]
+    fn inline_math_keeps_exponents_subscripts_and_comparisons() {
+        let math = r"$\sqrt{a^2+b^2}$ and $i_j < n$";
+        assert_eq!(
+            render_markdown(math).unwrap(),
+            format!("<p>{}</p>\n", math.replace('<', "&lt;"))
+        );
+        assert_eq!(
+            render_markdown(r"$x\_i + n\^2$").unwrap(),
+            "<p>$x_i + n^2$</p>\n"
+        );
+        assert!(
+            render_markdown("`$x^2$`")
+                .unwrap()
+                .contains("<code>$x^2$</code>")
+        );
     }
 
     #[test]

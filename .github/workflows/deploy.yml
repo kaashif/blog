@@ -27,10 +27,19 @@ jobs:
       - name: Cache Rust builds
         uses: Swatinem/rust-cache@v2
 
+      - name: Install Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+
       - name: Install build dependencies
         run: |
           sudo apt-get update
           sudo apt-get install --yes python3-pygments
+
+      - name: Install static rendering dependencies
+        run: npm ci
 
       - name: Check Tau
         run: |
@@ -41,7 +50,9 @@ jobs:
           tests/parity.sh
 
       - name: Build the site
-        run: ./tau regen
+        run: |
+          ./tau regen
+          node scripts/check-site.mjs site
 
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v4

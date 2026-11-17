@@ -3,12 +3,20 @@ kaashif's blog
 
 These files are turned into a website by a small Rust program, tau.
 
-To build the site, install stable Rust, a C compiler, make, and Pygments,
-then run `./tau regen`. `tests/parity.sh` checks the generated files
+To build the site, install stable Rust, a C compiler, make, Node.js, and Pygments,
+then run `npm ci` and `./tau regen`. `tests/parity.sh` checks the generated files
 byte-for-byte against output from the old Perl implementation, ignoring
 filesystem-dependent URL ordering in the sitemap.
 
 See the finished product at <https://www.kaashif.co.uk>.
+
+The build renders TeX equations to SVG with accessible MathML, embeds the
+text fonts in the shared stylesheet, and reserves space for local images.
+Published pages need no JavaScript. Disqus is no longer included.
+The combined stylesheet has a content hash and long-lived browser caching;
+changing the CSS or fonts gives it a new URL automatically.
+Run `node scripts/check-site.mjs site` to audit every generated post for
+unrendered math and unwanted scripts. Deployment runs this check automatically.
 
 Footnotes
 ---------

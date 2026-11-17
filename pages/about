@@ -1,52 +1,23 @@
 ## About
 
-I'm a software engineer.
+I'm an engineering team lead at Bloomberg. My background is in C++, Python,
+Java, distributed systems, and financial analytics.
 
-## Software I wrote
+I’m a limited partner at Oxonian Ventures, investing in startups founded by
+Oxford alumni. I’m also on the board of One for the World, helping make
+decisions about the charity and its work on effective giving.
 
-This list is horrifically out of date. I care enough to add this note, but not
-enough to update it.
+I studied mathematics and computer science at Oxford, where I worked on
+computational group theory. I also once quit my job to start a VPN business.
+I built the product, handled sales and customer service, and spent most of my
+time arguing with people on Twitter.
 
-* [rnn](https://gitlab.com/kaashif/rnn): Neural network that
-  generates terminal color schemes given a wallpaper.
+I’ve been writing this blog since 2013. Much of it is about programming,
+mathematics, Unix, and getting old computers to do things. More recently,
+I’ve been writing about AI, management, and how organisations work. There
+are also occasional posts about startups, games, books, and whatever else
+has caught my attention.
 
-* [transcript-search](https://gitlab.com/kaashif/transcript-search):
-  Attoparsec-based tool for doing searches by character, location,
-  etc. on transcripts of Star Trek and Stargate. There is an instance
-  hosted here: <https://transcripts.kaashif.co.uk>
-
-* [rice_info](https://gitlab.com/kaashif/rice_info):
-  [ricerous](https://github.com/nixers-projects/ricerous)-compatible
-  Qt program for managing notes on customizing *nix
-  systems. Essentially a toy program, does barely anything.
-
-* [quenya-verb](https://gitlab.com/kaashif/quenya-verb): Haskell
-  program (and web app) that conjugates verbs in Tolkien's constructed
-  language Quenya (an Elvish language).
-
-* [muon](https://gitlab.com/kaashif/muon): Haskell static site
-  generator I used to use to build this site.
-
-## Other things
-
-I like to contribute to my operating system, OpenBSD. I am the
-maintainer of a few ports (check out
-[my repology.org page](https://repology.org/maintainer/kaashif@kaashif.co.uk))
-and try to send a patch in when I see a problem I can fix (usually an
-outdated package or fixes to documentation).
-
-I'm a member of the [nixers.net](http://git.nixers.net/) community,
-which is a community centred on customizing and writing software for
-*nix operating systems. I am responsible for porting new software
-(written by members of the community) to OpenBSD, which involves
-working with the author to remove/modify platform-specific code,
-submitting a port to OpenBSD.
-
-##Stuff running this site
-* [Vultr](https://www.vultr.com/): VPS
-* [OpenBSD](http://openbsd.org): operating system
-* [OpenBSD's httpd](http://cvsweb.openbsd.org/cgi-bin/cvsweb/src/usr.sbin/httpd/):
-  web server
-* [Let's Encrypt](https://letsencrypt.org/): SSL certificate
-
-See the [contact page](/contact.html) for how to get in touch.
+You can find me on [GitHub](https://github.com/kaashif) and
+[LinkedIn](https://www.linkedin.com/in/kaashif-hymabaccus/), or
+[get in touch](/contact.html).

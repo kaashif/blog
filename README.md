@@ -10,6 +10,24 @@ filesystem-dependent URL ordering in the sitemap.
 
 See the finished product at <https://www.kaashif.co.uk>.
 
+Footnotes
+---------
+
+Posts and pages support Markdown footnotes, with numbered references and
+links back to the text:
+
+```markdown
+An aside belongs in a footnote.[^aside]
+
+[^aside]: Footnotes can include **formatting** and [links](https://example.com).
+
+    Indent continuation paragraphs by four spaces.
+```
+
+The site serves Latin Modern webfonts locally from `static/fonts/`, with
+regular, bold, italic, and bold italic faces. Font sources and licensing
+are recorded in that directory.
+
 License
 -------
 The code in this repository (that is, the code snippets contained in

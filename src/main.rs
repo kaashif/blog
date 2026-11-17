@@ -32,7 +32,9 @@ const OUTPUT_DIR: &str = "site";
 const STAGING_DIR: &str = ".tau-site-new";
 // Preserve LaTeX spans for MathJax instead of interpreting their contents as Markdown.
 const MKD_LATEX: u32 = 0x4000_0000;
-const DISCOUNT_FLAGS: u32 = 0x0000_0004 | 0x0001_0000 | 0x0100_0000 | 0x0200_0000 | MKD_LATEX;
+const MKD_EXTRA_FOOTNOTE: u32 = 0x0020_0000;
+const DISCOUNT_FLAGS: u32 =
+    0x0000_0004 | 0x0001_0000 | 0x0100_0000 | 0x0200_0000 | MKD_LATEX | MKD_EXTRA_FOOTNOTE;
 
 static DISCOUNT_LOCK: Mutex<()> = Mutex::new(());
 
@@ -209,8 +211,8 @@ fn read_post(path: &Path) -> Result<Post> {
         .with_context(|| format!("invalid date in {}", path.display()))?;
     let processed = process_code_blocks(sections.next().unwrap_or_default())
         .with_context(|| format!("highlighting code in {}", path.display()))?;
-    let content = render_markdown(&processed)?;
     let link = format!("/{}/{}/", date.replace('-', "/"), titleify(&title));
+    let content = render_markdown_with_prefix(&processed, Some(&footnote_prefix(&link)))?;
     Ok(Post {
         title,
         date,
@@ -276,6 +278,14 @@ fn highlight(language: &str, code: &str) -> Result<String> {
 }
 
 fn render_markdown(markdown: &str) -> Result<String> {
+    render_markdown_with_prefix(markdown, None)
+}
+
+fn footnote_prefix(link: &str) -> String {
+    format!("fn-{}", link.trim_matches('/').replace('/', "-"))
+}
+
+fn render_markdown_with_prefix(markdown: &str, prefix: Option<&str>) -> Result<String> {
     let input_length = markdown
         .as_bytes()
         .iter()
@@ -287,7 +297,7 @@ fn render_markdown(markdown: &str) -> Result<String> {
         .map_err(|_| anyhow!("Discount renderer lock was poisoned"))?;
 
     // Text::Markdown::Discount 0.18 used these calls and flags, then appended
-    // one newline. Also enable MKD_LATEX so display math reaches MathJax intact.
+    // one newline. Also preserve LaTeX for MathJax and enable Markdown footnotes.
     let document = unsafe { mkd_string(markdown.as_ptr().cast(), length, DISCOUNT_FLAGS) };
     if document.is_null() {
         bail!("Discount failed to read Markdown");
@@ -320,6 +330,15 @@ fn render_markdown(markdown: &str) -> Result<String> {
     let mut rendered = std::str::from_utf8(bytes)
         .context("Discount returned non-UTF-8 output")?
         .to_owned();
+    if let Some(prefix) = prefix {
+        // Discount's reference formatter has an 80-byte buffer. Namespace the
+        // completed HTML instead so long post slugs cannot truncate the links.
+        rendered = rendered
+            .replace("id=\"fn:", &format!("id=\"{prefix}:"))
+            .replace("id=\"fnref:", &format!("id=\"{prefix}ref:"))
+            .replace("href=\"#fn:", &format!("href=\"#{prefix}:"))
+            .replace("href=\"#fnref:", &format!("href=\"#{prefix}ref:"));
+    }
     rendered.push('\n');
     Ok(rendered)
 }
@@ -340,6 +359,11 @@ fn build_home(root: &Path, site: &SiteConfig, templates: &Templates, posts: &[Po
             .replace("h3", "h4")
             .replace("h2", "h3")
             .replace("h1", "h2");
+        // Excerpts may omit the footnote definitions, so open notes on the post.
+        let extract = extract.replace(
+            &format!("href=\"#{}:", footnote_prefix(&post.link)),
+            &format!("href=\"{}#{}:", post.link, footnote_prefix(&post.link)),
+        );
         content.push_str(&extract);
         content.push_str("</code></pre></ul></ol></p>\n");
         content.push_str(&format!(
@@ -705,13 +729,55 @@ fn mime_type(path: &Path) -> &'static str {
         Some("svg") => "image/svg+xml",
         Some("xml") => "application/xml; charset=utf-8",
         Some("txt") => "text/plain; charset=utf-8",
+        Some("woff2") => "font/woff2",
         _ => "application/octet-stream",
     }
 }
 
 #[cfg(test)]
 mod tests {
-    use super::render_markdown;
+    use super::{footnote_prefix, render_markdown, render_markdown_with_prefix};
+
+    #[test]
+    fn footnotes_render_numbered_links_formatted_notes_and_backlinks() {
+        let html = render_markdown(
+            "A claim.[^note]\n\n[^note]: A **bold** note with [a link](https://example.com).\n\n    A second paragraph.",
+        )
+        .unwrap();
+        assert!(
+            html.contains("<sup id=\"fnref:1\"><a href=\"#fn:1\" rel=\"footnote\">1</a></sup>")
+        );
+        assert!(html.contains("<li id=\"fn:1\">"));
+        assert!(html.contains("<strong>bold</strong>"));
+        assert!(html.contains("<a href=\"https://example.com\">a link</a>"));
+        assert!(html.contains("<p>A second paragraph.</p>"));
+        assert!(html.contains("href=\"#fnref:1\" rev=\"footnote\""));
+    }
+
+    #[test]
+    fn posts_have_distinct_footnote_ids() {
+        for link in [
+            "/2026/11/17/first/",
+            "/2026/11/17/second/",
+            "/2026/11/17/a-long-post-title-that-must-not-truncate-footnote-links/",
+        ] {
+            let prefix = footnote_prefix(link);
+            let html =
+                render_markdown_with_prefix("A claim.[^note]\n\n[^note]: A note.", Some(&prefix))
+                    .unwrap();
+            assert!(html.contains(&format!("id=\"{prefix}:1\"")));
+            assert!(html.contains(&format!("href=\"#{prefix}:1\"")));
+            assert!(html.contains(&format!("href=\"#{prefix}ref:1\"")));
+            assert!(html.contains("rel=\"footnote\">1</a></sup>"));
+        }
+    }
+
+    #[test]
+    fn code_does_not_turn_into_footnotes() {
+        let html = render_markdown("`[^note]`\n\n[^note]: An unused note.").unwrap();
+        assert!(html.contains("<code>[^note]</code>"));
+        assert!(!html.contains("class=\"footnotes\""));
+    }
 
     #[test]
     fn display_math_preserves_tex_syntax() {

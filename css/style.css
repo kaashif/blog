@@ -1,3 +1,35 @@
+@font-face {
+	font-family: 'Latin Modern';
+	src: url('/static/fonts/LM-regular.woff2') format('woff2');
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Latin Modern';
+	src: url('/static/fonts/LM-bold.woff2') format('woff2');
+	font-style: normal;
+	font-weight: 700;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Latin Modern';
+	src: url('/static/fonts/LM-italic.woff2') format('woff2');
+	font-style: italic;
+	font-weight: 400;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Latin Modern';
+	src: url('/static/fonts/LM-bold-italic.woff2') format('woff2');
+	font-style: italic;
+	font-weight: 700;
+	font-display: swap;
+}
+
 html {
 	background: #FFFFFF;
 }
@@ -5,8 +37,9 @@ html {
 body {
 	padding: 50px 0;
 	margin: 0;
-	font: 13.34px Helvetica, sans-serif;
-	color: #555;
+	font: 18px/1.55 'Latin Modern', 'Computer Modern', Georgia, serif;
+	color: #222;
+	overflow-wrap: anywhere;
 }
 
 .wrapper {
@@ -20,9 +53,22 @@ header, section, footer {
 	display: block;
 }
 
-a {
-	color: #2D2E2F;
+a, a:visited {
+	color: #0000ff;
 	text-decoration: none;
+}
+
+a:hover, a:focus-visible {
+	text-decoration: underline;
+}
+
+a:focus-visible {
+	outline: 2px solid currentColor;
+	outline-offset: 3px;
+}
+
+.content a h2 {
+	color: inherit;
 }
 
 p a {
@@ -40,6 +86,7 @@ strong {
 }
 
 header {
+	display: flow-root;
 	border-radius: 8px 8px 0 0;
 	background: #FFFFFF;
 	position: relative;
@@ -56,7 +103,7 @@ header h1 {
 header p {
 	margin: 0;
 	color: #2D2E2F;
-	font-size: 15px;
+	font-size: 1rem;
 }
 header ul {
 	float: left;
@@ -123,7 +170,7 @@ blockquote cite:before {
 
 
 blockquote {
-	font-family: Helvetica, serif;
+	font-family: inherit;
 	margin: 0.25em 0;
 	padding: 0.5em 40px 0.25em 40px;
 	position: relative;
@@ -140,6 +187,7 @@ img {
 
 pre {
 	font-family: monospace;
+	overflow-wrap: normal;
 	font-size: 90%;;
 	padding: 20px;
 	background: #101010;
@@ -200,8 +248,49 @@ footer {
 	overflow: hidden;
 }
 footer a {
-	color: #bbb;
 	font-weight: bold;
+}
+
+.footnotes {
+	margin-top: 2em;
+	font-size: 0.9em;
+}
+
+.footnotes hr {
+	width: 30%;
+	margin: 0 0 1em;
+	border: 0;
+	border-top: 1px solid #aaa;
+}
+
+.footnotes li {
+	margin-bottom: 0.75em;
+}
+
+.footnotes p {
+	margin-bottom: 0.4em;
+}
+
+sup a[rel='footnote'] {
+	text-decoration: none;
+}
+
+.footnotes :target, sup:target {
+	background: #fff3b0;
+}
+
+@media (max-width: 480px) {
+	body {
+		padding: 20px 0;
+	}
+
+	header ul {
+		float: none;
+		display: flex;
+		flex-wrap: wrap;
+		padding: 0;
+		margin-left: -5px;
+	}
 }
 footer p {
 	float: left;

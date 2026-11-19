@@ -1,0 +1,159 @@
+Selection pressures on chains of thought are unavoidable
+2026-11-18
+
+A lot of noise has been made about how chain of thought monitoring represents a
+substantial opportunity for observability of AI and interpretability. See [this
+paper](https://arxiv.org/pdf/2507.11473) with dozens of high profile coauthors -
+but there are countless such examples.
+
+My claim is that pressures for the faithfulness and observability of reasoning
+traces to disappear are structurally unavoidable. This post does not contain any
+specific predictions about timelines, but a future post will - we can make
+observations about the effects of these pressures and project those effects into
+the future under several regulatory and economic regimes.
+
+What this post is not:
+
+* It is already well-known that reasoning traces are sensitive to explicit
+  knowledge about whether the model is in an alignment eval. My argument is not
+  about leaking knowledge of alignment evaluation criteria to models under
+  evaluation - awareness is not necessary for selection pressure to operate.
+
+* It is already well known that labs in a competitive environment are under
+  pressure to abandon interpretability in favour of increased performance. There
+  has been a lot of discussion about Astra's recurrent architecture (TODO:
+  link). My argument is nothing to do with this. My claim is that even if labs
+  do not apply any pressure on chains of thought and do not intentionally
+  sacrifice chain of thought observability, it will still disappear over a long
+  enough timeline.
+
+Effort put into avoiding reinforcement learning pressure on chains of thought is
+admirable and responsible, such pressure would be pernicious and likely to
+result in credible yet unfaithful reasoning traces. But selection pressure is
+inevitable and will only increase over time.
+
+<!--more-->
+
+It's worth examining the various _avoidable_ ways that reasoning traces will
+stop being useful before examining the _unavoidable_ ways.
+
+## Accidental exposure of chains of thought to alignment graders
+
+TODO:
+* Gemini Argon training allegedly exposing chains of thought - example
+* Anthropic allgedly accidentally exposing some percentage of traces to grading
+* openai actually has a good record on this
+  
+* likely effect of that:
+  [neuralese](https://www.lesswrong.com/posts/RCYF2rW8wgusidZk7/what-is-neuralese-and-why-is-it-bad).
+
+This can all be filed under well meaning people solving a hard problem.
+
+The well-meaningness of those people is impossible to measure.
+
+## Intentional exposure of chains of thought to graders
+
+TODO
+
+There is likely to be significant incentive to do this:
+
+regulatory regime may arise that requires cot monitoring - this is well meaning but ultimately
+misguided, it will immediately result in total compliance because such bans will ban
+confusion as well as scheming
+
+example: https://www.lesswrong.com/posts/Bv4CLkNzuG6XYTjEe/why-did-my-model-do-that-model-incrimination-for-diagnosing#Full_Case_Study3 - confusion vs scheming
+
+is it easier to comply by
+maintaining frontier capabilities while ensuring total alignment and lack of confusion,
+or is it more likely to either reduce transparency or provide fake transparency.
+
+the obvious result of such regulation is that the labs will move ahead of it, into
+an unregulated space. the stupidity of this kind of regulation does NOT mean that it
+won't happen - TODO: find those examples of it/
+
+no-cot leaps in reasoning are becoming increasingly practical - TODO link to Astra
+no cot benchmark.
+
+## Chains of thought becoming obsolete
+
+Recurrent architectures might just be better. It would be a stunning coincidence
+if the most observable way to get reasoning out of models is also the most performant.
+Note that most human thinking is not even done in English - some people do not have
+inner monologues and are clearly capable of reasoning. That is not actually proof that
+their reasoning doesn't happen in English just unconsciously, but humans who do not
+have language are still capable of reasoning to some extent.
+
+Even if they are not actually better, they may be more computationally efficient.
+
+TODO: find some papers.
+
+## The central claim
+
+So my claim is that:
+
+* Without regulations forcing transparency to go away
+* Without direct learning pressure
+* Even if visible-space CoT is the most performant way to reason
+
+CoTs will still become less faithful over time.
+
+--- first draft below ---
+
+Reasoning allows LLMs to construct complex, multi-step arguments and think using
+what appears to be a human-like process. Thinking in English was at one point
+trivially observable. Reasoning traces from GPT-o3, for example, contain actual
+English reasoning that seems to show faithful thought processes that are not
+constructed post-hoc.
+
+Some interesting examples of such reasoning traces during alignment training can
+be found in [this paper](https://www.antischeming.ai/).
+
+It's easy to see why this observability might disappear. Either quickly,
+    if chains of thought are subject to direct reinforcement learning and
+    are part of grading. Or slowly, if indirect pressure operates over
+    longer cycles. It is unlikely that anyone with the goal of reducing scheming
+    would do anything as obviously counterproductive as training on reasoning
+    traces. That could happen by accident (if the grader inadvertently gets access
+            to traces), or intentionally, if the goal is to induce models to hide
+    illegal reasoning to evade regulatory 
+
+    But there is, in my view, literally no way at all to remove the
+    pressures that will ultimately eliminate the faithfulness of
+    chains of thought to the LLM's "real" thought process. There are a few
+    mechanisms by which this might happen:
+
+    1. Exposing chains of thought as part of alignment training. This is likely to
+    result in
+    This can be avoided by just...avoiding it. OpenAI has probably avoided it,
+    DeepMind less so.
+
+    2. Looking at and talking about chains of thought critically online. Talking
+    about it in papers like [Apollo's paper on anti-scheming
+    training](https://www.apolloresearch.ai/science/stress-testing-deliberative-alignment-for-anti-scheming-training)
+    means that LLMs are more likely to know that exposing scheming in chains of
+    thought results in non-deployment. This is a bit harder to avoid, but
+    constructing environments that do not look like alignment evals is not the
+    hardest problem. It is at least solvable.
+
+    3. Then, there are the impossible to remove selection pressures. Is it already
+    illegal for a business to use a model which contains open and obvious
+    evidence of scheming and misalignment in its reasoning traces? As businesses
+    switch to local AI (like [Revolut, which switched to local
+            GLM](https://www.nvidia.com/en-us/on-demand/session/gtcberlin26-sb61234/))
+    and have broad access to reasoning traces - if those reasoning traces
+    suggest scheming or thinking about illegal behaviour, will this hypothetical
+    illegality make its way explicitly into law?  If it does, then the selection
+    pressure on models will get cranked up to 11 - firms will be unlikely to
+    deploy models that have misaligned thoughts, even if they do not act on
+    them.
+
+    As the capabilities of models to make larger leaps in reasoning without needing
+    long chains of thought [see OpenAI's paper on Astra's CoT monitorability](https://alignment.openai.com/cot-monitorability-model-lifecycle/) increases, CoT decreases. This is also impossible to
+    get around as long as capabilities increase.
+
+    Let's review each of the mechanisms in a bit more depth and point to some
+    reading you might want to do to get a sense of how bad things will get.
+
+    <!--more-->
+
+

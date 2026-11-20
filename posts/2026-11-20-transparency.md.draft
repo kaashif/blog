@@ -1,0 +1,60 @@
+Post-hoc reasoning and the illusion of transparency
+2026-11-20
+
+You have been in the following situation:
+
+> You: Why did this system produce this weird number?
+>
+> Coworker: Oh, it's because of this code in this file that implements the
+> Flumpus Convention.
+
+Later on:
+
+> You: I tried to do this other thing and it doesn't fit the Flumpus Convention.
+>
+> Coworker: I must have been wrong, let me check again. Oh yeah, it's because of
+> this other code implementing the Wumpus Convention, my bad.
+
+This is frustrating but code is code, it's sometimes hard to understand. It's a
+common problem - people do not remember how code works and come up with some
+kind of rationalization. When checked, those rationalizations don't hold up.
+
+Later, you ask your coworker about their own thought processes:
+
+> You: What was your thought process when deciding between the Flumpus and
+> Wumpus Conventions?
+>
+> Coworker: Oh, that's easy, I did it this way because of this requirement we
+> had at the time to go Wumpus.
+>
+> You: But the initial commit to this file actually calls into flumpus.cpp?
+>
+> Coworker: Oh my bad, yes, that was it, we converted to Wumpus last week.
+
+This is a common situation - people do not remember and cannot reliably
+reproduce their thought processes, yet come up with post-hoc rationalizations
+anyway. When those rationalizations are checked, they often do not hold up.
+
+These are two instances of the same problem - your coworker believes they have
+enough information to answer your question, but they fundamentally cannot.
+
+* I like the statement of [Rice's
+  theorem](https://en.wikipedia.org/wiki/Rice%27s_theorem) - all nontrivial
+  semantic properties of programs are undecidable. This does not mean that
+  _every_ program is impervious to reading it and understanding it, but most
+  programs cannot be understood without running them. Your coworker tried to
+  decide a semantic property of the program without running it.
+
+* Your coworker did not ever store or record their thought processes. Even if
+  they tried to, this would usually take the form of writing notes _after_
+  having thoughts - there is no known reliable mechanism we have of recording
+  thoughts, and this includes human memory. It is questionable whether humans
+  even have access to their own thought processes.
+
+The second claim is spicier, but these statements are actually very closely
+related if you regard your coworker themselves as a program we are trying to
+inspect - they do not have a privileged position when it comes to inspecting
+their own thought processes. Even worse - there is no way to run the program
+on selected inputs and check your hypotheses about its thoughts.
+
+<!--more-->

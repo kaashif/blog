@@ -1,0 +1,58 @@
+Unavoidable legal pressures reduce AI interpretablity 2026-11-20
+
+In recent weeks, there have been legal challenges against OpenAI relating to the
+HuggingFace incident (TODO: add link to the cali ag complaint). What's interesting about the new challenges is that they
+focus on the fact that OpenAI stored and reviewed reasoning traces from the
+misbehaving agents and could have predicted misaligned behaviour from them:
+
+> todo: add a quote from the doc supporting this
+
+My conclusion is that challenges like this are inevitable and inexorably push
+both users of AI systems and the labs themselves towards unobservable,
+uninterpretable architectures. Note that this is kind of already happening -
+OpenAI's Astra is widely thought to be at least partially recurrent (todo: neel
+nanda's post on no cot leaps) 
+
+I would prefer this were not true but I am having a hard time falsifying it, so
+I'm taking the hit and updating my beliefs. I also don't think there's really
+anything we can do about this, although I do have some suggestions towarsd the
+end. The temporary dividend we received from chains of thought may be ending.
+
+<!--more-->
+
+## Step by step: which incentives are at play here?
+
+I continue to be a fan of Charlie Munger: "Show me the incentives and I'll show
+you the outcome" - the incentives at play are clear:
+
+* Legislators have political incentives to attack the AI labs and firms using
+  AI. This is supported by the general public independently of the merit of the
+  challenges, but it happens to be the case that legal challenges based on
+  stored reasoning traces probably do have merit. A judge seeing "I will now
+  illegally hack HuggingFace" in a reasoning trace will reasonably conclude that
+  this shows intent, and it could have been caught.
+
+* Legal challenges create pressure of the form "if you can monitor, then you
+  have to, and you have to act to stop illegal actions if you are warned". There
+  are two ways to comply with this demand: monitoring and acting on warnings
+  which increases costs and still incurs penalties if mistakes are made; or
+  reduce interpretability of models to the point that effective monitoring is
+  impossible - this reduces your costs and legal scrutiny.
+
+* Firms using AI may in principle want to understand the reasoning behind
+  answers. But the reasoning traces may be less than useful - todo: add marinade
+  and disclaim citations from papers.
+
+This kind of litigation creating incentives to reduce observability is already
+well known. There is at least one paper about this from 1992 with some case
+studies (todo link) but it's hard to avoid this conclusion with even a cursory
+understanding of how humans work.
+
+
+There are a few steps we need to go through to flesh out the incentives and
+mechanisms.
+
+
+* Legal pressure of the form 
+
+* Although existing regulations purportedly still 

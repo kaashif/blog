@@ -1,0 +1,80 @@
+GCC extension for expression statements
+micropython, circuitpython
+large files git slow
+hyperfine for profiling
+wg21.link/cwg1331 - mistake in std optional
+C++ error code header?
+GitHub dependabot action maven auto PR
+hardbool
+Kafka is not a queue
+Tla+ or something else in Haskell or ocaml
+V8 allocates doubles on the heap > *fucking cpython is allocating its integers on the heap and motherfucking refe... | Hacker News
+x64 assembler in python! GitHub - Maratyszcza/PeachPy: x86-64 assembler embedded in Python
+write C to generate an ELF binary: If you want to pull back the curtain, I highly recommend hand-writing your own s... | Hacker News
+Locality of behaviour (blog post on htmx.org) and spooky action at a distance
+Folly corecachedsharedptr
+Find a network driver to port to OpenBSD
+Undo time travel debugging
+Haskell future monad Vs reactor java
+Java 21 ADT xsd
+Add heap after GC to micrometer
+Oak Language
+Windows ABI Vs Itanium struct splitting
+Futex
+Kotlin coroutine vs reactive for limiting concurrency
+Kryo serialisation, how does it work
+Betaarchive, internet explorer for solaris
+Apache tika for metadata extraction
+Graal and Truffle, write a BASIC interpreter
+Winning strategy in QE game
+Do not use patching in Python
+JSON vs arrow serialization/deserialization speed
+Atomics x86 Vs SPARC
+Elixir
+Annotation processor for compile time XSD
+Transcript search with Rust and embedded sqlite3
+shell scripts being an escape hatch out of unit tests and being dangerous
+Compression algorithm implementation
+Performant rounding
+Bumpalo allocator rust
+Audio synthesizer rust, latency, what are the challenges
+write a grpc service
+how are Java objects laid out in memory?
+GPTs to make a biography of your parents
+bubblewrap containers
+polonius borrow checker rust
+Github.com/Libfn/functional
+uv 10x faster than pip
+destructors not guaranteed in rust
+rust static reflection drama vs c++ reflection
+codon faster Python with jit
+hazard pointers
+function using varargs c++ can't be a coroutine
+c++ rewinding coroutines
+python 10m threads nogil vs async
+sysret_ss_attrs amd64 design mistake
+Linux readv writev
+tearing of 64 bit types java
+is tokio wasm compatible
+pip dependency solver is turing complete?
+rkyv for zero copy deserialization
+rust profiling: hyperfine, codespeed
+Python -O flag optimization debug
+arm jazelle JVM bytecode on cpu
+sockaddr fake flexible array
+SJLL exceptions c++ C++ exception performance three years later | Hacker News
+grpc request hedging for Conor's talk
+conservative GC - don't keep track of references
+std in place vector and L1 cache
+double wide atomic instructions are they good yet
+avx 512 galois field instructions unhinged
+McKinsey space travel
+review of im 1776 issue on health
+nanobind python
+python performance "tips" function call overhead, no for loop, CPython vs codon
+python gil can release in the middle of plus eq
+Java jit - deoptimization e.g. when feature flag flips
+deep dive python gc cycle detection
+cpython gc: why can't we just copy Java?
+C++ memory order
+Java scoped values vs Python context vars

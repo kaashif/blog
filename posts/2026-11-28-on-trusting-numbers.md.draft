@@ -68,11 +68,27 @@ This time I kept two versions of the measurement. In one, the model
 had to produce the whole answer in the benchmark's format. In the
 other, I supplied the opening four tokens, `Final Answer: [`, and let
 it take things from there. The opening contains no node IDs. On the
-same 67 graphs, with zero tokens for written reasoning, the ordinary
+same 67 graphs, with zero tokens allocated to the scratchpad, the ordinary
 version produced just four parseable answers in 268 attempts. Giving
 the model the opening brought its average score at one pass from 1.5%
 to 19.7%. That's node-set F1, which gives partial credit for getting
-some of the right nodes. Those four tokens changed what I could measure.
+some of the right nodes.
+
+I went back and read what the model had actually written. At one pass,
+66 of the 67 ordinary answers started with “We need”. One began by
+saying it needed to reason step by step, copied out edges, and ran out
+of tokens halfway through a node ID. Turning off the scratchpad still
+left the model free to do its working in the answer box. My scorer
+looked for a completed list on the last line. Only one answer qualified.
+
+Starting the answer with an open bracket gave the model a different
+sentence to finish. This time 52 of the 67 answers parsed and ten had
+exactly the right nodes. Had the model known the answers all along? In
+five ordinary responses I could find the correct nonempty set somewhere
+in brackets, though an intermediate step can contain the right nodes by
+chance. On the graph where it was cut off mid-ID, I have no idea what
+it would eventually have answered. What I can see is why the score went
+up: the model started giving me node IDs while it still had room.
 
 The next result was the one that made me want to rent more GPUs. With
 512 tokens to write things down, the average scores at 1, 3, 5 and 10
@@ -85,6 +101,34 @@ depths. My plotting code supplied everything in between.
 The zero-token measurements had been sitting in that same table all
 along: 19.7%, 18.4%, 17.7%, 20.6%. That row gave me considerably less
 reason to believe I could keep taking away the scratchpad.
+
+## Does the same thing happen with Dory?
+
+I also tried Dory, NVIDIA's four-billion-parameter looped model. When a
+setting appears to do very little, it's worth checking whether you
+actually turned it on. Dory lets you set `n_recurrent_loops` at inference
+time on the same weights. I instrumented the loop in the serving code
+and checked the recorded iteration counts, including 8, 16 and 32.
+Those last three go beyond the one to four loops in NVIDIA's published
+comparison.
+
+Dory did show some benefit on my graphs. With the list opening and
+512 reasoning tokens, its mean F1 on four development graphs went from
+25.0% at one pass to 39.3% at four. The result that looked flat was
+further out. On 17 matched graphs at the same 512-token budget, going
+from 8 to 16 passes cost 2.9 F1 points on average. Going from 16 to
+32 gained zero. The uncertainty on that last difference ran from
+−28.8 to +28.8 points (95% interval). VarLoop also flattened out in
+that high-pass comparison. The convincing gain I saw for VarLoop was
+earlier, especially from one to three passes on the 67-graph grid.
+
+NVIDIA recommends starting Dory at two loops. On SWE-bench Verified,
+where the model fixes bugs in software repositories, NVIDIA reports
+50.3% at one loop, 59.5% at two and 61.8% at four. On GPQA Diamond,
+a science question-answering benchmark, the scores were 69.19%,
+72.41% and 72.16%. I'd happily spend the compute for a second loop
+on the strength of those numbers. My graph experiment gave me little
+reason to pay for a thirty-second. [NVIDIA's model card and benchmark results](https://huggingface.co/nvidia/NVIDIA-Nemotron-Labs-Dory1.0-4B-BF16#benchmarks)
 
 ## How many graphs is 100%?
 

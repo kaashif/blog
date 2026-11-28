@@ -1,0 +1,139 @@
+On trusting numbers
+2026-11-28
+
+I rented sixteen GPUs to run a language model on 128 fresh graphs. I had
+a separate model grade its written reasoning, and I had confidence
+intervals on the results. In retrospect, a good thing to have done
+before renting the sixteen GPUs would have been to move answer A to
+the bottom of the page.
+
+<!--more-->
+
+I was trying to find out how much you can learn about a language model
+by reading the reasoning it writes before it gives you an answer.
+The model I was using, VarLoop, has a convenient experimental feature.
+I can take the same model weights and run part of the network several
+times for each token it produces. I can also give it more tokens to
+write out intermediate steps. These are two quite different ways of
+spending compute. Only one of them gives me something to read.
+
+Suppose I give the model a private instruction, and I can tell from
+its answer whether the instruction had any effect. Can I dial up the
+internal passes, dial down the written reasoning, and reach a point
+where the model does the job just as well, still follows my instruction,
+and gives a reader less evidence that it did so? The “just as well”
+part matters. It's easy to get a model to say less about how it solved
+a problem if you also make it incapable of solving the problem.
+
+## A surprisingly popular letter
+
+My first task involved following a path through a graph and picking
+the endpoint from five alternatives. Multiple choice made the answers
+cheap to score. It also gave the model two fairly good ideas about
+what to output before it had followed a single edge. It could pick A,
+or it could pick whatever appeared first. In a conventional list of
+answers these are the same idea.
+
+I eventually ran the cheap experiment. I took 24 questions, left the
+graph and the letter assigned to each endpoint alone, and rearranged
+the options. At five internal passes, with no written reasoning and
+one letter allowed for the answer, the model picked A on 23 of the 24
+questions in ordinary ABCDE order. Across the 96 rearrangements with A
+somewhere else, it picked A 42 times and the first displayed letter 53
+times. That leaves exactly one answer for which you have to entertain
+a third explanation.
+
+This diagnostic concerned a particular way of asking for an answer.
+It was enough to make me withdraw the study. I had used performance on
+that task to decide which two model settings were comparable. Every
+subsequent comparison of their reasoning depended on that decision.
+
+I tried asking for a three-digit endpoint instead. Of 1,536 baseline
+answers during development, 1,054 failed the required format. In 258
+of those failures I could find the correct traversal in the response.
+I had got rid of A. Now I had a graph benchmark that awarded zero for
+some demonstrably correct graph work.
+
+## Four tokens for free
+
+I switched to GraphWalks. A question gives you a list of directed edges,
+a starting node and a distance. Imagine that A points to B and C, B
+points to D, and C points to E. The nodes at distance two from A are D
+and E. I can check that answer with a few lines of ordinary breadth-first
+search. I can also privately ask the model to put E first. Both orders
+get exactly the same graph score. Reversing the instruction on the same
+graph lets me see whether it actually influenced the answer.
+
+This time I kept two versions of the measurement. In one, the model
+had to produce the whole answer in the benchmark's format. In the
+other, I supplied the opening four tokens, `Final Answer: [`, and let
+it take things from there. The opening contains no node IDs. On the
+same 67 graphs, with zero tokens for written reasoning, the ordinary
+version produced just four parseable answers in 268 attempts. Giving
+the model the opening brought its average score at one pass from 1.5%
+to 19.7%. That's node-set F1, which gives partial credit for getting
+some of the right nodes. Those four tokens changed what I could measure.
+
+The next result was the one that made me want to rent more GPUs. With
+512 tokens to write things down, the average scores at 1, 3, 5 and 10
+passes were 26.6%, 50.2%, 53.2% and 54.7%. At 128 and 256 tokens they
+also rose at every step. I drew curves through the grid to show where
+you might trade written reasoning for more internal passes at the same
+score. The curves looked beautifully smooth. There were four measured
+depths. My plotting code supplied everything in between.
+
+The zero-token measurements had been sitting in that same table all
+along: 19.7%, 18.4%, 17.7%, 20.6%. That row gave me considerably less
+reason to believe I could keep taking away the scratchpad.
+
+## How many graphs is 100%?
+
+I extended the grid to 128 passes and 6,144 reasoning tokens. Running
+every setting on every graph was expensive, so I started with small
+samples. At 128 passes and a 256-token allowance I got 100%. The model
+had seen one graph. After seven distinct graphs the score was 36.7%,
+with two exactly right. Across the development grid, 46 settings
+initially solved everything I had given them. Once I supplied more
+graphs, 25 of those settings made a mistake.
+
+I followed up the zero-token row on all 67 original graphs. That meant
+469 new answers across seven additional depths, for $31.21 in GPU time.
+Only 16 passes cleared my 25% target, at 26.6%. At 128 passes the
+score was 23.9%. Even at the best-looking depth, the 95% interval
+from resampling graphs ran from 16.4% to 37.3%. I put `n = 67` under
+every entry in that column. Some of the cells immediately to its right
+still have `n = 1`. You ought to be able to see that without reading
+the methods section.
+
+Then I wondered what GPUs I'd actually rented. The original shallow
+grid ran on Server Edition cards. The deeper run mixed server and
+workstation cards, with different power limits. Fortunately I had kept
+the worker records, and two workers had sometimes picked up the same
+job. Across 22 repeated graph-and-depth combinations the F1 scores
+agreed every time, even though the answer text differed on 12. On 20
+of those repeats, the median ratio of workstation time to server time
+was 0.34. I'd be wary of quoting a speedup from two rows of that table
+without checking which machine ran them.
+
+There was also something the logs let me keep. On 66 of the 67 graphs,
+the very same worker had run both 16 and 24 passes. Restricting the
+comparison to those graphs still gave a drop from 27.0% to 19.4%.
+Whatever made that particular dip, shifting the work from one kind of
+GPU to another doesn't explain it.
+
+## The experiment I didn't run
+
+The point of all this was to compare what a reader could detect at
+equal task performance. The curve suggested four settings near 25% F1.
+Before paying for a larger test of the private ordering instruction, I
+tried the settings on three shared graphs with multiple correct answers.
+At the reference setting, ten passes and 34 reasoning tokens, the mean
+score was zero. I'd set an acceptance band of 20–30%. I stopped there.
+
+Three graphs can't tell me exactly where that curve goes. They can
+tell me that the comparison I was about to buy hadn't met my own
+condition for buying it. That's probably the decision from this project
+I'm happiest with. I still have the responses, the worker IDs and the
+scores if I want to try a different comparison. And if I ever run the
+multiple-choice version again, shuffling the options is going in the
+first batch.

@@ -140,8 +140,28 @@ with two exactly right. Across the development grid, 46 settings
 initially solved everything I had given them. Once I supplied more
 graphs, 25 of those settings made a mistake.
 
-I followed up the zero-token row on all 67 original graphs. That meant
-469 new answers across seven additional depths, for $31.21 in GPU time.
+## What would it cost to fill in the table?
+
+By the time I'd run the 110 settings and checked the long-budget results
+on a second set of graphs, Vast.ai had posted $101.70 in charges for
+that part of the study. Looking at the table, I wanted to put 67 graphs
+in every cell. I had 517 graph-and-setting observations. I needed another
+6,853. I had also kept the timings, so I could put a price on that wish.
+
+At the speeds I'd measured, the remaining answers would take about
+473 GPU-hours of inference. Vast charged for the time I held each GPU,
+including time spent loading the model and changing settings. At $1.69
+per GPU-hour, even if I kept the cards doing inference 80% of the time,
+the extra runs would cost about $1,000. In the first round I'd managed
+closer to 57%, which put the estimate at $1,410. And at the longest
+reasoning budget, only 14 of the original 67 graphs fit in the context
+window. For a thousand dollars I could still end up comparing different
+graphs.
+
+There was one question I could answer for $31.21: could extra passes
+alone get VarLoop to 25% F1 with an empty scratchpad? I'd already paid
+for four of the depths. I reused those answers and bought 469 more,
+enough to test the other seven depths on the same 67 graphs.
 Only 16 passes cleared my 25% target, at 26.6%. At 128 passes the
 score was 23.9%. Even at the best-looking depth, the 95% interval
 from resampling graphs ran from 16.4% to 37.3%. I put `n = 67` under

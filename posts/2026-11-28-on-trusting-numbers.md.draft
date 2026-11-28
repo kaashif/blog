@@ -150,9 +150,9 @@ in every cell. I had 517 graph-and-setting observations. I needed another
 
 At the speeds I'd measured, the remaining answers would take about
 473 GPU-hours of inference. Vast charged for the time I held each GPU,
-including time spent loading the model and changing settings. At $1.69
+including time spent loading the model and changing settings. At 1.69 dollars
 per GPU-hour, even if I kept the cards doing inference 80% of the time,
-the extra runs would cost about $1,000. In the first round I'd managed
+the extra runs would cost about a thousand dollars. In the first round I'd managed
 closer to 57%, which put the estimate at $1,410. And at the longest
 reasoning budget, only 14 of the original 67 graphs fit in the context
 window. For a thousand dollars I could still end up comparing different
